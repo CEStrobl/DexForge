@@ -1,0 +1,46 @@
+﻿Fetching 18 types...
+Fetching 25 natures...
+Fetching 1351 pokemon (+ species + evolution chains)...
+  50/1351
+  100/1351
+  150/1351
+  200/1351
+  250/1351
+  300/1351
+  350/1351
+  400/1351
+  450/1351
+  500/1351
+  550/1351
+  600/1351
+  650/1351
+  700/1351
+  750/1351
+  800/1351
+  850/1351
+  900/1351
+  950/1351
+  1000/1351
+  1050/1351
+  1100/1351
+  1150/1351
+  1200/1351
+  1250/1351
+  1300/1351
+  1350/1351
+  1351/1351
+Fetching 312 ability descriptions...
+  50/312
+  100/312
+  150/312
+  200/312
+  250/312
+  300/312
+  312/312
+Wrote C:\Users\Charlotte\Documents\GitHub\DexForge\data\cache\types.json (18 entries)
+Wrote C:\Users\Charlotte\Documents\GitHub\DexForge\data\cache\natures.json (25 entries)
+Wrote C:\Users\Charlotte\Documents\GitHub\DexForge\data\cache\pokemon.json (1351 entries)
+Wrote C:\Users\Charlotte\Documents\GitHub\DexForge\data\cache\species.json (1351 entries)
+Wrote C:\Users\Charlotte\Documents\GitHub\DexForge\data\cache\evolution_chains.json (541 entries)
+Wrote C:\Users\Charlotte\Documents\GitHub\DexForge\data\cache\abilities.json (312 entries)
+Done.

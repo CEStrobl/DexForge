@@ -1,0 +1,60 @@
+/*
+  Theme tokens. Every component should read colors/radii/shadows from these
+  custom properties (never hardcode a hex value) so a second theme (the
+  planned "golden era" DPP/BW/HGSS theme) can be dropped in later by adding
+  a sibling block here without touching component code.
+*/
+:root,
+:root[data-theme='go'] {
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-muted: #eef1f8;
+  --color-text: #1f2430;
+  --color-text-muted: #6b7280;
+  --color-text-secondary: #4a5568;
+  --color-border: #e2e6f0;
+
+  --color-primary: #ef5350;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #4f46e5;
+  --color-accent-contrast: #ffffff;
+  --color-accent-tint: #eef0fd;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 8px 24px rgba(31, 36, 48, 0.08);
+  --shadow-lifted: 0 12px 32px rgba(31, 36, 48, 0.14);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+
+  --font-display: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Nunito', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Consolas', ui-monospace, monospace;
+
+  /* Per-type badge colors, referenced as var(--type-fire) etc. */
+  --type-normal: #a8a878;
+  --type-fire: #f08030;
+  --type-water: #6890f0;
+  --type-electric: #f8d030;
+  --type-grass: #78c850;
+  --type-ice: #98d8d8;
+  --type-fighting: #c03028;
+  --type-poison: #a040a0;
+  --type-ground: #e0c068;
+  --type-flying: #a890f0;
+  --type-psychic: #f85888;
+  --type-bug: #a8b820;
+  --type-rock: #b8a038;
+  --type-ghost: #705898;
+  --type-dragon: #7038f8;
+  --type-dark: #705848;
+  --type-steel: #b8b8d0;
+  --type-fairy: #ee99ac;
+}

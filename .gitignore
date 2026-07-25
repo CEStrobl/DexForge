@@ -1,0 +1,27 @@
+# --- Node / frontend ---
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+
+# --- Python / backend & scraper ---
+__pycache__/
+*.pyc
+.venv/
+backend/.venv/
+scraper/.venv/
+*.egg-info/
+
+# --- Backend runtime data ---
+backend/dexforge.db
+backend/*.db-journal
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Env / secrets ---
+.env
+.env.local
