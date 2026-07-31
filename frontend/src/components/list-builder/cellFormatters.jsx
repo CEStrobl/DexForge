@@ -1,5 +1,6 @@
 import { TypeBadge } from '../common/TypeBadge';
 import { STAT_DATA_KEY } from './columns';
+import { HEAD_STAT_KEYS, BODY_STAT_KEYS, sumStats } from '../../utils/fusion';
 import {
   toDisplayName,
   formatRegion,
@@ -42,6 +43,13 @@ export function cellValue(pokemon, key) {
   if (key === 'is_mythical') return pokemon.is_mythical ? 'Yes' : '—';
   if (key === 'base_stat_total') return pokemon.base_stat_total;
   if (key === 'generation') return formatRegion(pokemon.generation);
+  if (key === 'head_total') return sumStats(pokemon.stats, HEAD_STAT_KEYS);
+  if (key === 'body_total') return sumStats(pokemon.stats, BODY_STAT_KEYS);
+  if (key === 'head_type') return pokemon.types?.[0] ? <TypeBadge type={pokemon.types[0]} /> : '—';
+  if (key === 'body_type') {
+    const type = pokemon.types?.[1] || pokemon.types?.[0];
+    return type ? <TypeBadge type={type} /> : '—';
+  }
   if (STAT_DATA_KEY[key]) return pokemon.stats?.[STAT_DATA_KEY[key]] ?? '—';
   return pokemon[key] ?? '—';
 }

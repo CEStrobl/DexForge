@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search, Plus } from 'lucide-react';
 import { api } from '../../api/client';
 import { toDisplayName } from '../../utils/format';
 
@@ -43,6 +43,13 @@ export function PokemonSearchAdd({ onAdd }) {
     setOpen(false);
   }
 
+  function handleKeyDown(e) {
+    if (e.key === 'Enter' && results.length > 0) {
+      e.preventDefault();
+      handleSelect(results[0]);
+    }
+  }
+
   return (
     <div className="topbar-search list-builder-search" ref={containerRef}>
       <Search size={16} className="topbar-search-icon" />
@@ -52,7 +59,19 @@ export function PokemonSearchAdd({ onAdd }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => results.length > 0 && setOpen(true)}
+        onKeyDown={handleKeyDown}
       />
+      {results.length > 0 && (
+        <button
+          type="button"
+          className="list-builder-search-add-btn"
+          onClick={() => handleSelect(results[0])}
+          aria-label={`Add ${toDisplayName(results[0].name)}`}
+        >
+          <Plus size={14} />
+          Add
+        </button>
+      )}
       {open && results.length > 0 && (
         <ul className="topbar-search-results">
           {results.map((r) => (

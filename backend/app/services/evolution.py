@@ -66,7 +66,7 @@ def get_evolution_tree(pokemon_slug: str) -> dict | None:
             "types": species_pokemon["types"] if species_pokemon else [],
             "base_stat_total": species_pokemon["base_stat_total"] if species_pokemon else None,
             "children": [
-                build(child, _trigger_label((child.get("evolution_details") or [None])[0]))
+                build(child, _trigger_info((child.get("evolution_details") or [None])[0]))
                 for child in (node.get("evolves_to") or [])
             ],
         }
@@ -74,14 +74,21 @@ def get_evolution_tree(pokemon_slug: str) -> dict | None:
     return build(chain["chain"])
 
 
-def _trigger_label(detail: dict | None) -> str | None:
+def _trigger_info(detail: dict | None) -> dict | None:
+    """Label shown on the connector arrow between evolution stages. Item-triggered
+    evolutions (used or held) also carry the item's slug so the frontend can link
+    straight to that item's entry on the Evolution Items page."""
     if not detail:
         return None
+    item = detail.get("item")
+    held_item = detail.get("held_item")
+    if item:
+        return {"label": item["name"].replace("-", " "), "item_slug": item["name"]}
+    if held_item:
+        return {"label": f'holding {held_item["name"].replace("-", " ")}', "item_slug": held_item["name"]}
     if detail.get("min_level"):
-        return f"Lv.{detail['min_level']}"
-    if detail.get("item"):
-        return detail["item"]["name"].replace("-", " ")
+        return {"label": f"Lv.{detail['min_level']}", "item_slug": None}
     if detail.get("min_happiness"):
-        return "friendship"
+        return {"label": "friendship", "item_slug": None}
     trigger = detail.get("trigger")
-    return trigger["name"].replace("-", " ") if trigger else None
+    return {"label": trigger["name"].replace("-", " "), "item_slug": None} if trigger else None

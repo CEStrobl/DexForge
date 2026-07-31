@@ -1,8 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, GitCompare, Calculator, Heart, Package, ClipboardList } from 'lucide-react';
 import { api } from '../../api/client';
 import { toDisplayName } from '../../utils/format';
+import { TopNavIcon } from './TopNavIcon';
+
+const NAV_ITEMS = [
+  { to: '/compare', label: 'Compare', icon: GitCompare, color: 'var(--nav-compare)' },
+  { to: '/typing-calculator', label: 'Typing Calculator', icon: Calculator, color: 'var(--nav-typing)' },
+  { to: '/natures', label: 'Natures', icon: Heart, color: 'var(--nav-natures)' },
+  { to: '/evolution-items', label: 'Evolution Items', icon: Package, color: 'var(--nav-evolution-items)' },
+  { to: '/lists', label: 'Lists', icon: ClipboardList, color: 'var(--nav-lists)' },
+];
 
 export function TopBar() {
   const [query, setQuery] = useState('');
@@ -62,6 +71,13 @@ export function TopBar() {
     navigate(`/lookup/${name}`);
   }
 
+  function handleKeyDown(e) {
+    if ((e.key === 'Enter' || e.key === 'Tab') && open && results.length > 0) {
+      e.preventDefault();
+      selectPokemon(results[0].name);
+    }
+  }
+
   return (
     <header className="topbar">
       <div className="topbar-search" ref={containerRef}>
@@ -73,6 +89,7 @@ export function TopBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => results.length > 0 && setOpen(true)}
+          onKeyDown={handleKeyDown}
         />
         {!query && <kbd className="topbar-search-kbd">Ctrl K</kbd>}
         {open && results.length > 0 && (
@@ -86,6 +103,11 @@ export function TopBar() {
           </ul>
         )}
       </div>
+      <nav className="topbar-nav">
+        {NAV_ITEMS.map((item) => (
+          <TopNavIcon key={item.to} {...item} />
+        ))}
+      </nav>
     </header>
   );
 }

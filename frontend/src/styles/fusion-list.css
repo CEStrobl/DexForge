@@ -1,0 +1,40 @@
+.fusion-pair-add {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.fusion-pair-add-btn {
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
+
+.fusion-sprite-pair-sm {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 40px;
+}
+
+.fusion-sprite-pair-sm img:last-child {
+  margin-left: -12px;
+}
+
+.fusion-list-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+}
+
+.fusion-list-identity-name a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.fusion-list-identity-name a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}

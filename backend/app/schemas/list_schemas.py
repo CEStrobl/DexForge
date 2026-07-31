@@ -1,4 +1,17 @@
-from pydantic import BaseModel, ConfigDict
+from datetime import datetime
+
+from pydantic import BaseModel, ConfigDict, field_validator
+
+
+class LabelDef(BaseModel):
+    id: str
+    name: str
+    color: str
+
+
+class SavedListEntryIn(BaseModel):
+    slug: str
+    label_ids: list[str] = []
 
 
 class SavedListEntryOut(BaseModel):
@@ -7,20 +20,30 @@ class SavedListEntryOut(BaseModel):
     id: int
     pokemon_slug: str
     position: int
+    label_ids: list[str] = []
+
+    @field_validator("label_ids", mode="before")
+    @classmethod
+    def _default_label_ids(cls, v):
+        return v or []
 
 
 class SavedListCreate(BaseModel):
     name: str
     criteria: dict | None = None
     visible_columns: list[str] | None = None
-    pokemon_slugs: list[str] = []
+    column_widths: dict[str, int] | None = None
+    labels: list[LabelDef] = []
+    entries: list[SavedListEntryIn] = []
 
 
 class SavedListUpdate(BaseModel):
     name: str
     criteria: dict | None = None
     visible_columns: list[str] | None = None
-    pokemon_slugs: list[str] = []
+    column_widths: dict[str, int] | None = None
+    labels: list[LabelDef] = []
+    entries: list[SavedListEntryIn] = []
 
 
 class ListCriteria(BaseModel):
@@ -64,4 +87,12 @@ class SavedListOut(BaseModel):
     name: str
     criteria: dict | None
     visible_columns: list[str] | None
+    column_widths: dict[str, int] | None
+    labels: list[LabelDef] = []
     entries: list[SavedListEntryOut]
+    updated_at: datetime | None = None
+
+    @field_validator("labels", mode="before")
+    @classmethod
+    def _default_labels(cls, v):
+        return v or []

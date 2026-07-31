@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
+import { useLastPokemon } from '../context/LastPokemonContext';
+import { useInfiniteFusion } from '../context/InfiniteFusionContext';
 import {
   Target,
   Egg,
@@ -22,6 +24,8 @@ import { CollapsibleHeader } from '../components/common/CollapsibleHeader';
 import { DexNavLink } from '../components/lookup/DexNav';
 import { FavoriteButton } from '../components/lookup/FavoriteButton';
 import { AddToListButton } from '../components/lookup/AddToListButton';
+import { FuseButton } from '../components/lookup/FuseButton';
+import { FusedLookupView } from '../components/lookup/FusedLookupView';
 import {
   STAT_FULL_LABELS,
   STAT_ORDER,
@@ -34,13 +38,32 @@ import {
   formatAvgSteps,
   toDisplayName,
 } from '../utils/format';
+import { HEAD_STAT_KEYS, BODY_STAT_KEYS, sumStats } from '../utils/fusion';
 import '../styles/lookup.css';
+
+const STAT_VIEW_TABS = [
+  { key: 'all', label: 'Base Stats' },
+  { key: 'head', label: 'Head' },
+  { key: 'body', label: 'Body' },
+];
+
+const TYPE_VIEW_TABS = [
+  { key: 'type', label: 'Type' },
+  { key: 'head', label: 'Head' },
+  { key: 'body', label: 'Body' },
+];
 
 export default function LookupPage() {
   const { slug } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { setLastSlug } = useLastPokemon();
+  const { enabled: infiniteFusionEnabled } = useInfiniteFusion();
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [statView, setStatView] = useState('all');
+  const [typeView, setTypeView] = useState('type');
+  const [splitTypeEffectiveness, setSplitTypeEffectiveness] = useState(null);
   const [evolutionOpen, setEvolutionOpen] = useState(() => {
     try {
       const stored = localStorage.getItem('dexforge:evolution-open');
@@ -62,8 +85,12 @@ export default function LookupPage() {
     });
   }
 
+  const headParam = searchParams.get('head');
+  const bodyParam = searchParams.get('body');
+  const isFused = Boolean(infiniteFusionEnabled && headParam && bodyParam);
+
   useEffect(() => {
-    if (!slug) {
+    if (!slug || isFused) {
       setPokemon(null);
       return;
     }
@@ -71,10 +98,56 @@ export default function LookupPage() {
     setError(null);
     api
       .get(`/api/pokemon/${slug}`)
-      .then(setPokemon)
+      .then((data) => {
+        setPokemon(data);
+        setLastSlug(data.name);
+      })
       .catch(() => setError(`No data found for "${slug}"`))
       .finally(() => setLoading(false));
-  }, [slug]);
+  }, [slug, isFused, setLastSlug]);
+
+  // Head/Body type tabs recompute weaknesses for a single type via the same
+  // effectiveness chart the Typing Calculator would use, rather than duplicating it.
+  useEffect(() => {
+    const showTypeTabs = infiniteFusionEnabled && pokemon?.types.length > 1;
+    if (!showTypeTabs || typeView === 'type') {
+      setSplitTypeEffectiveness(null);
+      return;
+    }
+    const type = pokemon.types[typeView === 'head' ? 0 : 1];
+    if (!type) {
+      setSplitTypeEffectiveness(null);
+      return;
+    }
+    let cancelled = false;
+    api.get(`/api/typing?type=${type}`).then((data) => {
+      if (!cancelled) setSplitTypeEffectiveness(data);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [infiniteFusionEnabled, typeView, pokemon]);
+
+  function selectVariant(variantSlug) {
+    api.get(`/api/pokemon/${variantSlug}`).then(setPokemon);
+  }
+
+  function startFusion(partnerSlug) {
+    setSearchParams({ head: slug, body: partnerSlug });
+  }
+
+  if (isFused) {
+    return (
+      <FusedLookupView
+        headSlug={headParam}
+        bodySlug={bodyParam}
+        onChangeHead={(newHead) => setSearchParams({ head: newHead, body: bodyParam }, { replace: true })}
+        onChangeBody={(newBody) => setSearchParams({ head: headParam, body: newBody }, { replace: true })}
+        onSwap={() => setSearchParams({ head: bodyParam, body: headParam }, { replace: true })}
+        onUnfuse={() => setSearchParams({}, { replace: true })}
+      />
+    );
+  }
 
   if (!slug) {
     return (
@@ -101,9 +174,34 @@ export default function LookupPage() {
     );
   }
 
-  const weaknesses = Object.entries(pokemon.type_effectiveness)
+  const showTypeTabs = infiniteFusionEnabled && pokemon.types.length > 1;
+  const effectiveTypeView = showTypeTabs ? typeView : 'type';
+  const displayedTypes =
+    effectiveTypeView === 'type'
+      ? pokemon.types
+      : [pokemon.types[effectiveTypeView === 'head' ? 0 : 1]].filter(Boolean);
+  const displayedEffectiveness =
+    effectiveTypeView === 'type' ? pokemon.type_effectiveness : splitTypeEffectiveness || pokemon.type_effectiveness;
+  const weaknessesHeading =
+    effectiveTypeView === 'head' ? 'Head Weaknesses' : effectiveTypeView === 'body' ? 'Body Weaknesses' : 'Weaknesses';
+
+  const weaknesses = Object.entries(displayedEffectiveness)
     .filter(([, multiplier]) => multiplier > 1)
     .sort((a, b) => b[1] - a[1]);
+
+  const statTotalLabel = statView === 'head' ? 'Head Stat Total' : statView === 'body' ? 'Body Stat Total' : 'Base Stat Total';
+  const statTotalValue =
+    statView === 'head'
+      ? sumStats(pokemon.stats, HEAD_STAT_KEYS)
+      : statView === 'body'
+        ? sumStats(pokemon.stats, BODY_STAT_KEYS)
+        : pokemon.base_stat_total;
+
+  function isStatDimmed(dataKey) {
+    if (!infiniteFusionEnabled || statView === 'all') return false;
+    if (statView === 'head') return !HEAD_STAT_KEYS.includes(dataKey);
+    return !BODY_STAT_KEYS.includes(dataKey);
+  }
 
   return (
     <div className="lookup-page">
@@ -118,6 +216,7 @@ export default function LookupPage() {
           <div className="page-header-actions">
             <FavoriteButton pokemonSlug={pokemon.name} />
             <AddToListButton pokemonSlug={pokemon.name} />
+            {infiniteFusionEnabled && <FuseButton onFuse={startFusion} />}
           </div>
         </div>
 
@@ -127,6 +226,19 @@ export default function LookupPage() {
       <div className="lookup-grid">
         <div className="lookup-area-hero hero-stack">
           <div className="card hero-card">
+            {pokemon.variants?.length > 1 && (
+              <select
+                className="lookup-variant-select"
+                value={pokemon.selected_variant}
+                onChange={(e) => selectVariant(e.target.value)}
+              >
+                {pokemon.variants.map((v) => (
+                  <option key={v.slug} value={v.slug}>
+                    {toDisplayName(v.slug)}
+                  </option>
+                ))}
+              </select>
+            )}
             <div className="hero-card-sprite-wrap">
               <img src={pokemon.sprite} alt={pokemon.name} width={200} height={200} />
             </div>
@@ -135,13 +247,28 @@ export default function LookupPage() {
 
         <div className="lookup-column lookup-area-stats">
           <div className="card">
-            <h3 className="card-heading">Base Stats</h3>
+            {infiniteFusionEnabled ? (
+              <div className="lookup-inline-tabs">
+                {STAT_VIEW_TABS.map((tab) => (
+                  <button
+                    key={tab.key}
+                    type="button"
+                    className={`lookup-inline-tab${statView === tab.key ? ' active' : ''}`}
+                    onClick={() => setStatView(tab.key)}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <h3 className="card-heading">Base Stats</h3>
+            )}
             {STAT_ORDER.map((key) => (
-              <StatBar key={key} label={STAT_FULL_LABELS[key]} value={pokemon.stats[key]} />
+              <StatBar key={key} label={STAT_FULL_LABELS[key]} value={pokemon.stats[key]} dimmed={isStatDimmed(key)} />
             ))}
             <div className="stat-bar-total">
-              <span>Base Stat Total</span>
-              <span>{pokemon.base_stat_total}</span>
+              <span>{statTotalLabel}</span>
+              <span>{statTotalValue}</span>
             </div>
           </div>
           <InfoCard
@@ -170,14 +297,29 @@ export default function LookupPage() {
 
         <div className="lookup-column lookup-area-meta">
           <div className="card">
-            <h3 className="card-heading">Type</h3>
+            {showTypeTabs ? (
+              <div className="lookup-inline-tabs">
+                {TYPE_VIEW_TABS.map((tab) => (
+                  <button
+                    key={tab.key}
+                    type="button"
+                    className={`lookup-inline-tab${typeView === tab.key ? ' active' : ''}`}
+                    onClick={() => setTypeView(tab.key)}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <h3 className="card-heading">Type</h3>
+            )}
             <div className="pokedex-type-badges">
-              {pokemon.types.map((t) => (
+              {displayedTypes.map((t) => (
                 <TypeBadge key={t} type={t} />
               ))}
             </div>
             <div className="info-card-section">
-              <h4 className="info-card-section-heading">Weaknesses</h4>
+              <h4 className="info-card-section-heading">{weaknessesHeading}</h4>
               {weaknesses.length === 0 ? (
                 <p className="text-muted">No notable weaknesses.</p>
               ) : (

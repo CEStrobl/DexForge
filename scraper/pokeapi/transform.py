@@ -18,6 +18,8 @@ def transform_pokemon(raw_pokemon: dict, raw_species: dict) -> dict:
         "sprite": raw_pokemon["sprites"]["front_default"],
         "generation": raw_species["generation"]["name"],
         "evolution_chain_id": _chain_id_from_url(raw_species["evolution_chain"]["url"]),
+        "species_slug": raw_species["name"],
+        "is_default": raw_pokemon["is_default"],
     }
 
 

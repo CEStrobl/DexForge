@@ -1,5 +1,6 @@
 from app.data_access.cache_reader import get_dataset
 from app.services.pokemon_summary import enrich
+from app.services.variants import is_canonical
 
 # Maps a Python-identifier-safe criteria key (e.g. "special_attack") to the
 # hyphenated stat key PokeAPI/the scraper actually use in `mon["stats"]`.
@@ -27,7 +28,7 @@ def _in_range(value, criteria: dict, prefix: str) -> bool:
 def filter_pokemon(criteria: dict) -> list[dict]:
     pokemon = get_dataset("pokemon")
     species = get_dataset("species")
-    entries = list(pokemon.values()) if isinstance(pokemon, dict) else pokemon
+    entries = [p for p in pokemon.values() if is_canonical(p["name"])] if isinstance(pokemon, dict) else pokemon
 
     generation = criteria.get("generation")
     types = criteria.get("types")

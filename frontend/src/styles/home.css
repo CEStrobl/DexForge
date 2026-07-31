@@ -1,0 +1,221 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* --- Featured Pokémon --- */
+
+.home-featured-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: box-shadow 0.12s ease, transform 0.12s ease;
+}
+
+.home-featured-card:hover {
+  box-shadow: var(--shadow-lifted);
+  transform: translateY(-1px);
+}
+
+.home-featured-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.home-featured-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.home-featured-content img {
+  flex-shrink: 0;
+  image-rendering: crisp-edges;
+}
+
+.home-featured-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.home-featured-info h2 {
+  margin: 0;
+}
+
+.home-featured-highlight {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* --- At-a-glance stats strip --- */
+
+.home-stats-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  padding: var(--space-2) var(--space-1);
+}
+
+.home-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.home-stat-value {
+  font-size: 1.3rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+  color: var(--color-text);
+}
+
+.home-stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.home-stat-skeleton {
+  width: 90px;
+  height: 34px;
+}
+
+.home-stats-error {
+  padding: var(--space-2) var(--space-1);
+}
+
+/* --- Tool card grid --- */
+
+.home-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+.home-tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: var(--color-text);
+  min-height: 120px;
+  transition: box-shadow 0.12s ease, transform 0.12s ease, border-color 0.12s ease;
+}
+
+.home-tool-card:hover {
+  box-shadow: var(--shadow-lifted);
+  transform: translateY(-1px);
+}
+
+.home-tool-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.home-tool-card-header h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.home-tool-card-body {
+  font-size: 0.85rem;
+}
+
+.home-tool-card-body p {
+  margin: 0;
+}
+
+.home-tool-snippet-name {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.home-tool-snippet-pokemon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.home-tool-snippet-pokemon img {
+  flex-shrink: 0;
+  image-rendering: crisp-edges;
+}
+
+.home-tool-snippet-pokemon > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-tool-snippet-label {
+  font-size: 0.7rem;
+}
+
+.home-tool-snippet-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.home-tool-snippet-fusion {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* --- Trivia strip (lowest priority section) --- */
+
+.home-trivia-strip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.home-trivia-strip p {
+  margin: 0;
+}
+
+/* --- Loading skeletons --- */
+
+.home-skeleton-block {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  animation: evo-skeleton-pulse 1.3s ease-in-out infinite;
+}
+
+.home-skeleton-sprite {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.home-skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.home-skeleton-line {
+  height: 16px;
+  border-radius: var(--radius-pill);
+}

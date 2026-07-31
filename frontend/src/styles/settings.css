@@ -1,0 +1,71 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 640px;
+}
+
+.settings-page h1 {
+  margin: 0;
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.settings-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.settings-toggle-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settings-toggle-label {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.settings-toggle-description {
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.settings-switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 24px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-border);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.settings-switch.checked {
+  background: var(--color-accent);
+}
+
+.settings-switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.15s ease;
+}
+
+.settings-switch.checked .settings-switch-thumb {
+  transform: translateX(20px);
+}

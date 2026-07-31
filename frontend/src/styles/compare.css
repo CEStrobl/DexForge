@@ -1,0 +1,258 @@
+.compare-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.compare-slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.compare-slot-empty {
+  text-align: center;
+  padding: var(--space-5) var(--space-4);
+}
+
+.compare-hero-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.compare-hero-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.compare-hero-name {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.compare-hero-name h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+/* The right-hand slot mirrors the left: sprite/name flip toward the outer
+   edge and the stat values converge toward the shared center seam, so the
+   two columns read like a face-off rather than two identical stacked cards. */
+.compare-slot-mirrored .compare-hero-row {
+  flex-direction: row-reverse;
+}
+
+.compare-slot-mirrored .compare-hero-info {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.compare-slot-mirrored .compare-hero-name {
+  flex-direction: row-reverse;
+}
+
+.compare-slot-mirrored .pokedex-type-badges,
+.compare-slot-mirrored .page-header-actions {
+  justify-content: flex-end;
+}
+
+.compare-slot .stat-bar-row {
+  grid-template-columns: 56px 1fr 92px;
+}
+
+.compare-slot-mirrored .stat-bar-row {
+  grid-template-columns: 92px 1fr 56px;
+}
+
+.compare-slot-mirrored .stat-bar-label {
+  order: 3;
+  text-align: right;
+}
+
+.compare-slot-mirrored .stat-bar-track {
+  order: 2;
+  /* Mirrors the fill direction too, so it grows from the seam-side edge
+     instead of always growing left-to-right regardless of which column it's in. */
+  transform: scaleX(-1);
+}
+
+.compare-slot-mirrored .stat-bar-value-wrap {
+  order: 1;
+  justify-content: flex-start;
+}
+
+.compare-slot-mirrored .stat-bar-total {
+  flex-direction: row-reverse;
+}
+
+/* On the left (unmirrored) side, the value-wrap sits at the seam-adjacent edge
+   of the row already, but its DOM order (value, then delta) put the delta badge
+   closest to the seam. Swap their visual order so the base value — the thing
+   worth lining up across the seam — is what actually sits nearest it. */
+.compare-slot:not(.compare-slot-mirrored) .stat-bar-value {
+  order: 2;
+}
+
+.compare-slot:not(.compare-slot-mirrored) .stat-bar-delta {
+  order: 1;
+}
+
+@media (max-width: 900px) {
+  .compare-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fusion-slot-inputs {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.fusion-mini-slot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.fusion-mini-slot-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.fusion-mini-slot-combo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 6px var(--space-1) 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-muted);
+}
+
+.fusion-mini-slot-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.fusion-mini-slot-chip img {
+  border-radius: 50%;
+  background: var(--color-surface);
+  flex-shrink: 0;
+}
+
+.fusion-mini-slot-chip span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fusion-evo-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.fusion-evo-menu-trigger:hover {
+  background: var(--color-surface);
+  color: var(--color-accent);
+}
+
+.fusion-swap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.fusion-swap-btn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.fusion-swap-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.fusion-sprite-pair {
+  display: flex;
+  align-items: center;
+}
+
+.fusion-sprite-pair img:last-child {
+  margin-left: -20px;
+}
+
+.compare-slot-mirrored .fusion-sprite-pair {
+  flex-direction: row-reverse;
+}
+
+.compare-slot-mirrored .fusion-sprite-pair img:last-child {
+  margin-left: 0;
+  margin-right: -20px;
+}
+
+.fusion-ability-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.fusion-ability-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.fusion-ability-source {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.fusion-ability-hidden {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--color-border);
+}

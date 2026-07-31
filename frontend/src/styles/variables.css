@@ -38,6 +38,14 @@
   --font-body: 'Nunito', 'Segoe UI', system-ui, sans-serif;
   --font-mono: 'Consolas', ui-monospace, monospace;
 
+  /* Top-bar nav icon colors — one distinct hue per tool so the icon strip reads at a
+     glance, independent of the --type-* palette (these aren't type-semantic). */
+  --nav-compare: #06b6d4;
+  --nav-typing: #f59e0b;
+  --nav-natures: #ec4899;
+  --nav-evolution-items: #8b5cf6;
+  --nav-lists: #10b981;
+
   /* Per-type badge colors, referenced as var(--type-fire) etc. */
   --type-normal: #a8a878;
   --type-fire: #f08030;

@@ -1,14 +1,6 @@
-.list-builder-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-bottom: var(--space-4);
-}
-
 .tabs {
   display: inline-flex;
+  margin-bottom: var(--space-4);
   gap: var(--space-1);
   padding: 4px;
   border-radius: var(--radius-pill);
@@ -190,82 +182,150 @@
   border-color: var(--color-accent);
 }
 
-/* --- Saved lists --- */
+/* --- List name / save row --- */
 
-.saved-lists-new-btn {
-  width: 100%;
-  justify-content: center;
-  margin-bottom: var(--space-3);
-}
-
-.saved-lists-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.list-builder-full {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: var(--space-4);
+  min-width: 0;
 }
-
-.saved-lists-list li {
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
-  border-radius: var(--radius-sm);
-}
-
-.saved-lists-list li.active {
-  background: var(--color-accent-tint);
-}
-
-.saved-lists-item-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  background: none;
-  border: none;
-  padding: var(--space-2);
-  cursor: pointer;
-  color: var(--color-text);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: left;
-}
-
-.saved-lists-count {
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.saved-lists-delete-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  margin-right: var(--space-1);
-  border: none;
-  background: none;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  border-radius: var(--radius-sm);
-  transition: background 0.12s ease, color 0.12s ease;
-}
-
-.saved-lists-delete-btn:hover {
-  background: var(--color-accent-tint);
-  color: var(--type-fighting);
-}
-
-/* --- List name / save row --- */
 
 .list-builder-name-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
+}
+
+.list-builder-name-row-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.list-builder-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--type-fighting);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.list-builder-delete-btn:hover {
+  background: color-mix(in srgb, var(--type-fighting) 10%, transparent);
+  border-color: var(--type-fighting);
+}
+
+.label-manager {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.label-manager-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+}
+
+.label-manager-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 6px 3px 10px;
+  border-radius: var(--radius-pill);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.label-manager-pill button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.label-manager-pill button:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.label-manager-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.label-manager-add-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.label-edit-form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+}
+
+.label-edit-form input {
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  width: 140px;
+}
+
+.label-color-picker {
+  display: flex;
+  gap: 4px;
+}
+
+.label-color-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.label-color-swatch.active {
+  border-color: var(--color-text);
+}
+
+.label-edit-form-actions {
+  display: flex;
+  gap: 4px;
 }
 
 .editable-list-name {
@@ -298,6 +358,17 @@
   color: var(--color-accent);
 }
 
+.autosave-status {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  min-width: 1px;
+}
+
+.autosave-status-error {
+  color: var(--type-fighting);
+}
+
 .editable-list-name-input {
   flex: 1;
   padding: var(--space-2) var(--space-3);
@@ -316,6 +387,24 @@
   max-width: none;
 }
 
+.list-builder-search-add-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px var(--space-2);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-tint);
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 /* --- Column picker + table --- */
 
 .list-builder-table-header {
@@ -330,9 +419,23 @@
   margin-bottom: 0;
 }
 
+.list-builder-table-header-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
 .column-picker {
   display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.column-picker-row {
+  display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-1);
 }
 
@@ -374,13 +477,63 @@
   color: var(--color-accent);
 }
 
-.list-table-sort-hint {
-  font-size: 0.75rem;
-  margin: 0 0 var(--space-2);
+.column-picker-more-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
 }
+
+.column-picker-group-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  outline: none;
+  background: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.column-picker-group-header:hover {
+  background: var(--color-surface);
+}
+
+.column-picker-group-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.column-picker-group-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2) var(--space-2) calc(var(--space-2) + 18px);
+}
+
 
 .list-table-wrap {
   overflow-x: auto;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .list-table {
@@ -398,6 +551,84 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.list-table-cell-right,
+.list-table th.list-table-cell-right {
+  text-align: right;
+}
+
+.list-table-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6, 48px) var(--space-3);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.list-table-empty-state svg {
+  color: var(--color-border);
+}
+
+.list-table-empty-state p {
+  margin: 0;
+}
+
+/* Freeze the leading identity columns (#, drag/checkbox, Pokémon) while stat
+   columns scroll horizontally underneath. Offsets are cumulative widths of
+   the fixed-width columns that precede the name column in each table. */
+.list-table--builder .list-table-index-header,
+.list-table--builder .list-table-index {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--color-surface);
+}
+
+.list-table--builder .list-table-handle-cell,
+.list-table--builder th[aria-label='Drag handle'] {
+  position: sticky;
+  left: 28px;
+  z-index: 2;
+  background: var(--color-surface);
+}
+
+.list-table--builder .list-table-name-sticky {
+  position: sticky;
+  left: 52px;
+  z-index: 2;
+  min-width: 170px;
+  background: var(--color-surface);
+}
+
+.list-table--search .list-table-checkbox-header,
+.list-table--search td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--color-surface);
+}
+
+.list-table--search .list-table-index-header,
+.list-table--search .list-table-index {
+  position: sticky;
+  left: 24px;
+  z-index: 2;
+  background: var(--color-surface);
+}
+
+.list-table--search .list-table-name-sticky {
+  position: sticky;
+  left: 52px;
+  z-index: 2;
+  min-width: 170px;
+  background: var(--color-surface);
+}
+
+.list-table--search .list-table-row-selected td {
+  background: var(--color-accent-tint);
+}
+
 .list-table-sortable-header {
   cursor: pointer;
   user-select: none;
@@ -406,6 +637,50 @@
 
 .list-table-sortable-header:hover {
   color: var(--color-accent);
+}
+
+.list-table-resizable-header {
+  position: relative;
+}
+
+.list-table-resize-handle {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  touch-action: none;
+  z-index: 1;
+}
+
+.list-table-resize-handle:hover {
+  background: var(--color-accent-tint);
+}
+
+.list-table-checkbox-header {
+  width: 24px;
+}
+
+.list-table-checkbox-header input,
+.list-table td input[type='checkbox'] {
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.list-table-row-selected {
+  background: var(--color-accent-tint);
+}
+
+.search-results-bulk-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.action-btn-ghost {
+  background: none;
+  box-shadow: none;
 }
 
 .list-table-index-header {
@@ -456,6 +731,31 @@
   font-weight: 600;
 }
 
+.list-table-label-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+  padding-left: 40px;
+}
+
+.label-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border: none;
+  border-radius: var(--radius-pill);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.label-pill-sm {
+  padding: 1px 7px;
+  font-size: 0.65rem;
+}
+
 .list-table-types {
   display: flex;
   flex-wrap: wrap;
@@ -490,7 +790,9 @@
   top: calc(100% + 4px);
   right: 0;
   z-index: 15;
-  min-width: 180px;
+  min-width: 200px;
+  max-height: 320px;
+  overflow-y: auto;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -499,6 +801,12 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.row-actions-panel-portal {
+  position: fixed;
+  right: auto;
+  z-index: 100;
 }
 
 .row-actions-item {
@@ -529,4 +837,51 @@
 
 .row-actions-empty:hover {
   background: none;
+}
+
+.row-actions-divider {
+  height: 1px;
+  margin: 2px 4px;
+  background: var(--color-border);
+}
+
+.row-actions-item-danger {
+  color: var(--type-fighting);
+}
+
+.row-actions-item-danger:hover {
+  background: color-mix(in srgb, var(--type-fighting) 12%, transparent);
+}
+
+.row-actions-back {
+  font-weight: 700;
+}
+
+.row-actions-variant img {
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+}
+
+.row-actions-label-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--color-border);
+  border-radius: 4px;
+  color: var(--color-accent);
+}
+
+.row-actions-label-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.row-actions-variant.active {
+  background: var(--color-accent-tint);
+  color: var(--color-accent);
 }

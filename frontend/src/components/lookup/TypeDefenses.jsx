@@ -3,21 +3,9 @@ import { TYPE_ICONS, TYPE_ORDER, getTypeTextColor } from '../common/typeIcons';
 import { CollapsibleHeader } from '../common/CollapsibleHeader';
 import { Tooltip } from '../common/Tooltip';
 import { toDisplayName } from '../../utils/format';
+import { formatMultiplier, multiplierClass } from '../../utils/typeEffectiveness';
 
 const STORAGE_KEY = 'dexforge:type-defenses-open';
-
-function formatMultiplier(multiplier) {
-  if (multiplier === 0.25) return '¼×';
-  if (multiplier === 0.5) return '½×';
-  return `${multiplier}×`;
-}
-
-function multiplierClass(multiplier) {
-  if (multiplier === 0) return 'immune';
-  if (multiplier < 1) return 'resist';
-  if (multiplier > 1) return 'weak';
-  return 'neutral';
-}
 
 function tooltipText(type, multiplier) {
   const label = toDisplayName(type);
@@ -26,8 +14,9 @@ function tooltipText(type, multiplier) {
   return `Takes ${formatMultiplier(multiplier)} damage from ${label} moves.`;
 }
 
-export function TypeDefenses({ effectiveness }) {
+export function TypeDefenses({ effectiveness, compact = false, collapsible = true }) {
   const [open, setOpen] = useState(() => {
+    if (!collapsible) return true;
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       return stored === null ? true : stored === 'true';
@@ -50,10 +39,14 @@ export function TypeDefenses({ effectiveness }) {
 
   return (
     <div className="card type-defenses">
-      <CollapsibleHeader title="Type Defenses" open={open} onToggle={toggle} />
+      {collapsible ? (
+        <CollapsibleHeader title="Type Defenses" open={open} onToggle={toggle} />
+      ) : (
+        <h3 className="card-heading">Type Defenses</h3>
+      )}
 
       {open && (
-        <div className="type-defenses-grid">
+        <div className={`type-defenses-grid${compact ? ' type-defenses-grid--compact' : ''}`}>
           {TYPE_ORDER.map((type) => {
             const multiplier = effectiveness[type] ?? 1;
             const Icon = TYPE_ICONS[type];

@@ -28,7 +28,14 @@ function EvolutionNode({ node, currentSlug }) {
             <div className="evo-branch" key={child.name}>
               <div className="evo-connector">
                 <ArrowRight size={18} />
-                {child.trigger && <span>{child.trigger}</span>}
+                {child.trigger &&
+                  (child.trigger.item_slug ? (
+                    <Link to={`/evolution-items#${child.trigger.item_slug}`} className="evo-connector-item-link">
+                      {child.trigger.label}
+                    </Link>
+                  ) : (
+                    <span>{child.trigger.label}</span>
+                  ))}
               </div>
               <EvolutionNode node={child} currentSlug={currentSlug} />
             </div>
