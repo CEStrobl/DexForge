@@ -9,11 +9,19 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  /* Without this, a long unbreakable fusion name (white-space: nowrap) forces
+     this grid item's automatic min-width up to the name's full content width,
+     growing the whole card instead of letting FitText shrink the name to fit. */
+  min-width: 0;
 }
 
 .compare-slot-empty {
   text-align: center;
   padding: var(--space-5) var(--space-4);
+}
+
+.compare-hero {
+  position: relative;
 }
 
 .compare-hero-row {
@@ -22,10 +30,34 @@
   gap: var(--space-4);
 }
 
+/* Subtle pop-out affordance into the fused Lookup page — a corner icon rather
+   than a labeled button, so it doesn't compete with the name/types for attention. */
+.fusion-view-page-link {
+  position: absolute;
+  bottom: var(--space-2);
+  right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  opacity: 0.6;
+  transition: color 0.12s ease, opacity 0.12s ease, background 0.12s ease;
+}
+
+.fusion-view-page-link:hover {
+  color: var(--color-accent);
+  background: var(--color-accent-tint);
+  opacity: 1;
+}
+
 .compare-hero-info {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  flex: 1;
   min-width: 0;
 }
 
@@ -33,12 +65,15 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-2);
-  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .compare-hero-name h2 {
   margin: 0;
   font-size: 1.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 /* The right-hand slot mirrors the left: sprite/name flip toward the outer
@@ -222,14 +257,10 @@
   margin-left: -20px;
 }
 
-.compare-slot-mirrored .fusion-sprite-pair {
-  flex-direction: row-reverse;
-}
-
-.compare-slot-mirrored .fusion-sprite-pair img:last-child {
-  margin-left: 0;
-  margin-right: -20px;
-}
+/* Deliberately NOT reversed under .compare-slot-mirrored: the head/body sprite
+   order should read the same left-to-right as the "Head / Body" name text on
+   both sides, rather than flipping independently of it. Only the whole pair's
+   position (via .compare-hero-row's own reversal) moves to the outer edge. */
 
 .fusion-ability-columns {
   display: grid;

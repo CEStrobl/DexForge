@@ -2,9 +2,9 @@ import { TypeBadge } from '../common/TypeBadge';
 import { getTypeTextColor } from '../common/typeIcons';
 import { toDisplayName } from '../../utils/format';
 
-function Quadrant({ title, tone, types }) {
+function Quadrant({ title, types }) {
   return (
-    <div className={`type-block-quadrant type-block-quadrant-${tone}`}>
+    <div className="type-block-quadrant">
       <span className="type-block-quadrant-title">{title}</span>
       {types.length === 0 ? (
         <span className="type-block-quadrant-empty">None</span>
@@ -29,10 +29,10 @@ export function TypeMatchupBlock({ type, profile }) {
         {toDisplayName(type)}
       </div>
       <div className="type-block-grid">
-        <Quadrant title="2× Damage To" tone="favorable" types={profile.double_damage_to} />
-        <Quadrant title="½ Damage From" tone="favorable" types={profile.half_damage_from} />
-        <Quadrant title="½ Damage To" tone="unfavorable" types={profile.half_damage_to} />
-        <Quadrant title="2× Damage From" tone="unfavorable" types={profile.double_damage_from} />
+        <Quadrant title="2× Damage To" types={profile.double_damage_to} />
+        <Quadrant title="½ Damage From" types={profile.half_damage_from} />
+        <Quadrant title="½ Damage To" types={profile.half_damage_to} />
+        <Quadrant title="2× Damage From" types={profile.double_damage_from} />
       </div>
       {(profile.no_damage_to.length > 0 || profile.no_damage_from.length > 0) && (
         <div className="type-block-immune-list">

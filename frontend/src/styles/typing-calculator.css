@@ -45,51 +45,140 @@
 .type-matrix {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
-.type-matrix-band {
+/* --- Fixed-position "data sheet" grid: every type always renders in the same
+   spot regardless of the selected combo, so a specific type is findable by
+   learned position rather than by re-sorted severity bands. --- */
+
+.type-matrix-grid {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  gap: var(--space-2);
+  gap: 1px;
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
-.type-matrix-col {
+.type-matrix-cell {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 6px;
-}
-
-.type-matrix-col .type-badge {
+  align-items: center;
   justify-content: center;
+  gap: 6px;
+  padding: var(--space-2) 4px;
+  background: var(--color-surface);
 }
 
-.type-matrix-value {
-  display: block;
-  text-align: center;
-  padding: 4px 0;
-  border-radius: var(--radius-sm);
-  font-weight: 800;
+.type-matrix-cell .type-badge {
+  padding: 2px 7px;
+  font-size: 0.62rem;
+  gap: 3px;
+}
+
+.type-matrix-cell .type-badge svg {
+  width: 10px;
+  height: 10px;
+}
+
+.type-matrix-cell-value {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-  background: var(--color-surface-muted);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* Neutral: no fill, muted badge + value — findable by position, not attention-grabbing. */
+.type-matrix-cell-neutral .type-badge {
+  opacity: 0.55;
+}
+
+.type-matrix-cell-neutral .type-matrix-cell-value {
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--color-text-muted);
 }
 
-.type-matrix-value-weak {
-  background: #fee2e2;
-  color: #b91c1c;
+/* Weak/resist tiers: fill intensity + weight/size both scale with severity so
+   the 4x-vs-2x (and 1/4x-vs-1/2x) distinction survives without relying on color. */
+.type-matrix-cell-weak2 {
+  background: color-mix(in srgb, var(--matchup-weak2) 14%, var(--color-surface));
 }
 
-.type-matrix-value-resist {
-  background: #dcfce7;
-  color: #15803d;
+.type-matrix-cell-weak2 .type-matrix-cell-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--matchup-weak2);
 }
 
-.type-matrix-value-immune {
-  background: #ede9fe;
-  color: #6d28d9;
+.type-matrix-cell-weak4 {
+  background: color-mix(in srgb, var(--matchup-weak4) 24%, var(--color-surface));
+}
+
+.type-matrix-cell-weak4 .type-matrix-cell-value {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--matchup-weak4);
+}
+
+.type-matrix-cell-resist2 {
+  background: color-mix(in srgb, var(--matchup-resist2) 14%, var(--color-surface));
+}
+
+.type-matrix-cell-resist2 .type-matrix-cell-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--matchup-resist2);
+}
+
+.type-matrix-cell-resist4 {
+  background: color-mix(in srgb, var(--matchup-resist4) 24%, var(--color-surface));
+}
+
+.type-matrix-cell-resist4 .type-matrix-cell-value {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--matchup-resist4);
+}
+
+/* Immune gets a fully distinct, solid treatment rather than reading as "just a
+   darker resist" — same convention as the dark "Immune to" bar on the per-type cards. */
+.type-matrix-cell-immune {
+  background: var(--matchup-immune);
+}
+
+.type-matrix-cell-immune .type-matrix-cell-value {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.type-matrix-cell-immune .type-badge {
+  opacity: 0.9;
+}
+
+.type-matrix-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.type-matrix-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.type-matrix-legend-swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
 }
 
 .type-block-pair {
@@ -143,14 +232,6 @@
   border-left: none;
 }
 
-.type-block-quadrant-favorable {
-  background: #f0fdf4;
-}
-
-.type-block-quadrant-unfavorable {
-  background: #fef2f2;
-}
-
 .type-block-quadrant-title {
   font-size: 0.65rem;
   font-weight: 800;
@@ -183,7 +264,7 @@
 }
 
 @media (max-width: 700px) {
-  .type-matrix-band {
+  .type-matrix-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }

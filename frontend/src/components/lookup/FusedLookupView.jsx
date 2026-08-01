@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowLeftRight, ArrowUpRight, X } from 'lucide-react';
 import { api } from '../../api/client';
 import { TypeBadge } from '../common/TypeBadge';
 import { StatBar } from '../common/StatBar';
 import { Tooltip } from '../common/Tooltip';
 import { CollapsibleHeader } from '../common/CollapsibleHeader';
+import { FusionMiniSlot } from '../compare/FusionMiniSlot';
 import { TypeDefenses } from './TypeDefenses';
 import { WeaknessBadge } from './WeaknessBadge';
 import { FavoriteButton } from './FavoriteButton';
 import { AddToFusionListButton } from './AddToFusionListButton';
-import { FusedActionsMenu } from './FusedActionsMenu';
 import { FusedEvolutionChains } from './FusedEvolutionChains';
 import { STAT_FULL_LABELS, STAT_ORDER, toDisplayName } from '../../utils/format';
 import { statTypeColor } from '../../utils/fusion';
@@ -136,29 +137,40 @@ export function FusedLookupView({ headSlug, bodySlug, onChangeHead, onChangeBody
     <div className="lookup-page">
       <div className="page-header page-header-fused">
         <div className="page-header-center">
-          <div className="page-header-title">
-            <h1>
-              <Link to={`/lookup/${head.name}`} className="fusion-title-link">
-                {toDisplayName(head.name)}
-              </Link>{' '}
-              /{' '}
-              <Link to={`/lookup/${body.name}`} className="fusion-title-link">
-                {toDisplayName(body.name)}
+          <div className="fusion-slot-inputs">
+            <div className="fusion-header-slot">
+              <FusionMiniSlot roleLabel="Head" slug={headSlug} onSelect={onChangeHead} />
+              <Link
+                to={`/lookup/${headSlug}`}
+                className="fusion-header-view-link"
+                aria-label={`View ${toDisplayName(head.name)}'s page`}
+                title="View Pokémon page"
+              >
+                <ArrowUpRight size={14} />
               </Link>
-            </h1>
-            <span className="lookup-hero-id fusion-badge">Fusion</span>
+            </div>
+            <div className="fusion-header-slot">
+              <FusionMiniSlot roleLabel="Body" slug={bodySlug} onSelect={onChangeBody} />
+              <Link
+                to={`/lookup/${bodySlug}`}
+                className="fusion-header-view-link"
+                aria-label={`View ${toDisplayName(body.name)}'s page`}
+                title="View Pokémon page"
+              >
+                <ArrowUpRight size={14} />
+              </Link>
+            </div>
+            <button type="button" className="fusion-swap-btn" onClick={onSwap} aria-label="Swap head and body">
+              <ArrowLeftRight size={14} />
+            </button>
           </div>
           <div className="page-header-actions">
             <FavoriteButton pokemonSlug={`${headSlug}|${bodySlug}`} />
             <AddToFusionListButton headSlug={headSlug} bodySlug={bodySlug} />
-            <FusedActionsMenu
-              headSlug={headSlug}
-              bodySlug={bodySlug}
-              onChangeHead={onChangeHead}
-              onChangeBody={onChangeBody}
-              onSwap={onSwap}
-              onUnfuse={onUnfuse}
-            />
+            <button type="button" className="action-btn" onClick={onUnfuse}>
+              <X size={14} />
+              Unfuse
+            </button>
           </div>
         </div>
       </div>

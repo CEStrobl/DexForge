@@ -46,6 +46,15 @@
   --nav-evolution-items: #8b5cf6;
   --nav-lists: #10b981;
 
+  /* Type-effectiveness multiplier tiers (Typing Calculator summary grid). Neutral
+     deliberately has no color token here — it stays var(--color-text-muted), since
+     the whole point is that it recedes rather than competing for the same channel. */
+  --matchup-weak4: #b91c1c;
+  --matchup-weak2: #ea580c;
+  --matchup-resist2: #16a34a;
+  --matchup-resist4: #0d9488;
+  --matchup-immune: #7c3aed;
+
   /* Per-type badge colors, referenced as var(--type-fire) etc. */
   --type-normal: #a8a878;
   --type-fire: #f08030;

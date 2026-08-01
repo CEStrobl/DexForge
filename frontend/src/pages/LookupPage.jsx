@@ -40,6 +40,9 @@ import {
 } from '../utils/format';
 import { HEAD_STAT_KEYS, BODY_STAT_KEYS, sumStats } from '../utils/fusion';
 import '../styles/lookup.css';
+// FusedLookupView reuses FusionMiniSlot/fusion-swap-btn/etc. from the Compare page's
+// fusion tab (same pattern FusionListPage follows for the same components).
+import '../styles/compare.css';
 
 const STAT_VIEW_TABS = [
   { key: 'all', label: 'Base Stats' },
