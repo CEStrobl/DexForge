@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, SearchX } from 'lucide-react';
+import { SearchX } from 'lucide-react';
 import { getOrderedActiveColumns, ALIGN_RIGHT_KEYS } from './columns';
 import { cellValue } from './cellFormatters';
 import { toDisplayName } from '../../utils/format';
 import { ColumnPicker } from './ColumnPicker';
+import { AddResultsToListButton } from './AddResultsToListButton';
 import { useInfiniteFusion } from '../../context/InfiniteFusionContext';
 
-export function SearchResultsTable({ results, columns, onColumnsChange, onAdd, onAddAll }) {
+// Search is intentionally standalone here — it doesn't assume there's a list
+// "open" (see the Lists/Search split in ListBuilderPage). Every add goes through
+// AddResultsToListButton's picker so the destination is always explicit.
+export function SearchResultsTable({ results, columns, onColumnsChange }) {
   const { enabled: infiniteFusionEnabled } = useInfiniteFusion();
   const activeColumns = getOrderedActiveColumns(infiniteFusionEnabled, columns);
   const [selected, setSelected] = useState(new Set());
@@ -29,12 +33,8 @@ export function SearchResultsTable({ results, columns, onColumnsChange, onAdd, o
     setSelected((prev) => (prev.size === results.length ? new Set() : new Set(results.map((p) => p.name))));
   }
 
-  function addSelected() {
-    onAddAll(results.filter((p) => selected.has(p.name)));
-    setSelected(new Set());
-  }
-
   const allSelected = results != null && selected.size > 0 && selected.size === results.length;
+  const targetList = results ? results.filter((p) => selected.size === 0 || selected.has(p.name)) : [];
 
   return (
     <div className="list-table-wrap">
@@ -48,23 +48,16 @@ export function SearchResultsTable({ results, columns, onColumnsChange, onAdd, o
         )}
         <div className="list-builder-table-header-controls">
           <ColumnPicker columns={columns} onChange={onColumnsChange} />
-          {results != null &&
-            results.length > 0 &&
-            (selected.size > 0 ? (
-              <div className="search-results-bulk-actions">
-                <button type="button" className="action-btn" onClick={addSelected}>
-                  <Plus size={14} />
-                  Add Selected
-                </button>
+          {results != null && results.length > 0 && (
+            <div className="search-results-bulk-actions">
+              {selected.size > 0 && (
                 <button type="button" className="action-btn action-btn-ghost" onClick={() => setSelected(new Set())}>
                   Clear
                 </button>
-              </div>
-            ) : (
-              <button type="button" className="action-btn" onClick={() => onAddAll(results)}>
-                Add All
-              </button>
-            ))}
+              )}
+              <AddResultsToListButton pokemonList={targetList} label="Add to List" />
+            </div>
+          )}
         </div>
       </div>
 
@@ -94,7 +87,6 @@ export function SearchResultsTable({ results, columns, onColumnsChange, onAdd, o
                   {c.label}
                 </th>
               ))}
-              <th aria-label="Add" />
             </tr>
           </thead>
           <tbody>
@@ -120,11 +112,6 @@ export function SearchResultsTable({ results, columns, onColumnsChange, onAdd, o
                     {cellValue(p, c.key)}
                   </td>
                 ))}
-                <td>
-                  <button type="button" className="criteria-add-btn" onClick={() => onAdd(p)} aria-label={`Add ${p.name}`}>
-                    <Plus size={14} />
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>

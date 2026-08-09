@@ -38,7 +38,13 @@ def get_fusion_list(list_id: int, db: Session = Depends(get_db)):
 
 def _build_entries(entries: list[FusionListEntryIn]) -> list[FusionListEntry]:
     return [
-        FusionListEntry(head_slug=e.head_slug, body_slug=e.body_slug, position=i, label_ids=e.label_ids)
+        FusionListEntry(
+            head_slug=e.head_slug,
+            body_slug=e.body_slug,
+            position=i,
+            label_ids=e.label_ids,
+            selected_variant=e.selected_variant,
+        )
         for i, e in enumerate(entries)
     ]
 

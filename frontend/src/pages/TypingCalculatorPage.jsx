@@ -38,6 +38,7 @@ export default function TypingCalculatorPage() {
 
   return (
     <div className="typing-calculator-page">
+      <h1 className="page-title">Typing Calculator</h1>
       <Tabs tabs={SUB_TABS} active={subTab} onChange={setSubTab} />
 
       {subTab === 'calculator' && (

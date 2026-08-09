@@ -19,8 +19,10 @@ import { InfoCard } from '../components/lookup/InfoCard';
 import { WeaknessBadge } from '../components/lookup/WeaknessBadge';
 import { TypeDefenses } from '../components/lookup/TypeDefenses';
 import { EvolutionChain } from '../components/lookup/EvolutionChain';
+import { MovePoolSection } from '../components/lookup/MovePoolSection';
 import { Tooltip } from '../components/common/Tooltip';
 import { CollapsibleHeader } from '../components/common/CollapsibleHeader';
+import { usePinTarget } from '../context/PinTargetContext';
 import { DexNavLink } from '../components/lookup/DexNav';
 import { FavoriteButton } from '../components/lookup/FavoriteButton';
 import { AddToListButton } from '../components/lookup/AddToListButton';
@@ -43,6 +45,7 @@ import '../styles/lookup.css';
 // FusedLookupView reuses FusionMiniSlot/fusion-swap-btn/etc. from the Compare page's
 // fusion tab (same pattern FusionListPage follows for the same components).
 import '../styles/compare.css';
+import '../styles/fusion-art.css';
 
 const STAT_VIEW_TABS = [
   { key: 'all', label: 'Base Stats' },
@@ -91,6 +94,15 @@ export default function LookupPage() {
   const headParam = searchParams.get('head');
   const bodyParam = searchParams.get('body');
   const isFused = Boolean(infiniteFusionEnabled && headParam && bodyParam);
+
+  usePinTarget(
+    isFused ? `/lookup/${headParam}?head=${headParam}&body=${bodyParam}` : slug ? `/lookup/${slug}` : null,
+    isFused
+      ? `Fusion: ${toDisplayName(headParam)} / ${toDisplayName(bodyParam)}`
+      : slug
+        ? `Lookup: ${toDisplayName(slug)}`
+        : null
+  );
 
   useEffect(() => {
     if (!slug || isFused) {
@@ -360,6 +372,8 @@ export default function LookupPage() {
           <EvolutionChain tree={pokemon.evolution_chain} currentSlug={pokemon.name} />
         )}
       </div>
+
+      <MovePoolSection slug={pokemon.selected_variant || pokemon.name} />
     </div>
   );
 }

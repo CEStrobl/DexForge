@@ -9,6 +9,7 @@ class FusionListEntryIn(BaseModel):
     head_slug: str
     body_slug: str
     label_ids: list[str] = []
+    selected_variant: str | None = None
 
 
 class FusionListEntryOut(BaseModel):
@@ -19,6 +20,7 @@ class FusionListEntryOut(BaseModel):
     body_slug: str
     position: int
     label_ids: list[str] = []
+    selected_variant: str | None = None
 
     @field_validator("label_ids", mode="before")
     @classmethod

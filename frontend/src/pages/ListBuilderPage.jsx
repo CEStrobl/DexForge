@@ -1,41 +1,40 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Table2, LayoutGrid } from 'lucide-react';
 import { api } from '../api/client';
 import { useSavedLists } from '../context/SavedListsContext';
-import { Tabs } from '../components/common/Tabs';
-import { CriteriaPanel } from '../components/list-builder/CriteriaPanel';
-import { SearchResultsTable } from '../components/list-builder/SearchResultsTable';
+import { usePinTarget } from '../context/PinTargetContext';
 import { PokemonSearchAdd } from '../components/list-builder/PokemonSearchAdd';
 import { ColumnPicker } from '../components/list-builder/ColumnPicker';
 import { ListTable } from '../components/list-builder/ListTable';
+import { GalleryView } from '../components/list-builder/GalleryView';
 import { EditableListName } from '../components/list-builder/EditableListName';
 import { LabelManager } from '../components/list-builder/LabelManager';
 import { DEFAULT_COLUMNS } from '../components/list-builder/columns';
 import '../styles/list-builder.css';
 
-const TABS = [
-  { key: 'lists', label: 'Lists' },
-  { key: 'search', label: 'Search' },
-];
+const VIEW_MODE_STORAGE_KEY = 'dexforge-list-view-mode';
 
+// Single-purpose now: view/manage saved lists. The criteria-filter tool that used
+// to live here as a "Search" tab is its own page — see Notes/dexfilter.md.
 export default function ListBuilderPage() {
   const { listId } = useParams();
   const navigate = useNavigate();
   const { savedLists, refresh } = useSavedLists();
 
-  const [activeTab, setActiveTab] = useState('lists');
   const [name, setName] = useState('');
   const [criteria, setCriteria] = useState({});
   const [columns, setColumns] = useState(DEFAULT_COLUMNS);
   const [columnWidths, setColumnWidths] = useState({});
   const [labels, setLabels] = useState([]);
   const [entries, setEntries] = useState([]);
-  const [matches, setMatches] = useState(null);
+  const [viewMode, setViewMode] = useState(() => localStorage.getItem(VIEW_MODE_STORAGE_KEY) || 'table');
   const [saveStatus, setSaveStatus] = useState('idle');
   const [saveError, setSaveError] = useState('');
   const dirtyRef = useRef(false);
   const hydratedForRef = useRef(null);
+
+  usePinTarget(listId && name ? `/list-builder/${listId}` : null, listId && name ? `List: ${name}` : null);
 
   // Hydrate the editor from the route's :listId. Guarded by hydratedForRef so that
   // savedLists refreshing after our own autosave (same listId) doesn't re-hydrate and
@@ -139,14 +138,6 @@ export default function ListBuilderPage() {
     setEntries((prev) => (prev.some((e) => e.name === pokemon.name) ? prev : [...prev, pokemon]));
   }
 
-  function addAllMatches(matchList) {
-    dirtyRef.current = true;
-    setEntries((prev) => {
-      const existing = new Set(prev.map((e) => e.name));
-      return [...prev, ...matchList.filter((m) => !existing.has(m.name))];
-    });
-  }
-
   function removePokemon(slug) {
     dirtyRef.current = true;
     setEntries((prev) => prev.filter((e) => e.name !== slug));
@@ -209,14 +200,14 @@ export default function ListBuilderPage() {
     setName(next);
   }
 
-  function updateCriteria(next) {
-    dirtyRef.current = true;
-    setCriteria(next);
-  }
-
   function updateColumns(next) {
     dirtyRef.current = true;
     setColumns(next);
+  }
+
+  function updateViewMode(next) {
+    setViewMode(next);
+    localStorage.setItem(VIEW_MODE_STORAGE_KEY, next);
   }
 
   async function handleDeleteActiveList() {
@@ -229,41 +220,71 @@ export default function ListBuilderPage() {
 
   return (
     <div className="list-builder-page">
-      <Tabs tabs={TABS} active={activeTab} onChange={setActiveTab} />
-
-      <div className="list-builder-tab-panel" style={{ display: activeTab === 'lists' ? undefined : 'none' }}>
-        <div className="card list-builder-full">
-          <div className="list-builder-name-row">
-            <EditableListName name={name} onChange={updateName} />
-            <div className="list-builder-name-row-controls">
-              <span className={`autosave-status${saveStatus === 'error' ? ' autosave-status-error' : ''}`}>
-                {saveStatus === 'saving' && 'Saving…'}
-                {saveStatus === 'saved' && 'Saved'}
-                {saveStatus === 'error' && (saveError || 'Failed to save — will retry on next edit')}
-              </span>
-              {listId && (
-                <button
-                  type="button"
-                  className="list-builder-delete-btn"
-                  onClick={handleDeleteActiveList}
-                  aria-label="Delete list"
-                >
-                  <Trash2 size={16} />
-                </button>
-              )}
-            </div>
+      <div className="card list-builder-full">
+        <div className="list-builder-name-row">
+          <EditableListName name={name} onChange={updateName} />
+          <div className="list-builder-name-row-controls">
+            <span className={`autosave-status${saveStatus === 'error' ? ' autosave-status-error' : ''}`}>
+              {saveStatus === 'saving' && 'Saving…'}
+              {saveStatus === 'saved' && 'Saved'}
+              {saveStatus === 'error' && (saveError || 'Failed to save — will retry on next edit')}
+            </span>
+            {listId && (
+              <button
+                type="button"
+                className="list-builder-delete-btn"
+                onClick={handleDeleteActiveList}
+                aria-label="Delete list"
+              >
+                <Trash2 size={16} />
+              </button>
+            )}
           </div>
+        </div>
 
-          <PokemonSearchAdd onAdd={addPokemon} />
+        <PokemonSearchAdd onAdd={addPokemon} />
 
-          <LabelManager labels={labels} onAdd={addLabel} onUpdate={updateLabel} onDelete={deleteLabel} />
+        <LabelManager labels={labels} onAdd={addLabel} onUpdate={updateLabel} onDelete={deleteLabel} />
 
-          <div className="list-builder-table-header">
-            <h3 className="card-heading">
-              Your List <span className="text-muted">({entries.length})</span>
-            </h3>
+        <div className="list-builder-table-header">
+          <h3 className="card-heading">
+            Your List <span className="text-muted">({entries.length})</span>
+          </h3>
+          <div className="list-builder-table-header-controls">
+            <div className="view-toggle">
+              <button
+                type="button"
+                className={`view-toggle-btn${viewMode === 'table' ? ' active' : ''}`}
+                onClick={() => updateViewMode('table')}
+                aria-label="Table view"
+                title="Table view"
+              >
+                <Table2 size={14} />
+              </button>
+              <button
+                type="button"
+                className={`view-toggle-btn${viewMode === 'gallery' ? ' active' : ''}`}
+                onClick={() => updateViewMode('gallery')}
+                aria-label="Gallery view"
+                title="Gallery view"
+              >
+                <LayoutGrid size={14} />
+              </button>
+            </div>
             <ColumnPicker columns={columns} onChange={updateColumns} />
           </div>
+        </div>
+        {viewMode === 'gallery' ? (
+          <GalleryView
+            entries={entries}
+            columns={columns}
+            labels={labels}
+            onRemove={removePokemon}
+            onReorder={reorderEntries}
+            onSwap={swapEntry}
+            onToggleLabel={toggleEntryLabel}
+          />
+        ) : (
           <ListTable
             entries={entries}
             columns={columns}
@@ -276,27 +297,7 @@ export default function ListBuilderPage() {
             onResizeColumn={resizeColumn}
             onToggleLabel={toggleEntryLabel}
           />
-        </div>
-      </div>
-
-      <div className="list-builder-tab-panel" style={{ display: activeTab === 'search' ? undefined : 'none' }}>
-        <div className="list-builder-grid">
-          <div className="list-builder-column">
-            <CriteriaPanel criteria={criteria} onCriteriaChange={updateCriteria} onResults={setMatches} />
-          </div>
-
-          <div className="list-builder-column list-builder-main">
-            <div className="card">
-              <SearchResultsTable
-                results={matches}
-                columns={columns}
-                onColumnsChange={updateColumns}
-                onAdd={addPokemon}
-                onAddAll={addAllMatches}
-              />
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

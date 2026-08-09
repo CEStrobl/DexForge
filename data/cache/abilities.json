@@ -236,7 +236,7 @@
       "wooloo",
       "tandemaus",
       "maschiff",
-      "dudunsparce-two-segment",
+      "dudunsparce",
       "eevee-starter",
       "ponyta-galar",
       "rapidash-galar",
@@ -400,12 +400,12 @@
       "rufflet",
       "braviary",
       "espurr",
-      "meowstic-male",
+      "meowstic",
       "pikipek",
       "trumbeak",
       "toucannon",
       "rockruff",
-      "lycanroc-midday",
+      "lycanroc",
       "rookidee",
       "corvisquire",
       "bombirdier",
@@ -475,7 +475,7 @@
       "throh",
       "obstagoon",
       "ursaluna",
-      "squawkabilly-green-plumage",
+      "squawkabilly",
       "machamp-gmax",
       "squawkabilly-blue-plumage"
     ],
@@ -503,7 +503,7 @@
       "zweilous",
       "flapple",
       "dracozolt",
-      "squawkabilly-green-plumage",
+      "squawkabilly",
       "rattata-alola",
       "raticate-alola",
       "raticate-totem-alola",
@@ -550,7 +550,7 @@
       "incineroar",
       "wyrdeer",
       "overqwil",
-      "squawkabilly-green-plumage",
+      "squawkabilly",
       "maschiff",
       "mabosstiff",
       "landorus-therian",
@@ -588,7 +588,7 @@
       "fraxure",
       "haxorus",
       "litleo",
-      "pyroar-male",
+      "pyroar",
       "bewear",
       "rookidee",
       "corvisquire",
@@ -729,7 +729,7 @@
       "stoutland",
       "drilbur",
       "excadrill",
-      "lycanroc-midday",
+      "lycanroc",
       "dracozolt",
       "dracovish",
       "houndstone"
@@ -780,7 +780,7 @@
       "fraxure",
       "haxorus",
       "litleo",
-      "pyroar-male"
+      "pyroar"
     ],
     "description": "Increases damage inflicted to 1.25\u00d7 against Pok\u00e9mon of the same gender, but decreases damage to 0.75\u00d7 against the opposite gender."
   },
@@ -805,11 +805,11 @@
       "timburr",
       "gurdurr",
       "conkeldurr",
-      "darmanitan-standard",
+      "darmanitan",
       "druddigon",
       "rufflet",
       "braviary",
-      "landorus-incarnate",
+      "landorus",
       "toucannon",
       "cufant",
       "copperajah",
@@ -842,7 +842,7 @@
       "cinccino",
       "sylveon",
       "stufful",
-      "enamorus-incarnate"
+      "enamorus"
     ],
     "description": "Has a 30% chance of infatuating attacking Pok\u00e9mon on contact."
   },
@@ -871,7 +871,7 @@
       "scatterbug",
       "spewpa",
       "vivillon",
-      "maushold-family-of-four",
+      "maushold",
       "maushold-family-of-three"
     ],
     "description": "Decreases all direct damage taken by friendly Pok\u00e9mon to 0.75\u00d7."
@@ -978,8 +978,8 @@
       "gothitelle",
       "phantump",
       "trevenant",
-      "pumpkaboo-average",
-      "gourgeist-average",
+      "pumpkaboo",
+      "gourgeist",
       "noibat",
       "noivern",
       "orbeetle",
@@ -1037,7 +1037,7 @@
       "mudbray",
       "mudsdale",
       "oranguru",
-      "indeedee-male",
+      "indeedee",
       "kubfu",
       "annihilape",
       "gallade-mega",
@@ -1063,7 +1063,7 @@
       "lampent",
       "chandelure",
       "espurr",
-      "meowstic-male",
+      "meowstic",
       "inkay",
       "malamar",
       "noibat",
@@ -1139,8 +1139,8 @@
       "mudkip",
       "marshtomp",
       "swampert",
-      "frillish-male",
-      "jellicent-male",
+      "frillish",
+      "jellicent",
       "tadbulb",
       "bellibolt"
     ],
@@ -1179,7 +1179,7 @@
       "gigalith",
       "drilbur",
       "excadrill",
-      "landorus-incarnate",
+      "landorus",
       "garchomp-mega",
       "steelix-mega",
       "diglett-alola",
@@ -1202,8 +1202,8 @@
       "bunnelby",
       "diggersby",
       "dedenne",
-      "pumpkaboo-average",
-      "gourgeist-average",
+      "pumpkaboo",
+      "gourgeist",
       "pikipek",
       "trumbeak",
       "tandemaus",
@@ -1239,10 +1239,10 @@
       "minccino",
       "cinccino",
       "marshadow",
-      "toxtricity-amped",
+      "toxtricity",
       "clobbopus",
       "grapploct",
-      "maushold-family-of-four",
+      "maushold",
       "fezandipiti",
       "scizor-mega",
       "meowth-alola",
@@ -1330,7 +1330,7 @@
       "drednaw",
       "arrokuda",
       "barraskewda",
-      "basculegion-male",
+      "basculegion",
       "overqwil",
       "swampert-mega",
       "drednaw-gmax",
@@ -1386,8 +1386,8 @@
       "pawniard",
       "bisharp",
       "braviary",
-      "tornadus-incarnate",
-      "thundurus-incarnate",
+      "tornadus",
+      "thundurus",
       "passimian",
       "obstagoon",
       "falinks",
@@ -1409,7 +1409,7 @@
       "cobalion",
       "terrakion",
       "virizion",
-      "keldeo-ordinary",
+      "keldeo",
       "keldeo-resolute"
     ],
     "description": "Raises Attack one stage upon taking damage from a Dark move."
@@ -1434,8 +1434,8 @@
       "palpitoad",
       "seismitoad",
       "maractus",
-      "frillish-male",
-      "jellicent-male",
+      "frillish",
+      "jellicent",
       "volcanion",
       "dewpider",
       "araquanid",
@@ -1466,7 +1466,7 @@
       "musharna",
       "elgyem",
       "beheeyem",
-      "indeedee-male",
+      "indeedee",
       "rabsca",
       "indeedee-female"
     ],
@@ -1502,7 +1502,7 @@
       "lucario",
       "gallade",
       "rockruff",
-      "lycanroc-midday",
+      "lycanroc",
       "dubwool",
       "sirfetchd",
       "mewtwo-mega-x",
@@ -1538,7 +1538,7 @@
       "flapple",
       "appletun",
       "lechonk",
-      "oinkologne-male",
+      "oinkologne",
       "dipplin",
       "rattata-alola",
       "raticate-alola",
@@ -1877,7 +1877,7 @@
       "pignite",
       "appletun",
       "lechonk",
-      "oinkologne-male",
+      "oinkologne",
       "cetoddle",
       "cetitan",
       "venusaur-mega",
@@ -2113,8 +2113,8 @@
       "shuppet",
       "banette",
       "froslass",
-      "frillish-male",
-      "jellicent-male",
+      "frillish",
+      "jellicent",
       "sinistea",
       "polteageist",
       "dreepy",
@@ -2170,8 +2170,8 @@
       "shuppet",
       "banette",
       "honchkrow",
-      "pumpkaboo-average",
-      "gourgeist-average",
+      "pumpkaboo",
+      "gourgeist",
       "tarountula",
       "spidops",
       "capsakid",
@@ -2293,7 +2293,7 @@
       "staraptor",
       "rhyperior",
       "emboar",
-      "basculin-red-striped",
+      "basculin",
       "mienfoo",
       "mienshao",
       "bouffalant",
@@ -2392,8 +2392,8 @@
       "togekiss",
       "deerling",
       "sawsbuck",
-      "meloetta-aria",
-      "dudunsparce-two-segment",
+      "meloetta",
+      "dudunsparce",
       "shaymin-sky",
       "meloetta-pirouette",
       "dudunsparce-three-segment"
@@ -2514,7 +2514,7 @@
       "excadrill",
       "throh",
       "sawk",
-      "basculin-red-striped",
+      "basculin",
       "axew",
       "fraxure",
       "haxorus",
@@ -2522,7 +2522,7 @@
       "pancham",
       "pangoro",
       "hawlucha",
-      "basculegion-male",
+      "basculegion",
       "tinkatink",
       "tinkatuff",
       "tinkaton",
@@ -2551,7 +2551,7 @@
       "scraggy",
       "scrafty",
       "litleo",
-      "pyroar-male",
+      "pyroar",
       "quaxly",
       "quaxwell",
       "quaquaval"
@@ -2575,7 +2575,7 @@
       "toxel",
       "wiglett",
       "wugtrio",
-      "dudunsparce-two-segment",
+      "dudunsparce",
       "gimmighoul",
       "meowth-alola",
       "persian-alola",
@@ -2597,12 +2597,12 @@
       "crawdaunt",
       "feebas",
       "porygon-z",
-      "basculin-red-striped",
+      "basculin",
       "skrelp",
       "dragalge",
       "yungoos",
       "gumshoos",
-      "basculegion-male",
+      "basculegion",
       "basculin-blue-striped",
       "lucario-mega",
       "beedrill-mega",
@@ -2820,7 +2820,7 @@
       "klang",
       "klinklang",
       "dedenne",
-      "toxtricity-amped",
+      "toxtricity",
       "toxtricity-amped-gmax"
     ],
     "description": "Increases Special Attack to 1.5\u00d7 when a friendly Pok\u00e9mon has Plus or Minus."
@@ -2901,9 +2901,9 @@
       "liepard",
       "cottonee",
       "whimsicott",
-      "tornadus-incarnate",
-      "thundurus-incarnate",
-      "meowstic-male",
+      "tornadus",
+      "thundurus",
+      "meowstic",
       "klefki",
       "impidimp",
       "morgrem",
@@ -2982,7 +2982,7 @@
       "malamar",
       "fomantis",
       "lurantis",
-      "enamorus-incarnate",
+      "enamorus",
       "lurantis-totem",
       "malamar-mega",
       "staraptor-mega"
@@ -3334,7 +3334,7 @@
   },
   "zen-mode": {
     "pokemon": [
-      "darmanitan-standard",
+      "darmanitan",
       "darmanitan-zen",
       "darmanitan-galar-standard",
       "darmanitan-galar-zen"
@@ -3434,7 +3434,7 @@
       "dedenne",
       "skwovet",
       "greedent",
-      "maushold-family-of-four",
+      "maushold",
       "maushold-family-of-three"
     ],
     "description": "Restores HP upon eating a Berry, in addition to the Berry's effect."
@@ -3483,7 +3483,7 @@
   },
   "stance-change": {
     "pokemon": [
-      "aegislash-shield",
+      "aegislash",
       "aegislash-blade"
     ],
     "description": "Changes Aegislash to Blade Forme before using a damaging move, or Shield Forme before using King\u2019s Shield."
@@ -3600,7 +3600,7 @@
   },
   "aura-break": {
     "pokemon": [
-      "zygarde-50",
+      "zygarde",
       "zygarde-10"
     ],
     "description": "Makes Dark Aura and Fairy Aura weaken moves of their respective types."
@@ -3643,7 +3643,7 @@
   },
   "dancer": {
     "pokemon": [
-      "oricorio-baile",
+      "oricorio",
       "oricorio-pom-pom",
       "oricorio-pau",
       "oricorio-sensu"
@@ -3652,7 +3652,7 @@
   },
   "schooling": {
     "pokemon": [
-      "wishiwashi-solo",
+      "wishiwashi",
       "wishiwashi-school"
     ],
     "description": "Wishiwashi becomes Schooling Form when its HP is 25% or higher."
@@ -3753,7 +3753,7 @@
   },
   "shields-down": {
     "pokemon": [
-      "minior-red-meteor",
+      "minior",
       "minior-orange-meteor",
       "minior-yellow-meteor",
       "minior-green-meteor",
@@ -3778,7 +3778,7 @@
   },
   "disguise": {
     "pokemon": [
-      "mimikyu-disguised",
+      "mimikyu",
       "mimikyu-busted",
       "mimikyu-totem-disguised",
       "mimikyu-totem-busted"
@@ -3816,7 +3816,7 @@
   "psychic-surge": {
     "pokemon": [
       "tapu-lele",
-      "indeedee-male",
+      "indeedee",
       "indeedee-female"
     ],
     "description": "When this Pok\u00e9mon enters battle, it changes the terrain to Psychic Terrain."
@@ -3954,7 +3954,7 @@
   },
   "punk-rock": {
     "pokemon": [
-      "toxtricity-amped",
+      "toxtricity",
       "toxtricity-low-key",
       "toxtricity-amped-gmax",
       "toxtricity-low-key-gmax"
@@ -4009,7 +4009,7 @@
   },
   "hunger-switch": {
     "pokemon": [
-      "morpeko-full-belly",
+      "morpeko",
       "morpeko-hangry"
     ],
     "description": "Causes Morpeko to change its form each turn, alternating between Full Belly Mode and Hangry Mode"
@@ -4039,7 +4039,7 @@
   },
   "unseen-fist": {
     "pokemon": [
-      "urshifu-single-strike",
+      "urshifu",
       "urshifu-rapid-strike",
       "urshifu-single-strike-gmax",
       "urshifu-rapid-strike-gmax",
@@ -4073,7 +4073,7 @@
   },
   "lingering-aroma": {
     "pokemon": [
-      "oinkologne-male"
+      "oinkologne"
     ],
     "description": "Contact changes the attacker's Ability to Lingering Aroma."
   },

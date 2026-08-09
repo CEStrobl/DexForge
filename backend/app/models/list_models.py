@@ -68,5 +68,6 @@ class FusionListEntry(Base):
     body_slug = Column(String, nullable=False)
     position = Column(Integer, nullable=False, default=0)
     label_ids = Column(JSON, nullable=True)
+    selected_variant = Column(String, nullable=True)
 
     fusion_list = relationship("FusionList", back_populates="entries")

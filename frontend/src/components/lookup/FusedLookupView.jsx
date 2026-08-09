@@ -7,11 +7,13 @@ import { StatBar } from '../common/StatBar';
 import { Tooltip } from '../common/Tooltip';
 import { CollapsibleHeader } from '../common/CollapsibleHeader';
 import { FusionMiniSlot } from '../compare/FusionMiniSlot';
+import { FusionArtSprite } from '../fusion/FusionArtSprite';
 import { TypeDefenses } from './TypeDefenses';
 import { WeaknessBadge } from './WeaknessBadge';
 import { FavoriteButton } from './FavoriteButton';
 import { AddToFusionListButton } from './AddToFusionListButton';
 import { FusedEvolutionChains } from './FusedEvolutionChains';
+import { FusedMovePoolSection } from './FusedMovePoolSection';
 import { STAT_FULL_LABELS, STAT_ORDER, toDisplayName } from '../../utils/format';
 import { statTypeColor } from '../../utils/fusion';
 
@@ -86,6 +88,7 @@ function AbilitySection({ title, abilities }) {
 export function FusedLookupView({ headSlug, bodySlug, onChangeHead, onChangeBody, onSwap, onUnfuse }) {
   const { head, body, fusion, loading, error } = useFusedData(headSlug, bodySlug);
   const [statView, setStatView] = useState('fusion');
+  const [activeArt, setActiveArt] = useState(null);
   const [evolutionOpen, setEvolutionOpen] = useState(() => {
     try {
       const stored = localStorage.getItem(EVOLUTION_STORAGE_KEY);
@@ -149,6 +152,9 @@ export function FusedLookupView({ headSlug, bodySlug, onChangeHead, onChangeBody
                 <ArrowUpRight size={14} />
               </Link>
             </div>
+            <button type="button" className="fusion-swap-btn" onClick={onSwap} aria-label="Swap head and body">
+              <ArrowLeftRight size={14} />
+            </button>
             <div className="fusion-header-slot">
               <FusionMiniSlot roleLabel="Body" slug={bodySlug} onSelect={onChangeBody} />
               <Link
@@ -160,9 +166,6 @@ export function FusedLookupView({ headSlug, bodySlug, onChangeHead, onChangeBody
                 <ArrowUpRight size={14} />
               </Link>
             </div>
-            <button type="button" className="fusion-swap-btn" onClick={onSwap} aria-label="Swap head and body">
-              <ArrowLeftRight size={14} />
-            </button>
           </div>
           <div className="page-header-actions">
             <FavoriteButton pokemonSlug={`${headSlug}|${bodySlug}`} />
@@ -177,13 +180,27 @@ export function FusedLookupView({ headSlug, bodySlug, onChangeHead, onChangeBody
 
       <div className="lookup-grid">
         <div className="lookup-area-hero hero-stack">
-          <div className="card hero-card">
+          <div className="card hero-card hero-card-fusion">
+            <span className="hero-card-fusion-name">
+              {toDisplayName(fusion.head.name)} / {toDisplayName(fusion.body.name)}
+            </span>
             <div className="hero-card-sprite-wrap">
-              <div className="hero-fusion-sprite-pair">
-                <img src={fusion.head.sprite} alt={fusion.head.name} width={150} height={150} />
-                <img src={fusion.body.sprite} alt={fusion.body.name} width={150} height={150} />
-              </div>
+              <FusionArtSprite
+                headSlug={headSlug}
+                bodySlug={bodySlug}
+                size={150}
+                fusionLabel={`${toDisplayName(fusion.head.name)} / ${toDisplayName(fusion.body.name)}`}
+                onActiveVariantChange={setActiveArt}
+              >
+                <div className="hero-fusion-sprite-pair">
+                  <img src={fusion.head.sprite} alt={fusion.head.name} width={150} height={150} />
+                  <img src={fusion.body.sprite} alt={fusion.body.name} width={150} height={150} />
+                </div>
+              </FusionArtSprite>
             </div>
+            <span className="hero-card-fusion-artist text-muted">
+              {activeArt?.artist ? `Art by ${activeArt.artist}` : 'Official sprites'}
+            </span>
           </div>
         </div>
 
@@ -258,6 +275,11 @@ export function FusedLookupView({ headSlug, bodySlug, onChangeHead, onChangeBody
           />
         )}
       </div>
+
+      <FusedMovePoolSection
+        headSlug={head.selected_variant || head.name}
+        bodySlug={body.selected_variant || body.name}
+      />
     </div>
   );
 }

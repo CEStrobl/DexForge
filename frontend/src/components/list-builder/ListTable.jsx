@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUp, ArrowDown, GripVertical, PackageOpen } from 'lucide-react';
+import { ArrowUp, ArrowDown, GripVertical } from 'lucide-react';
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import {
   SortableContext,
@@ -12,6 +12,7 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 import { RowActionsMenu } from './RowActionsMenu';
 import { LabelPill } from './LabelPill';
+import { ListEmptyState } from './ListEmptyState';
 import { getOrderedActiveColumns, STAT_DATA_KEY, ALIGN_RIGHT_KEYS } from './columns';
 import { cellValue } from './cellFormatters';
 import { toDisplayName } from '../../utils/format';
@@ -149,13 +150,7 @@ export function ListTable({
   }
 
   if (entries.length === 0) {
-    return (
-      <div className="list-table-empty-state">
-        <PackageOpen size={28} />
-        <p>Your list is empty.</p>
-        <p className="text-muted">Type a Pokémon name above, or switch to Search to add matches in bulk.</p>
-      </div>
-    );
+    return <ListEmptyState />;
   }
 
   function sortIcon(key) {

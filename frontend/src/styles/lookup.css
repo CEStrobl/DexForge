@@ -52,6 +52,19 @@
   min-width: 0;
 }
 
+/* Widen the Head/Body search bars specifically on the fused Lookup page (scoped via
+   .page-header-fused so Compare's fusion tab, which reuses .fusion-slot-inputs at a much
+   narrower column width, is unaffected). .fusion-slot-inputs has no explicit width of its
+   own — it shrink-wraps to content by default — so a plain min-width forces it wide enough
+   for the flex:1 slots to actually have room to grow into. */
+.page-header-fused .fusion-slot-inputs {
+  min-width: 620px;
+}
+
+.page-header-fused .topbar-search {
+  max-width: none;
+}
+
 .fusion-header-view-link {
   display: inline-flex;
   align-items: center;
@@ -203,6 +216,23 @@
   image-rendering:crisp-edges;
 }
 
+/* Fused hero card fits a name line above and an artist-attribution line below the sprite,
+   inside the same box — the plain Lookup page's square hero-card stays untouched (fixed
+   aspect-ratio, sprite only), this just relaxes that so the box can grow with the extra text. */
+.hero-card-fusion {
+  aspect-ratio: auto;
+}
+
+.hero-card-fusion-name {
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.hero-card-fusion-artist {
+  font-size: 0.78rem;
+}
+
 .dex-nav-link {
   display: flex;
   align-items: center;
@@ -227,127 +257,6 @@
 .dex-nav-link.disabled {
   opacity: 0.4;
 }
-
-.action-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-1) var(--space-3);
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--color-border);
-  background: #ffffff;
-  color: var(--color-text);
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: var(--shadow-soft);
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease,
-    border-color 0.12s ease, color 0.12s ease;
-}
-
-.action-btn:hover {
-  background: var(--color-accent-tint);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-lifted);
-}
-
-.action-btn.active {
-  background: var(--color-accent-tint);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-
-.add-to-list-wrap {
-  position: relative;
-}
-
-.add-to-list-popover {
-  position: absolute;
-  top: calc(100% + 6px);
-  right: 0;
-  z-index: 20;
-  width: 260px;
-  padding: var(--space-2);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lifted);
-}
-
-.add-to-list-popover input {
-  padding: var(--space-1) var(--space-2);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface-muted);
-  font-size: 0.85rem;
-  color: var(--color-text);
-}
-
-.add-to-list-results {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  max-height: 240px;
-  overflow-y: auto;
-}
-
-.add-to-list-result-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  padding: var(--space-1) var(--space-2);
-  border: none;
-  border-radius: var(--radius-sm);
-  background: none;
-  color: var(--color-text);
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: left;
-  cursor: pointer;
-}
-
-.add-to-list-result-item span:first-child {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.add-to-list-result-item:hover:not(:disabled) {
-  background: var(--color-surface-muted);
-}
-
-.add-to-list-result-item:disabled {
-  cursor: default;
-  opacity: 0.6;
-}
-
-.add-to-list-already {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  flex-shrink: 0;
-}
-
-.add-to-list-create {
-  color: var(--color-accent);
-}
-
-.add-to-list-empty {
-  padding: var(--space-1) var(--space-2);
-  font-size: 0.8rem;
-}
-
-.add-to-list-error {
-  color: var(--type-fighting);
-  font-size: 0.75rem;
-}
-
 
 .attribute-grid {
   display: grid;
@@ -449,6 +358,112 @@
 
 .lookup-evolution {
   margin-top: var(--space-4);
+}
+
+/* --- Move Pool --- */
+
+.lookup-movepool {
+  margin-top: var(--space-4);
+}
+
+.movepool-gen-tabs {
+  margin-top: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.movepool-table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.movepool-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.movepool-table th {
+  text-align: left;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.movepool-sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.movepool-sortable:hover {
+  color: var(--color-accent);
+}
+
+.movepool-cell-right {
+  text-align: right;
+}
+
+.movepool-table td {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.movepool-source {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+  background: var(--color-surface-muted);
+}
+
+.movepool-source-both {
+  color: var(--color-accent);
+  background: var(--color-accent-tint);
+}
+
+.movepool-category-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-surface-muted);
+  color: var(--color-text-secondary);
+}
+
+.movepool-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.movepool-skeleton-row {
+  display: block;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  animation: movepool-skeleton-pulse 1.3s ease-in-out infinite;
+}
+
+@keyframes movepool-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .evolution-chain {

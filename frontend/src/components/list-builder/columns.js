@@ -23,8 +23,8 @@ function columnLabel(key, label) {
 }
 
 // Column-picker grouping is intentionally decoupled from the criteria panel's
-// primary/more split (CRITERIA_GROUPS) — Generation stays a "primary" filter in
-// the Search tab, but is tucked under +More in the table's column picker.
+// primary/more split (CRITERIA_GROUPS) — Generation stays a "primary" filter on
+// the Dex Filter page, but is tucked under +More in the table's column picker.
 const GENERATION_COLUMN = CRITERIA_GROUPS.primary.find((c) => c.key === 'generation');
 
 export const PRIMARY_COLUMNS = [...CRITERIA_GROUPS.primary, ...CRITERIA_GROUPS.stats]

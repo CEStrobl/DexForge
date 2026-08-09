@@ -7296,7 +7296,7 @@
     "hatch_counter": 20,
     "genus": "Flowering Pok\u00e9mon"
   },
-  "basculin-red-striped": {
+  "basculin": {
     "capture_rate": 25,
     "egg_groups": [
       "water2"
@@ -7361,7 +7361,7 @@
     "hatch_counter": 20,
     "genus": "Zen Charm Pok\u00e9mon"
   },
-  "darmanitan-standard": {
+  "darmanitan": {
     "capture_rate": 60,
     "egg_groups": [
       "ground"
@@ -7854,7 +7854,7 @@
     "hatch_counter": 20,
     "genus": "Mushroom Pok\u00e9mon"
   },
-  "frillish-male": {
+  "frillish": {
     "capture_rate": 190,
     "egg_groups": [
       "indeterminate"
@@ -7867,7 +7867,7 @@
     "hatch_counter": 20,
     "genus": "Floating Pok\u00e9mon"
   },
-  "jellicent-male": {
+  "jellicent": {
     "capture_rate": 60,
     "egg_groups": [
       "indeterminate"
@@ -8501,7 +8501,7 @@
     "hatch_counter": 80,
     "genus": "Grassland Pok\u00e9mon"
   },
-  "tornadus-incarnate": {
+  "tornadus": {
     "capture_rate": 3,
     "egg_groups": [
       "no-eggs"
@@ -8514,7 +8514,7 @@
     "hatch_counter": 120,
     "genus": "Cyclone Pok\u00e9mon"
   },
-  "thundurus-incarnate": {
+  "thundurus": {
     "capture_rate": 3,
     "egg_groups": [
       "no-eggs"
@@ -8553,7 +8553,7 @@
     "hatch_counter": 120,
     "genus": "Deep Black Pok\u00e9mon"
   },
-  "landorus-incarnate": {
+  "landorus": {
     "capture_rate": 3,
     "egg_groups": [
       "no-eggs"
@@ -8579,7 +8579,7 @@
     "hatch_counter": 120,
     "genus": "Boundary Pok\u00e9mon"
   },
-  "keldeo-ordinary": {
+  "keldeo": {
     "capture_rate": 3,
     "egg_groups": [
       "no-eggs"
@@ -8592,7 +8592,7 @@
     "hatch_counter": 80,
     "genus": "Colt Pok\u00e9mon"
   },
-  "meloetta-aria": {
+  "meloetta": {
     "capture_rate": 3,
     "egg_groups": [
       "no-eggs"
@@ -8852,7 +8852,7 @@
     "hatch_counter": 20,
     "genus": "Lion Cub Pok\u00e9mon"
   },
-  "pyroar-male": {
+  "pyroar": {
     "capture_rate": 65,
     "egg_groups": [
       "ground"
@@ -8984,7 +8984,7 @@
     "hatch_counter": 20,
     "genus": "Restraint Pok\u00e9mon"
   },
-  "meowstic-male": {
+  "meowstic": {
     "capture_rate": 75,
     "egg_groups": [
       "ground"
@@ -9023,7 +9023,7 @@
     "hatch_counter": 20,
     "genus": "Sword Pok\u00e9mon"
   },
-  "aegislash-shield": {
+  "aegislash": {
     "capture_rate": 45,
     "egg_groups": [
       "mineral"
@@ -9415,7 +9415,7 @@
     "hatch_counter": 20,
     "genus": "Elder Tree Pok\u00e9mon"
   },
-  "pumpkaboo-average": {
+  "pumpkaboo": {
     "capture_rate": 120,
     "egg_groups": [
       "indeterminate"
@@ -9428,7 +9428,7 @@
     "hatch_counter": 20,
     "genus": "Pumpkin Pok\u00e9mon"
   },
-  "gourgeist-average": {
+  "gourgeist": {
     "capture_rate": 60,
     "egg_groups": [
       "indeterminate"
@@ -9523,7 +9523,7 @@
     "hatch_counter": 120,
     "genus": "Destruction Pok\u00e9mon"
   },
-  "zygarde-50": {
+  "zygarde": {
     "capture_rate": 3,
     "egg_groups": [
       "no-eggs"
@@ -9825,7 +9825,7 @@
     "hatch_counter": 20,
     "genus": "Woolly Crab Pok\u00e9mon"
   },
-  "oricorio-baile": {
+  "oricorio": {
     "capture_rate": 45,
     "egg_groups": [
       "flying"
@@ -9879,7 +9879,7 @@
     "hatch_counter": 15,
     "genus": "Puppy Pok\u00e9mon"
   },
-  "lycanroc-midday": {
+  "lycanroc": {
     "capture_rate": 90,
     "egg_groups": [
       "ground"
@@ -9892,7 +9892,7 @@
     "hatch_counter": 15,
     "genus": "Wolf Pok\u00e9mon"
   },
-  "wishiwashi-solo": {
+  "wishiwashi": {
     "capture_rate": 60,
     "egg_groups": [
       "water2"
@@ -10262,7 +10262,7 @@
     "hatch_counter": 120,
     "genus": "Synthetic Pok\u00e9mon"
   },
-  "minior-red-meteor": {
+  "minior": {
     "capture_rate": 30,
     "egg_groups": [
       "mineral"
@@ -10316,7 +10316,7 @@
     "hatch_counter": 10,
     "genus": "Roly-Poly Pok\u00e9mon"
   },
-  "mimikyu-disguised": {
+  "mimikyu": {
     "capture_rate": 45,
     "egg_groups": [
       "indeterminate"
@@ -11257,7 +11257,7 @@
     "hatch_counter": 25,
     "genus": "Baby Pok\u00e9mon"
   },
-  "toxtricity-amped": {
+  "toxtricity": {
     "capture_rate": 45,
     "egg_groups": [
       "humanshape"
@@ -11623,7 +11623,7 @@
     "hatch_counter": 25,
     "genus": "Penguin Pok\u00e9mon"
   },
-  "indeedee-male": {
+  "indeedee": {
     "capture_rate": 30,
     "egg_groups": [
       "fairy"
@@ -11636,7 +11636,7 @@
     "hatch_counter": 40,
     "genus": "Emotion Pok\u00e9mon"
   },
-  "morpeko-full-belly": {
+  "morpeko": {
     "capture_rate": 180,
     "egg_groups": [
       "ground",
@@ -11838,7 +11838,7 @@
     "hatch_counter": 120,
     "genus": "Wushu Pok\u00e9mon"
   },
-  "urshifu-single-strike": {
+  "urshifu": {
     "capture_rate": 3,
     "egg_groups": [
       "no-eggs"
@@ -11968,7 +11968,7 @@
     "hatch_counter": 20,
     "genus": "Peat Pok\u00e9mon"
   },
-  "basculegion-male": {
+  "basculegion": {
     "capture_rate": 135,
     "egg_groups": [
       "water2"
@@ -12007,7 +12007,7 @@
     "hatch_counter": 20,
     "genus": "Pin Cluster Pok\u00e9mon"
   },
-  "enamorus-incarnate": {
+  "enamorus": {
     "capture_rate": 3,
     "egg_groups": [
       "no-eggs"
@@ -12156,7 +12156,7 @@
     "hatch_counter": 15,
     "genus": "Hog Pok\u00e9mon"
   },
-  "oinkologne-male": {
+  "oinkologne": {
     "capture_rate": 100,
     "egg_groups": [
       "ground"
@@ -12274,7 +12274,7 @@
     "hatch_counter": 10,
     "genus": "Couple Pok\u00e9mon"
   },
-  "maushold-family-of-four": {
+  "maushold": {
     "capture_rate": 75,
     "egg_groups": [
       "ground",
@@ -12355,7 +12355,7 @@
     "hatch_counter": 20,
     "genus": "Olive Pok\u00e9mon"
   },
-  "squawkabilly-green-plumage": {
+  "squawkabilly": {
     "capture_rate": 190,
     "egg_groups": [
       "flying"
@@ -13023,7 +13023,7 @@
     "hatch_counter": 20,
     "genus": "Long Neck Pok\u00e9mon"
   },
-  "dudunsparce-two-segment": {
+  "dudunsparce": {
     "capture_rate": 45,
     "egg_groups": [
       "ground"

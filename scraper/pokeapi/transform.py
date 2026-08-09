@@ -1,8 +1,8 @@
-def transform_pokemon(raw_pokemon: dict, raw_species: dict) -> dict:
+def transform_pokemon(raw_pokemon: dict, raw_species: dict, slug: str) -> dict:
     stats = {s["stat"]["name"]: s["base_stat"] for s in raw_pokemon["stats"]}
     return {
         "id": raw_pokemon["id"],
-        "name": raw_pokemon["name"],
+        "name": slug,
         "types": [t["type"]["name"] for t in raw_pokemon["types"]],
         "stats": stats,
         "base_stat_total": sum(stats.values()),
@@ -42,3 +42,48 @@ def transform_nature(raw_nature: dict) -> dict:
 
 def _chain_id_from_url(url: str) -> str:
     return url.rstrip("/").split("/")[-1]
+
+
+def transform_move(raw_move: dict) -> dict:
+    entry = next(
+        (e for e in raw_move.get("effect_entries", []) if e["language"]["name"] == "en"), None
+    )
+    return {
+        "name": raw_move["name"],
+        "type": raw_move["type"]["name"],
+        "category": raw_move["damage_class"]["name"] if raw_move.get("damage_class") else "status",
+        "power": raw_move.get("power"),
+        "accuracy": raw_move.get("accuracy"),
+        "pp": raw_move.get("pp"),
+        "effect": entry["short_effect"] if entry else "",
+    }
+
+
+# Only these four learn methods are surfaced (see Notes/movepool.md) — PokeAPI has a handful
+# of exotic ones (form-change, light-ball-egg, stadium-surfing-pikachu, ...) that don't map
+# cleanly onto a Level/TM/Egg/Tutor selector and are dropped rather than mis-bucketed.
+LEARN_METHODS = {"level-up", "machine", "egg", "tutor"}
+
+
+def transform_moveset(raw_pokemon: dict, version_group_to_generation: dict) -> list[dict]:
+    """One row per (move, method, level, generation) a Pokémon can learn it in — deduped
+    across version groups that share the same generation (e.g. red-blue and yellow both
+    map to generation-i), since the UI selects by generation, not by version group."""
+    seen = set()
+    out = []
+    for move_entry in raw_pokemon.get("moves", []):
+        move_name = move_entry["move"]["name"]
+        for detail in move_entry.get("version_group_details", []):
+            method = detail["move_learn_method"]["name"]
+            if method not in LEARN_METHODS:
+                continue
+            generation = version_group_to_generation.get(detail["version_group"]["name"])
+            if not generation:
+                continue
+            level = detail["level_learned_at"] if method == "level-up" else 0
+            key = (move_name, method, level, generation)
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append({"move": move_name, "method": method, "level": level, "generation": generation})
+    return out

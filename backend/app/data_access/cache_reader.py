@@ -11,6 +11,8 @@ CACHE_FILES = {
     "natures": "natures.json",
     "items": "items.json",
     "abilities": "abilities.json",
+    "moves": "moves.json",
+    "movesets": "movesets.json",
 }
 
 

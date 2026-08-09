@@ -31,6 +31,9 @@ _NEW_COLUMNS = {
     "fusion_lists": [
         ("updated_at", "DATETIME"),
     ],
+    "fusion_list_entries": [
+        ("selected_variant", "TEXT"),
+    ],
 }
 
 

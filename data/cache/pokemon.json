@@ -21898,9 +21898,9 @@
     "species_slug": "lilligant",
     "is_default": true
   },
-  "basculin-red-striped": {
+  "basculin": {
     "id": 550,
-    "name": "basculin-red-striped",
+    "name": "basculin",
     "types": [
       "water"
     ],
@@ -22102,9 +22102,9 @@
     "species_slug": "darumaka",
     "is_default": true
   },
-  "darmanitan-standard": {
+  "darmanitan": {
     "id": 555,
-    "name": "darmanitan-standard",
+    "name": "darmanitan",
     "types": [
       "fire"
     ],
@@ -23576,9 +23576,9 @@
     "species_slug": "amoonguss",
     "is_default": true
   },
-  "frillish-male": {
+  "frillish": {
     "id": 592,
-    "name": "frillish-male",
+    "name": "frillish",
     "types": [
       "water",
       "ghost"
@@ -23618,9 +23618,9 @@
     "species_slug": "frillish",
     "is_default": true
   },
-  "jellicent-male": {
+  "jellicent": {
     "id": 593,
-    "name": "jellicent-male",
+    "name": "jellicent",
     "types": [
       "water",
       "ghost"
@@ -25512,9 +25512,9 @@
     "species_slug": "virizion",
     "is_default": true
   },
-  "tornadus-incarnate": {
+  "tornadus": {
     "id": 641,
-    "name": "tornadus-incarnate",
+    "name": "tornadus",
     "types": [
       "flying"
     ],
@@ -25549,9 +25549,9 @@
     "species_slug": "tornadus",
     "is_default": true
   },
-  "thundurus-incarnate": {
+  "thundurus": {
     "id": 642,
-    "name": "thundurus-incarnate",
+    "name": "thundurus",
     "types": [
       "electric",
       "flying"
@@ -25655,9 +25655,9 @@
     "species_slug": "zekrom",
     "is_default": true
   },
-  "landorus-incarnate": {
+  "landorus": {
     "id": 645,
-    "name": "landorus-incarnate",
+    "name": "landorus",
     "types": [
       "ground",
       "flying"
@@ -25735,9 +25735,9 @@
     "species_slug": "kyurem",
     "is_default": true
   },
-  "keldeo-ordinary": {
+  "keldeo": {
     "id": 647,
-    "name": "keldeo-ordinary",
+    "name": "keldeo",
     "types": [
       "water",
       "fighting"
@@ -25769,9 +25769,9 @@
     "species_slug": "keldeo",
     "is_default": true
   },
-  "meloetta-aria": {
+  "meloetta": {
     "id": 648,
-    "name": "meloetta-aria",
+    "name": "meloetta",
     "types": [
       "normal",
       "psychic"
@@ -26556,9 +26556,9 @@
     "species_slug": "litleo",
     "is_default": true
   },
-  "pyroar-male": {
+  "pyroar": {
     "id": 668,
-    "name": "pyroar-male",
+    "name": "pyroar",
     "types": [
       "fire",
       "normal"
@@ -26940,9 +26940,9 @@
     "species_slug": "espurr",
     "is_default": true
   },
-  "meowstic-male": {
+  "meowstic": {
     "id": 678,
-    "name": "meowstic-male",
+    "name": "meowstic",
     "types": [
       "psychic"
     ],
@@ -27049,9 +27049,9 @@
     "species_slug": "doublade",
     "is_default": true
   },
-  "aegislash-shield": {
+  "aegislash": {
     "id": 681,
-    "name": "aegislash-shield",
+    "name": "aegislash",
     "types": [
       "steel",
       "ghost"
@@ -28201,9 +28201,9 @@
     "species_slug": "trevenant",
     "is_default": true
   },
-  "pumpkaboo-average": {
+  "pumpkaboo": {
     "id": 710,
-    "name": "pumpkaboo-average",
+    "name": "pumpkaboo",
     "types": [
       "ghost",
       "grass"
@@ -28243,9 +28243,9 @@
     "species_slug": "pumpkaboo",
     "is_default": true
   },
-  "gourgeist-average": {
+  "gourgeist": {
     "id": 711,
-    "name": "gourgeist-average",
+    "name": "gourgeist",
     "types": [
       "ghost",
       "grass"
@@ -28518,9 +28518,9 @@
     "species_slug": "yveltal",
     "is_default": true
   },
-  "zygarde-50": {
+  "zygarde": {
     "id": 718,
-    "name": "zygarde-50",
+    "name": "zygarde",
     "types": [
       "dragon",
       "ground"
@@ -29388,9 +29388,9 @@
     "species_slug": "crabominable",
     "is_default": true
   },
-  "oricorio-baile": {
+  "oricorio": {
     "id": 741,
-    "name": "oricorio-baile",
+    "name": "oricorio",
     "types": [
       "fire",
       "flying"
@@ -29547,9 +29547,9 @@
     "species_slug": "rockruff",
     "is_default": true
   },
-  "lycanroc-midday": {
+  "lycanroc": {
     "id": 745,
-    "name": "lycanroc-midday",
+    "name": "lycanroc",
     "types": [
       "rock"
     ],
@@ -29588,9 +29588,9 @@
     "species_slug": "lycanroc",
     "is_default": true
   },
-  "wishiwashi-solo": {
+  "wishiwashi": {
     "id": 746,
-    "name": "wishiwashi-solo",
+    "name": "wishiwashi",
     "types": [
       "water"
     ],
@@ -30671,9 +30671,9 @@
     "species_slug": "silvally",
     "is_default": true
   },
-  "minior-red-meteor": {
+  "minior": {
     "id": 774,
-    "name": "minior-red-meteor",
+    "name": "minior",
     "types": [
       "rock",
       "flying"
@@ -30818,9 +30818,9 @@
     "species_slug": "togedemaru",
     "is_default": true
   },
-  "mimikyu-disguised": {
+  "mimikyu": {
     "id": 778,
-    "name": "mimikyu-disguised",
+    "name": "mimikyu",
     "types": [
       "ghost",
       "fairy"
@@ -33523,9 +33523,9 @@
     "species_slug": "toxel",
     "is_default": true
   },
-  "toxtricity-amped": {
+  "toxtricity": {
     "id": 849,
-    "name": "toxtricity-amped",
+    "name": "toxtricity",
     "types": [
       "electric",
       "poison"
@@ -34574,9 +34574,9 @@
     "species_slug": "eiscue",
     "is_default": true
   },
-  "indeedee-male": {
+  "indeedee": {
     "id": 876,
-    "name": "indeedee-male",
+    "name": "indeedee",
     "types": [
       "psychic",
       "normal"
@@ -34616,9 +34616,9 @@
     "species_slug": "indeedee",
     "is_default": true
   },
-  "morpeko-full-belly": {
+  "morpeko": {
     "id": 877,
-    "name": "morpeko-full-belly",
+    "name": "morpeko",
     "types": [
       "electric",
       "dark"
@@ -35193,9 +35193,9 @@
     "species_slug": "kubfu",
     "is_default": true
   },
-  "urshifu-single-strike": {
+  "urshifu": {
     "id": 892,
-    "name": "urshifu-single-strike",
+    "name": "urshifu",
     "types": [
       "fighting",
       "dark"
@@ -35557,9 +35557,9 @@
     "species_slug": "ursaluna",
     "is_default": true
   },
-  "basculegion-male": {
+  "basculegion": {
     "id": 902,
-    "name": "basculegion-male",
+    "name": "basculegion",
     "types": [
       "water",
       "ghost"
@@ -35683,9 +35683,9 @@
     "species_slug": "overqwil",
     "is_default": true
   },
-  "enamorus-incarnate": {
+  "enamorus": {
     "id": 905,
-    "name": "enamorus-incarnate",
+    "name": "enamorus",
     "types": [
       "fairy",
       "flying"
@@ -36098,9 +36098,9 @@
     "species_slug": "lechonk",
     "is_default": true
   },
-  "oinkologne-male": {
+  "oinkologne": {
     "id": 916,
-    "name": "oinkologne-male",
+    "name": "oinkologne",
     "types": [
       "normal"
     ],
@@ -36454,9 +36454,9 @@
     "species_slug": "tandemaus",
     "is_default": true
   },
-  "maushold-family-of-four": {
+  "maushold": {
     "id": 925,
-    "name": "maushold-family-of-four",
+    "name": "maushold",
     "types": [
       "normal"
     ],
@@ -36683,9 +36683,9 @@
     "species_slug": "arboliva",
     "is_default": true
   },
-  "squawkabilly-green-plumage": {
+  "squawkabilly": {
     "id": 931,
-    "name": "squawkabilly-green-plumage",
+    "name": "squawkabilly",
     "types": [
       "normal",
       "flying"
@@ -38702,9 +38702,9 @@
     "species_slug": "farigiraf",
     "is_default": true
   },
-  "dudunsparce-two-segment": {
+  "dudunsparce": {
     "id": 982,
-    "name": "dudunsparce-two-segment",
+    "name": "dudunsparce",
     "types": [
       "normal"
     ],

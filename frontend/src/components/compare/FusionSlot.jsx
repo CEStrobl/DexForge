@@ -8,6 +8,7 @@ import { FitText } from '../common/FitText';
 import { CollapsibleHeader } from '../common/CollapsibleHeader';
 import { TypeDefenses } from '../lookup/TypeDefenses';
 import { FusionMiniSlot } from './FusionMiniSlot';
+import { FusionArtSprite } from '../fusion/FusionArtSprite';
 import { STAT_FULL_LABELS, STAT_ORDER, toDisplayName } from '../../utils/format';
 
 function AbilityColumn({ title, pool }) {
@@ -71,10 +72,17 @@ export function FusionSlot({ label, head, body, onSetHead, onSetBody, onSwap, fu
         <>
           <div className="card compare-hero">
             <div className="compare-hero-row">
-              <div className="fusion-sprite-pair">
-                <img src={fusion.head.sprite} alt={fusion.head.name} width={84} height={84} />
-                <img src={fusion.body.sprite} alt={fusion.body.name} width={84} height={84} />
-              </div>
+              <FusionArtSprite
+                headSlug={head}
+                bodySlug={body}
+                size={84}
+                fusionLabel={`${toDisplayName(fusion.head.name)} / ${toDisplayName(fusion.body.name)}`}
+              >
+                <div className="fusion-sprite-pair">
+                  <img src={fusion.head.sprite} alt={fusion.head.name} width={84} height={84} />
+                  <img src={fusion.body.sprite} alt={fusion.body.name} width={84} height={84} />
+                </div>
+              </FusionArtSprite>
               <div className="compare-hero-info">
                 <div className="compare-hero-name">
                   <FitText as="h2">

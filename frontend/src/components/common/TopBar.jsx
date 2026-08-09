@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, GitCompare, Calculator, Heart, Package, ClipboardList } from 'lucide-react';
+import { Search, GitCompare, Calculator, Heart, Package, Filter, ClipboardList } from 'lucide-react';
 import { api } from '../../api/client';
 import { toDisplayName } from '../../utils/format';
 import { TopNavIcon } from './TopNavIcon';
+import { PinButton } from './PinButton';
 
 const NAV_ITEMS = [
   { to: '/compare', label: 'Compare', icon: GitCompare, color: 'var(--nav-compare)' },
-  { to: '/typing-calculator', label: 'Typing Calculator', icon: Calculator, color: 'var(--nav-typing)' },
+  { to: '/typing-calculator', label: 'Typing', icon: Calculator, color: 'var(--nav-typing)' },
   { to: '/natures', label: 'Natures', icon: Heart, color: 'var(--nav-natures)' },
-  { to: '/evolution-items', label: 'Evolution Items', icon: Package, color: 'var(--nav-evolution-items)' },
+  { to: '/evolution-items', label: 'Items', icon: Package, color: 'var(--nav-evolution-items)' },
+  { to: '/dex-filter', label: 'Filter', icon: Filter, color: 'var(--nav-dex-filter)' },
   { to: '/lists', label: 'Lists', icon: ClipboardList, color: 'var(--nav-lists)' },
 ];
 
@@ -103,6 +105,7 @@ export function TopBar() {
           </ul>
         )}
       </div>
+      <PinButton />
       <nav className="topbar-nav">
         {NAV_ITEMS.map((item) => (
           <TopNavIcon key={item.to} {...item} />

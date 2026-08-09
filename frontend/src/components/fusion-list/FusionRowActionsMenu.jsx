@@ -1,6 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { MoreVertical, Trash2, ArrowUpCircle, ArrowDownCircle, Repeat, ChevronLeft, Tag, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import {
+  MoreVertical,
+  Trash2,
+  ArrowUpCircle,
+  ArrowDownCircle,
+  ArrowUpRight,
+  Repeat,
+  ChevronLeft,
+  Tag,
+  Check,
+} from 'lucide-react';
 import { api } from '../../api/client';
 import { toDisplayName } from '../../utils/format';
 
@@ -100,6 +111,16 @@ export function FusionRowActionsMenu({
           >
             {view === 'main' && (
               <>
+                <Link
+                  to={`/lookup/${entry.head_slug}?head=${entry.head_slug}&body=${entry.body_slug}`}
+                  className="row-actions-item"
+                  onClick={() => setOpen(false)}
+                >
+                  <ArrowUpRight size={14} />
+                  View Fusion Page
+                </Link>
+                <div className="row-actions-divider" />
+
                 {headFamily && (headFamily.previous || headFamily.next.length > 0) && (
                   <button type="button" className="row-actions-item" onClick={() => setView('head')}>
                     <Repeat size={14} />

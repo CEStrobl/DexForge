@@ -144,6 +144,7 @@ function CriterionRow({ criterion, checked, value, onToggle, onChange, abilityOp
 }
 
 export function CriteriaPanel({ criteria, onCriteriaChange, onResults }) {
+  const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showMore, setShowMore] = useState(false);
@@ -185,27 +186,12 @@ export function CriteriaPanel({ criteria, onCriteriaChange, onResults }) {
 
   return (
     <div className="card">
-      <h3 className="card-heading">Criteria</h3>
+      <CollapsibleHeader title="Search Filters" open={open} onToggle={() => setOpen((p) => !p)} />
 
-      <div className="criteria-list">
-        {CRITERIA_GROUPS.primary.map((criterion) => (
-          <CriterionRow
-            key={criterion.key}
-            criterion={criterion}
-            checked={criterion.key in criteria}
-            value={criteria[criterion.key]}
-            onToggle={toggleCriterion}
-            onChange={updateValue}
-            abilityOptions={abilityOptions}
-          />
-        ))}
-      </div>
-
-      <div className="criteria-more">
-        <CollapsibleHeader title="Stats" open={showStats} onToggle={() => setShowStats((p) => !p)} />
-        {showStats && (
-          <div className="criteria-list collapsible-fade-in">
-            {CRITERIA_GROUPS.stats.map((criterion) => (
+      {open && (
+        <div className="collapsible-fade-in">
+          <div className="criteria-list criteria-list-grid">
+            {CRITERIA_GROUPS.primary.map((criterion) => (
               <CriterionRow
                 key={criterion.key}
                 criterion={criterion}
@@ -217,31 +203,50 @@ export function CriteriaPanel({ criteria, onCriteriaChange, onResults }) {
               />
             ))}
           </div>
-        )}
-      </div>
 
-      <div className="criteria-more">
-        <CollapsibleHeader title="More Filters" open={showMore} onToggle={() => setShowMore((p) => !p)} />
-        {showMore && (
-          <div className="criteria-list collapsible-fade-in">
-            {CRITERIA_GROUPS.more.map((criterion) => (
-              <CriterionRow
-                key={criterion.key}
-                criterion={criterion}
-                checked={criterion.key in criteria}
-                value={criteria[criterion.key]}
-                onToggle={toggleCriterion}
-                onChange={updateValue}
-                abilityOptions={abilityOptions}
-              />
-            ))}
+          <div className="criteria-more">
+            <CollapsibleHeader title="Stats" open={showStats} onToggle={() => setShowStats((p) => !p)} />
+            {showStats && (
+              <div className="criteria-list criteria-list-grid collapsible-fade-in">
+                {CRITERIA_GROUPS.stats.map((criterion) => (
+                  <CriterionRow
+                    key={criterion.key}
+                    criterion={criterion}
+                    checked={criterion.key in criteria}
+                    value={criteria[criterion.key]}
+                    onToggle={toggleCriterion}
+                    onChange={updateValue}
+                    abilityOptions={abilityOptions}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      <button type="button" className="action-btn" onClick={handlePreview} disabled={loading}>
-        {loading ? 'Searching...' : 'Preview Matches'}
-      </button>
+          <div className="criteria-more">
+            <CollapsibleHeader title="More Filters" open={showMore} onToggle={() => setShowMore((p) => !p)} />
+            {showMore && (
+              <div className="criteria-list criteria-list-grid collapsible-fade-in">
+                {CRITERIA_GROUPS.more.map((criterion) => (
+                  <CriterionRow
+                    key={criterion.key}
+                    criterion={criterion}
+                    checked={criterion.key in criteria}
+                    value={criteria[criterion.key]}
+                    onToggle={toggleCriterion}
+                    onChange={updateValue}
+                    abilityOptions={abilityOptions}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          <button type="button" className="action-btn" onClick={handlePreview} disabled={loading}>
+            {loading ? 'Searching...' : 'Preview Matches'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

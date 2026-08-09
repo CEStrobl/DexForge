@@ -77,6 +77,7 @@ export default function EvolutionItemsPage() {
 
   return (
     <div className="evolution-items-page">
+      <h1 className="page-title">Evolution Items</h1>
       <div className="evo-items-toolbar">
         <div className="topbar-search evo-items-search">
           <Search size={16} className="topbar-search-icon" />

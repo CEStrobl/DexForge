@@ -1,17 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Trash2 } from 'lucide-react';
+import { Trash2, Table2, LayoutGrid } from 'lucide-react';
 import { api } from '../api/client';
 import { useFusionLists } from '../context/FusionListsContext';
+import { usePinTarget } from '../context/PinTargetContext';
 import { FusionPairAdd } from '../components/fusion-list/FusionPairAdd';
 import { FusionColumnPicker } from '../components/fusion-list/FusionColumnPicker';
 import { FusionListTable } from '../components/fusion-list/FusionListTable';
+import { FusionGalleryView } from '../components/fusion-list/FusionGalleryView';
 import { EditableListName } from '../components/list-builder/EditableListName';
 import { LabelManager } from '../components/list-builder/LabelManager';
 import { DEFAULT_FUSION_LIST_COLUMNS } from '../components/fusion-list/fusionColumns';
 import '../styles/list-builder.css';
 import '../styles/compare.css';
 import '../styles/fusion-list.css';
+import '../styles/fusion-art.css';
+
+const VIEW_MODE_STORAGE_KEY = 'dexforge-list-view-mode';
 
 function entryKey(entry) {
   return `${entry.head_slug}|${entry.body_slug}`;
@@ -27,10 +32,13 @@ export default function FusionListPage() {
   const [columnWidths, setColumnWidths] = useState({});
   const [labels, setLabels] = useState([]);
   const [entries, setEntries] = useState([]);
+  const [viewMode, setViewMode] = useState(() => localStorage.getItem(VIEW_MODE_STORAGE_KEY) || 'table');
   const [saveStatus, setSaveStatus] = useState('idle');
   const [saveError, setSaveError] = useState('');
   const dirtyRef = useRef(false);
   const hydratedForRef = useRef(null);
+
+  usePinTarget(listId && name ? `/fusion-list/${listId}` : null, listId && name ? `Fusion List: ${name}` : null);
 
   // Same hydrate-from-route pattern as ListBuilderPage: guarded so that fusionLists
   // refreshing after our own autosave doesn't stomp in-progress local state.
@@ -59,7 +67,12 @@ export default function FusionListPage() {
     setColumnWidths(list.column_widths || {});
     setLabels(list.labels || []);
     setEntries(
-      list.entries.map((e) => ({ head_slug: e.head_slug, body_slug: e.body_slug, label_ids: e.label_ids || [] }))
+      list.entries.map((e) => ({
+        head_slug: e.head_slug,
+        body_slug: e.body_slug,
+        label_ids: e.label_ids || [],
+        selected_variant: e.selected_variant || null,
+      }))
     );
     setSaveStatus('idle');
   }, [listId, fusionLists]);
@@ -91,7 +104,12 @@ export default function FusionListPage() {
       visible_columns: columns,
       column_widths: columnWidths,
       labels,
-      entries: entries.map((e) => ({ head_slug: e.head_slug, body_slug: e.body_slug, label_ids: e.label_ids || [] })),
+      entries: entries.map((e) => ({
+        head_slug: e.head_slug,
+        body_slug: e.body_slug,
+        label_ids: e.label_ids || [],
+        selected_variant: e.selected_variant || null,
+      })),
     };
     try {
       const result = listId
@@ -159,6 +177,11 @@ export default function FusionListPage() {
     );
   }
 
+  function selectVariant(key, variantId) {
+    dirtyRef.current = true;
+    setEntries((prev) => prev.map((e) => (entryKey(e) === key ? { ...e, selected_variant: variantId } : e)));
+  }
+
   function addLabel(label) {
     dirtyRef.current = true;
     setLabels((prev) => [...prev, label]);
@@ -195,6 +218,11 @@ export default function FusionListPage() {
   function updateColumns(next) {
     dirtyRef.current = true;
     setColumns(next);
+  }
+
+  function updateViewMode(next) {
+    setViewMode(next);
+    localStorage.setItem(VIEW_MODE_STORAGE_KEY, next);
   }
 
   async function handleDeleteActiveList() {
@@ -237,22 +265,60 @@ export default function FusionListPage() {
           <h3 className="card-heading">
             Your Fusions <span className="text-muted">({entries.length})</span>
           </h3>
-          <FusionColumnPicker columns={columns} onChange={updateColumns} />
+          <div className="list-builder-table-header-controls">
+            <div className="view-toggle">
+              <button
+                type="button"
+                className={`view-toggle-btn${viewMode === 'table' ? ' active' : ''}`}
+                onClick={() => updateViewMode('table')}
+                aria-label="Table view"
+                title="Table view"
+              >
+                <Table2 size={14} />
+              </button>
+              <button
+                type="button"
+                className={`view-toggle-btn${viewMode === 'gallery' ? ' active' : ''}`}
+                onClick={() => updateViewMode('gallery')}
+                aria-label="Gallery view"
+                title="Gallery view"
+              >
+                <LayoutGrid size={14} />
+              </button>
+            </div>
+            <FusionColumnPicker columns={columns} onChange={updateColumns} />
+          </div>
         </div>
-        <FusionListTable
-          entries={entries}
-          columns={columns}
-          columnWidths={columnWidths}
-          labels={labels}
-          onRemove={removeFusion}
-          onReorder={reorderEntries}
-          onChangeHead={changeHead}
-          onChangeBody={changeBody}
-          onSwapOrientation={swapOrientation}
-          onReorderColumns={reorderColumns}
-          onResizeColumn={resizeColumn}
-          onToggleLabel={toggleEntryLabel}
-        />
+        {viewMode === 'gallery' ? (
+          <FusionGalleryView
+            entries={entries}
+            columns={columns}
+            labels={labels}
+            onRemove={removeFusion}
+            onReorder={reorderEntries}
+            onChangeHead={changeHead}
+            onChangeBody={changeBody}
+            onSwapOrientation={swapOrientation}
+            onToggleLabel={toggleEntryLabel}
+            onSelectVariant={selectVariant}
+          />
+        ) : (
+          <FusionListTable
+            entries={entries}
+            columns={columns}
+            columnWidths={columnWidths}
+            labels={labels}
+            onRemove={removeFusion}
+            onReorder={reorderEntries}
+            onChangeHead={changeHead}
+            onChangeBody={changeBody}
+            onSwapOrientation={swapOrientation}
+            onReorderColumns={reorderColumns}
+            onResizeColumn={resizeColumn}
+            onToggleLabel={toggleEntryLabel}
+            onSelectVariant={selectVariant}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUp, ArrowDown, GripVertical, PackageOpen } from 'lucide-react';
+import { ArrowUp, ArrowDown, GripVertical } from 'lucide-react';
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import {
   SortableContext,
@@ -10,9 +10,11 @@ import {
   arrayMove,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { api } from '../../api/client';
+import { FusionArtSprite } from '../fusion/FusionArtSprite';
 import { FusionRowActionsMenu } from './FusionRowActionsMenu';
 import { LabelPill } from '../list-builder/LabelPill';
+import { FusionListEmptyState } from './FusionListEmptyState';
+import { useFusionRows } from './useFusionRows';
 import { getOrderedActiveFusionColumns, STAT_DATA_KEY, ALIGN_RIGHT_KEYS } from './fusionColumns';
 import { fusionCellValue } from './fusionCellFormatters';
 import { toDisplayName } from '../../utils/format';
@@ -20,25 +22,6 @@ import { SortableColumnHeader, widthStyle } from '../common/SortableColumnHeader
 
 function entryKey(entry) {
   return `${entry.head_slug}|${entry.body_slug}`;
-}
-
-// Batch-computes every row's fused sprite/types/stats/abilities in one call, mirroring how
-// ListBuilderPage bulk-hydrates single-Pokémon entries via /api/pokemon/bulk.
-function useFusionRows(entries) {
-  const [rows, setRows] = useState([]);
-
-  useEffect(() => {
-    if (entries.length === 0) {
-      setRows([]);
-      return;
-    }
-    api
-      .post('/api/fusion/bulk', { pairs: entries.map((e) => ({ head_slug: e.head_slug, body_slug: e.body_slug })) })
-      .then((computed) => setRows(entries.map((e, i) => ({ ...e, fusion: computed[i] || null }))))
-      .catch(() => setRows(entries.map((e) => ({ ...e, fusion: null }))));
-  }, [entries]);
-
-  return rows;
 }
 
 function sortValue(row, key) {
@@ -62,7 +45,7 @@ function compareValues(a, b) {
   return String(a).localeCompare(String(b));
 }
 
-function SortableFusionRow({ row, index, activeColumns, columnWidths, labelsById, labels, onRemove, onChangeHead, onChangeBody, onSwapOrientation, onToggleLabel, dragDisabled }) {
+function SortableFusionRow({ row, index, activeColumns, columnWidths, labelsById, labels, onRemove, onChangeHead, onChangeBody, onSwapOrientation, onToggleLabel, onSelectVariant, dragDisabled }) {
   const key = entryKey(row);
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: key,
@@ -89,10 +72,19 @@ function SortableFusionRow({ row, index, activeColumns, columnWidths, labelsById
       <td className="list-table-name-sticky">
         <div className="fusion-list-identity">
           {fusion ? (
-            <div className="fusion-sprite-pair-sm">
-              <img src={fusion.head.sprite} alt="" width={26} height={26} />
-              <img src={fusion.body.sprite} alt="" width={26} height={26} />
-            </div>
+            <FusionArtSprite
+              headSlug={row.head_slug}
+              bodySlug={row.body_slug}
+              size={26}
+              fusionLabel={fusion.name}
+              selectedVariant={row.selected_variant}
+              onSelectVariant={(variantId) => onSelectVariant(key, variantId)}
+            >
+              <div className="fusion-sprite-pair-sm">
+                <img src={fusion.head.sprite} alt="" width={26} height={26} />
+                <img src={fusion.body.sprite} alt="" width={26} height={26} />
+              </div>
+            </FusionArtSprite>
           ) : (
             <div className="fusion-sprite-pair-sm" />
           )}
@@ -144,6 +136,7 @@ export function FusionListTable({
   onReorderColumns,
   onResizeColumn,
   onToggleLabel,
+  onSelectVariant,
 }) {
   const [sort, setSort] = useState(null);
   const [a11yContainer, setA11yContainer] = useState(null);
@@ -184,13 +177,7 @@ export function FusionListTable({
   }
 
   if (entries.length === 0) {
-    return (
-      <div className="list-table-empty-state">
-        <PackageOpen size={28} />
-        <p>Your fusion list is empty.</p>
-        <p className="text-muted">Pick a head and body Pokémon above, then Add Fusion.</p>
-      </div>
-    );
+    return <FusionListEmptyState />;
   }
 
   function sortIcon(key) {
@@ -251,6 +238,7 @@ export function FusionListTable({
                   onChangeBody={onChangeBody}
                   onSwapOrientation={onSwapOrientation}
                   onToggleLabel={onToggleLabel}
+                  onSelectVariant={onSelectVariant}
                   dragDisabled={sort !== null}
                 />
               ))}
