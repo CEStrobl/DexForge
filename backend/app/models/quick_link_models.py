@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import Column, DateTime, Integer, String, Uuid
 
 from app.db.session import Base
 
@@ -11,7 +11,7 @@ class QuickLink(Base):
     __tablename__ = "quick_links"
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(String, nullable=False)
+    user_id = Column(Uuid(as_uuid=False), nullable=False)
     label = Column(String, nullable=False)
     path = Column(String, nullable=False)
     position = Column(Integer, nullable=False, default=0)

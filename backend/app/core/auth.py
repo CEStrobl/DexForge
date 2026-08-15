@@ -1,7 +1,13 @@
 import jwt
 from fastapi import Header, HTTPException
+from jwt import PyJWKClient
 
-from app.core.config import SUPABASE_JWT_SECRET
+from app.core.config import SUPABASE_URL
+
+# Supabase's newer "JWT Signing Keys" model verifies via a rotating public key set
+# rather than a single shared secret — PyJWKClient fetches and caches it, and re-fetches
+# automatically if a token references a `kid` it hasn't seen yet (key rotation).
+_jwk_client = PyJWKClient(f"{SUPABASE_URL}/auth/v1/.well-known/jwks.json") if SUPABASE_URL else None
 
 
 def get_current_user_id(authorization: str | None = Header(default=None)) -> str:
@@ -11,13 +17,17 @@ def get_current_user_id(authorization: str | None = Header(default=None)) -> str
     """
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Missing bearer token")
-    if not SUPABASE_JWT_SECRET:
-        raise HTTPException(status_code=500, detail="SUPABASE_JWT_SECRET is not configured")
+    if not _jwk_client:
+        raise HTTPException(status_code=500, detail="SUPABASE_URL is not configured")
 
     token = authorization.removeprefix("Bearer ")
     try:
+        signing_key = _jwk_client.get_signing_key_from_jwt(token)
         payload = jwt.decode(
-            token, SUPABASE_JWT_SECRET, algorithms=["HS256"], audience="authenticated"
+            token,
+            signing_key.key,
+            algorithms=["ES256", "RS256"],
+            audience="authenticated",
         )
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid or expired token")

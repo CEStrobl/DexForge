@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, JSON, String, UniqueConstraint
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, JSON, String, UniqueConstraint, Uuid
 from sqlalchemy.orm import relationship
 
 from app.db.session import Base
@@ -9,9 +9,11 @@ class SavedList(Base):
     __table_args__ = (UniqueConstraint("user_id", "name", name="saved_lists_user_name_unique"),)
 
     id = Column(Integer, primary_key=True)
-    # Supabase auth.users.id (a uuid), stored as text — SQLAlchemy doesn't need a
-    # dialect-specific column type to read/write it correctly against either backend.
-    user_id = Column(String, nullable=False)
+    # Supabase auth.users.id. Uuid(as_uuid=False) maps to Postgres's native `uuid` type
+    # (required — the SQL migration's FK to auth.users(id) is uuid, and Postgres has no
+    # implicit uuid = varchar comparison) while still reading/writing plain Python str,
+    # and degrades to a string-compatible type on SQLite for local dev.
+    user_id = Column(Uuid(as_uuid=False), nullable=False)
     name = Column(String, nullable=False)
     # Criteria used for auto-populate (gen/type/stat thresholds, etc.), stored as-is.
     criteria = Column(JSON, nullable=True)
@@ -51,7 +53,7 @@ class FusionList(Base):
     __table_args__ = (UniqueConstraint("user_id", "name", name="fusion_lists_user_name_unique"),)
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(String, nullable=False)
+    user_id = Column(Uuid(as_uuid=False), nullable=False)
     name = Column(String, nullable=False)
     visible_columns = Column(JSON, nullable=True)
     column_widths = Column(JSON, nullable=True)
