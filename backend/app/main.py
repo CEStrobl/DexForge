@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -10,13 +12,23 @@ from app.models import list_models  # noqa: F401 (registers models on Base)
 from app.models import quick_link_models  # noqa: F401 (registers models on Base)
 from app.services.fusion_art import FUSION_SPRITE_CACHE_DIR
 
-Base.metadata.create_all(bind=engine)
-migrate_schema()
-# Local-disk fusion-art cache is a dev-only fallback (see services/fusion_art.py) — once
-# Supabase Storage is configured, nothing writes here, and this directory wouldn't be
-# writable on Vercel's read-only function filesystem anyway.
+# Both blocks below write to disk (SQLite file / local fusion-art cache dir). Locally
+# that's fine; on Vercel, without DATABASE_URL/SUPABASE_SERVICE_ROLE_KEY configured yet,
+# the fallback paths land on a read-only function filesystem and raise. Guarded so a
+# broken/unconfigured DB or cache dir degrades those specific features at request time
+# instead of crashing the whole app at import time and 500-ing every route, including
+# the pure dex-cache ones that don't touch either.
+try:
+    Base.metadata.create_all(bind=engine)
+    migrate_schema()
+except Exception:
+    logging.exception("DB initialization failed — DB-backed routes will error until DATABASE_URL is configured.")
+
 if not SUPABASE_SERVICE_ROLE_KEY:
-    FUSION_SPRITE_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    try:
+        FUSION_SPRITE_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        logging.exception("Could not create local fusion-art cache dir — fusion art will error until configured.")
 
 app = FastAPI(title="DexForge API")
 
@@ -27,7 +39,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-if not SUPABASE_SERVICE_ROLE_KEY:
+if not SUPABASE_SERVICE_ROLE_KEY and FUSION_SPRITE_CACHE_DIR.is_dir():
     app.mount("/static/fusion-sprites", StaticFiles(directory=FUSION_SPRITE_CACHE_DIR), name="fusion-sprites")
 
 app.include_router(pokemon.router)
