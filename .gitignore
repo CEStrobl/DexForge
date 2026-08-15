@@ -15,6 +15,9 @@ scraper/.venv/
 # --- Backend runtime data ---
 backend/dexforge.db
 backend/*.db-journal
+# Local-disk fusion-art scrape cache (dev fallback only — production uses Supabase
+# Storage, see backend/app/services/fusion_art.py).
+backend/data/cache/fusion_sprites/
 
 # --- Editor / OS ---
 .vscode/

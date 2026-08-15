@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import { LastPokemonProvider, useLastPokemon } from './context/LastPokemonContext';
+import { AuthProvider } from './context/AuthContext';
 import { SavedListsProvider } from './context/SavedListsContext';
 import { FusionListsProvider } from './context/FusionListsContext';
 import { InfiniteFusionProvider } from './context/InfiniteFusionContext';
@@ -31,42 +32,44 @@ function App() {
   return (
     <ThemeProvider>
       <LastPokemonProvider>
-        <SavedListsProvider>
-          <FusionListsProvider>
-            <InfiniteFusionProvider>
-              <CompareProvider>
-                <QuickLinksProvider>
-                  <PinTargetProvider>
-                    <div className="app-shell">
-                      <Sidebar />
-                      <div className="app-main">
-                        <TopBar />
-                        <main className="app-content">
-                          <Routes>
-                            <Route path="/" element={<LandingPage />} />
-                            <Route path="/lookup" element={<LookupIndexRoute />} />
-                            <Route path="/lookup/:slug" element={<LookupPage />} />
-                            <Route path="/compare" element={<ComparePage />} />
-                            <Route path="/typing-calculator" element={<TypingCalculatorPage />} />
-                            <Route path="/natures" element={<NaturesPage />} />
-                            <Route path="/evolution-items" element={<EvolutionItemsPage />} />
-                            <Route path="/dex-filter" element={<DexFilterPage />} />
-                            <Route path="/list-builder" element={<ListBuilderPage />} />
-                            <Route path="/list-builder/:listId" element={<ListBuilderPage />} />
-                            <Route path="/fusion-list" element={<FusionListPage />} />
-                            <Route path="/fusion-list/:listId" element={<FusionListPage />} />
-                            <Route path="/lists" element={<ListsHomePage />} />
-                            <Route path="/settings" element={<SettingsPage />} />
-                          </Routes>
-                        </main>
+        <AuthProvider>
+          <SavedListsProvider>
+            <FusionListsProvider>
+              <InfiniteFusionProvider>
+                <CompareProvider>
+                  <QuickLinksProvider>
+                    <PinTargetProvider>
+                      <div className="app-shell">
+                        <Sidebar />
+                        <div className="app-main">
+                          <TopBar />
+                          <main className="app-content">
+                            <Routes>
+                              <Route path="/" element={<LandingPage />} />
+                              <Route path="/lookup" element={<LookupIndexRoute />} />
+                              <Route path="/lookup/:slug" element={<LookupPage />} />
+                              <Route path="/compare" element={<ComparePage />} />
+                              <Route path="/typing-calculator" element={<TypingCalculatorPage />} />
+                              <Route path="/natures" element={<NaturesPage />} />
+                              <Route path="/evolution-items" element={<EvolutionItemsPage />} />
+                              <Route path="/dex-filter" element={<DexFilterPage />} />
+                              <Route path="/list-builder" element={<ListBuilderPage />} />
+                              <Route path="/list-builder/:listId" element={<ListBuilderPage />} />
+                              <Route path="/fusion-list" element={<FusionListPage />} />
+                              <Route path="/fusion-list/:listId" element={<FusionListPage />} />
+                              <Route path="/lists" element={<ListsHomePage />} />
+                              <Route path="/settings" element={<SettingsPage />} />
+                            </Routes>
+                          </main>
+                        </div>
                       </div>
-                    </div>
-                  </PinTargetProvider>
-                </QuickLinksProvider>
-              </CompareProvider>
-            </InfiniteFusionProvider>
-          </FusionListsProvider>
-        </SavedListsProvider>
+                    </PinTargetProvider>
+                  </QuickLinksProvider>
+                </CompareProvider>
+              </InfiniteFusionProvider>
+            </FusionListsProvider>
+          </SavedListsProvider>
+        </AuthProvider>
       </LastPokemonProvider>
     </ThemeProvider>
   );

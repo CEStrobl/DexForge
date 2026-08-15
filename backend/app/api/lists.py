@@ -3,6 +3,7 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.core.auth import get_current_user_id
 from app.db.session import get_db
 from app.models.list_models import SavedList, SavedListEntry
 from app.schemas.list_schemas import ListCriteria, SavedListCreate, SavedListOut, SavedListUpdate
@@ -11,8 +12,10 @@ from app.services.list_criteria import filter_pokemon
 router = APIRouter(prefix="/api/lists", tags=["lists"])
 
 
-def _check_name_available(db: Session, name: str, exclude_id: int | None = None):
-    query = db.query(SavedList).filter(SavedList.name == name)
+def _check_name_available(
+    db: Session, user_id: str, name: str, exclude_id: int | None = None
+):
+    query = db.query(SavedList).filter(SavedList.user_id == user_id, SavedList.name == name)
     if exclude_id is not None:
         query = query.filter(SavedList.id != exclude_id)
     if query.first():
@@ -20,8 +23,8 @@ def _check_name_available(db: Session, name: str, exclude_id: int | None = None)
 
 
 @router.get("", response_model=list[SavedListOut])
-def get_lists(db: Session = Depends(get_db)):
-    return db.query(SavedList).all()
+def get_lists(db: Session = Depends(get_db), user_id: str = Depends(get_current_user_id)):
+    return db.query(SavedList).filter(SavedList.user_id == user_id).all()
 
 
 @router.post("/preview")
@@ -30,8 +33,12 @@ def preview_criteria(criteria: ListCriteria):
 
 
 @router.get("/{list_id}", response_model=SavedListOut)
-def get_list(list_id: int, db: Session = Depends(get_db)):
-    saved_list = db.get(SavedList, list_id)
+def get_list(
+    list_id: int, db: Session = Depends(get_db), user_id: str = Depends(get_current_user_id)
+):
+    saved_list = db.query(SavedList).filter(
+        SavedList.id == list_id, SavedList.user_id == user_id
+    ).first()
     if not saved_list:
         raise HTTPException(status_code=404, detail="List not found")
     return saved_list
@@ -45,9 +52,14 @@ def _build_entries(entries: list) -> list[SavedListEntry]:
 
 
 @router.post("", response_model=SavedListOut)
-def create_list(payload: SavedListCreate, db: Session = Depends(get_db)):
-    _check_name_available(db, payload.name)
+def create_list(
+    payload: SavedListCreate,
+    db: Session = Depends(get_db),
+    user_id: str = Depends(get_current_user_id),
+):
+    _check_name_available(db, user_id, payload.name)
     saved_list = SavedList(
+        user_id=user_id,
         name=payload.name,
         criteria=payload.criteria,
         visible_columns=payload.visible_columns,
@@ -63,11 +75,18 @@ def create_list(payload: SavedListCreate, db: Session = Depends(get_db)):
 
 
 @router.put("/{list_id}", response_model=SavedListOut)
-def update_list(list_id: int, payload: SavedListUpdate, db: Session = Depends(get_db)):
-    saved_list = db.get(SavedList, list_id)
+def update_list(
+    list_id: int,
+    payload: SavedListUpdate,
+    db: Session = Depends(get_db),
+    user_id: str = Depends(get_current_user_id),
+):
+    saved_list = db.query(SavedList).filter(
+        SavedList.id == list_id, SavedList.user_id == user_id
+    ).first()
     if not saved_list:
         raise HTTPException(status_code=404, detail="List not found")
-    _check_name_available(db, payload.name, exclude_id=list_id)
+    _check_name_available(db, user_id, payload.name, exclude_id=list_id)
     saved_list.name = payload.name
     saved_list.criteria = payload.criteria
     saved_list.visible_columns = payload.visible_columns
@@ -81,8 +100,12 @@ def update_list(list_id: int, payload: SavedListUpdate, db: Session = Depends(ge
 
 
 @router.delete("/{list_id}")
-def delete_list(list_id: int, db: Session = Depends(get_db)):
-    saved_list = db.get(SavedList, list_id)
+def delete_list(
+    list_id: int, db: Session = Depends(get_db), user_id: str = Depends(get_current_user_id)
+):
+    saved_list = db.query(SavedList).filter(
+        SavedList.id == list_id, SavedList.user_id == user_id
+    ).first()
     if not saved_list:
         raise HTTPException(status_code=404, detail="List not found")
     db.delete(saved_list)

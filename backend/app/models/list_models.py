@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, JSON, String
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, JSON, String, UniqueConstraint
 from sqlalchemy.orm import relationship
 
 from app.db.session import Base
@@ -6,9 +6,13 @@ from app.db.session import Base
 
 class SavedList(Base):
     __tablename__ = "saved_lists"
+    __table_args__ = (UniqueConstraint("user_id", "name", name="saved_lists_user_name_unique"),)
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
+    # Supabase auth.users.id (a uuid), stored as text — SQLAlchemy doesn't need a
+    # dialect-specific column type to read/write it correctly against either backend.
+    user_id = Column(String, nullable=False)
+    name = Column(String, nullable=False)
     # Criteria used for auto-populate (gen/type/stat thresholds, etc.), stored as-is.
     criteria = Column(JSON, nullable=True)
     # Which stat/field columns this list currently displays.
@@ -44,9 +48,11 @@ class FusionList(Base):
     candidate pools (see Notes/Operation/fusionlist.md)."""
 
     __tablename__ = "fusion_lists"
+    __table_args__ = (UniqueConstraint("user_id", "name", name="fusion_lists_user_name_unique"),)
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
+    user_id = Column(String, nullable=False)
+    name = Column(String, nullable=False)
     visible_columns = Column(JSON, nullable=True)
     column_widths = Column(JSON, nullable=True)
     # Same per-list-scoped label palette shape as SavedList.labels, kept as a separate

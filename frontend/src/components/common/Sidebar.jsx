@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Plus, Settings, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Plus, Settings, ChevronLeft, ChevronRight, User } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 import { useSavedLists } from '../../context/SavedListsContext';
 import { useFusionLists } from '../../context/FusionListsContext';
 import { useInfiniteFusion } from '../../context/InfiniteFusionContext';
@@ -9,6 +10,7 @@ import { QuickLinksSection } from './QuickLinksSection';
 const COLLAPSE_KEY = 'dexforge:sidebar-collapsed';
 
 export function Sidebar() {
+  const { session, username } = useAuth();
   const { savedLists } = useSavedLists();
   const { fusionLists } = useFusionLists();
   const { enabled: infiniteFusionEnabled } = useInfiniteFusion();
@@ -59,7 +61,9 @@ export function Sidebar() {
                 <Plus size={14} />
               </NavLink>
             </div>
-            {savedLists.length === 0 ? (
+            {!session ? (
+              <p className="sidebar-lists-empty">Sign in to save lists.</p>
+            ) : savedLists.length === 0 ? (
               <p className="sidebar-lists-empty">No saved lists yet.</p>
             ) : (
               <div className="sidebar-lists-scroll">
@@ -85,7 +89,9 @@ export function Sidebar() {
                   <Plus size={14} />
                 </NavLink>
               </div>
-              {fusionLists.length === 0 ? (
+              {!session ? (
+                <p className="sidebar-lists-empty">Sign in to save fusion lists.</p>
+              ) : fusionLists.length === 0 ? (
                 <p className="sidebar-lists-empty">No fusion lists yet.</p>
               ) : (
                 <div className="sidebar-lists-scroll">
@@ -107,6 +113,14 @@ export function Sidebar() {
       )}
 
       <div className="sidebar-footer">
+        <NavLink
+          to="/settings"
+          className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
+          title={session ? `Signed in as ${username || 'you'}` : 'Sign in'}
+        >
+          <User size={18} strokeWidth={2} />
+          {!collapsed && <span>{session ? username || 'Account' : 'Sign in'}</span>}
+        </NavLink>
         <NavLink
           to="/settings"
           className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}

@@ -3,6 +3,7 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.core.auth import get_current_user_id
 from app.db.session import get_db
 from app.models.list_models import FusionList, FusionListEntry
 from app.schemas.fusion_list_schemas import (
@@ -15,8 +16,10 @@ from app.schemas.fusion_list_schemas import (
 router = APIRouter(prefix="/api/fusion-lists", tags=["fusion-lists"])
 
 
-def _check_name_available(db: Session, name: str, exclude_id: int | None = None):
-    query = db.query(FusionList).filter(FusionList.name == name)
+def _check_name_available(
+    db: Session, user_id: str, name: str, exclude_id: int | None = None
+):
+    query = db.query(FusionList).filter(FusionList.user_id == user_id, FusionList.name == name)
     if exclude_id is not None:
         query = query.filter(FusionList.id != exclude_id)
     if query.first():
@@ -24,13 +27,17 @@ def _check_name_available(db: Session, name: str, exclude_id: int | None = None)
 
 
 @router.get("", response_model=list[FusionListOut])
-def get_fusion_lists(db: Session = Depends(get_db)):
-    return db.query(FusionList).all()
+def get_fusion_lists(db: Session = Depends(get_db), user_id: str = Depends(get_current_user_id)):
+    return db.query(FusionList).filter(FusionList.user_id == user_id).all()
 
 
 @router.get("/{list_id}", response_model=FusionListOut)
-def get_fusion_list(list_id: int, db: Session = Depends(get_db)):
-    fusion_list = db.get(FusionList, list_id)
+def get_fusion_list(
+    list_id: int, db: Session = Depends(get_db), user_id: str = Depends(get_current_user_id)
+):
+    fusion_list = db.query(FusionList).filter(
+        FusionList.id == list_id, FusionList.user_id == user_id
+    ).first()
     if not fusion_list:
         raise HTTPException(status_code=404, detail="Fusion list not found")
     return fusion_list
@@ -50,9 +57,14 @@ def _build_entries(entries: list[FusionListEntryIn]) -> list[FusionListEntry]:
 
 
 @router.post("", response_model=FusionListOut)
-def create_fusion_list(payload: FusionListCreate, db: Session = Depends(get_db)):
-    _check_name_available(db, payload.name)
+def create_fusion_list(
+    payload: FusionListCreate,
+    db: Session = Depends(get_db),
+    user_id: str = Depends(get_current_user_id),
+):
+    _check_name_available(db, user_id, payload.name)
     fusion_list = FusionList(
+        user_id=user_id,
         name=payload.name,
         visible_columns=payload.visible_columns,
         column_widths=payload.column_widths,
@@ -67,11 +79,18 @@ def create_fusion_list(payload: FusionListCreate, db: Session = Depends(get_db))
 
 
 @router.put("/{list_id}", response_model=FusionListOut)
-def update_fusion_list(list_id: int, payload: FusionListUpdate, db: Session = Depends(get_db)):
-    fusion_list = db.get(FusionList, list_id)
+def update_fusion_list(
+    list_id: int,
+    payload: FusionListUpdate,
+    db: Session = Depends(get_db),
+    user_id: str = Depends(get_current_user_id),
+):
+    fusion_list = db.query(FusionList).filter(
+        FusionList.id == list_id, FusionList.user_id == user_id
+    ).first()
     if not fusion_list:
         raise HTTPException(status_code=404, detail="Fusion list not found")
-    _check_name_available(db, payload.name, exclude_id=list_id)
+    _check_name_available(db, user_id, payload.name, exclude_id=list_id)
     fusion_list.name = payload.name
     fusion_list.visible_columns = payload.visible_columns
     fusion_list.column_widths = payload.column_widths
@@ -84,8 +103,12 @@ def update_fusion_list(list_id: int, payload: FusionListUpdate, db: Session = De
 
 
 @router.delete("/{list_id}")
-def delete_fusion_list(list_id: int, db: Session = Depends(get_db)):
-    fusion_list = db.get(FusionList, list_id)
+def delete_fusion_list(
+    list_id: int, db: Session = Depends(get_db), user_id: str = Depends(get_current_user_id)
+):
+    fusion_list = db.query(FusionList).filter(
+        FusionList.id == list_id, FusionList.user_id == user_id
+    ).first()
     if not fusion_list:
         raise HTTPException(status_code=404, detail="Fusion list not found")
     db.delete(fusion_list)

@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { api } from '../api/client';
+import { useAuth } from './AuthContext';
 
 const SavedListsContext = createContext(null);
 
 export function SavedListsProvider({ children }) {
   const [savedLists, setSavedLists] = useState([]);
+  const { session } = useAuth();
 
   function refresh() {
     return api
@@ -14,8 +16,12 @@ export function SavedListsProvider({ children }) {
   }
 
   useEffect(() => {
+    if (!session) {
+      setSavedLists([]);
+      return;
+    }
     refresh();
-  }, []);
+  }, [session]);
 
   return (
     <SavedListsContext.Provider value={{ savedLists, refresh }}>

@@ -21,7 +21,7 @@ ALL_TYPES = [
     "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark",
     "steel", "fairy",
 ]
-DATA_CACHE_DIR = Path(__file__).resolve().parents[2] / "data" / "cache"
+DATA_CACHE_DIR = Path(__file__).resolve().parents[2] / "backend" / "data" / "cache"
 
 # PokeAPI's `is_default` variety for these species carries a form suffix even though it's
 # just the species' ordinary/base appearance (e.g. "basculin-red-striped" is plain old
@@ -184,7 +184,7 @@ def fetch_ability_descriptions(session, ability_urls):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Pull PokeAPI base-game data into data/cache/*.json")
+    parser = argparse.ArgumentParser(description="Pull PokeAPI base-game data into backend/data/cache/*.json")
     parser.add_argument("--limit", type=int, default=2000, help="Max pokemon to fetch (use a small number for a smoke test)")
     args = parser.parse_args()
 

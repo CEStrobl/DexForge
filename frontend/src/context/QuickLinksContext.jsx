@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { api } from '../api/client';
+import { useAuth } from './AuthContext';
 
 const QuickLinksContext = createContext(null);
 
 export function QuickLinksProvider({ children }) {
   const [quickLinks, setQuickLinks] = useState([]);
+  const { session } = useAuth();
 
   function refresh() {
     return api
@@ -14,8 +16,12 @@ export function QuickLinksProvider({ children }) {
   }
 
   useEffect(() => {
+    if (!session) {
+      setQuickLinks([]);
+      return;
+    }
     refresh();
-  }, []);
+  }, [session]);
 
   return (
     <QuickLinksContext.Provider value={{ quickLinks, setQuickLinks, refresh }}>

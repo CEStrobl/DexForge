@@ -1,3 +1,4 @@
+import { AuthPanel } from '../components/auth/AuthPanel';
 import { useInfiniteFusion } from '../context/InfiniteFusionContext';
 import '../styles/settings.css';
 
@@ -7,6 +8,14 @@ export default function SettingsPage() {
   return (
     <div className="settings-page">
       <h1>Settings</h1>
+
+      <div className="card settings-section">
+        <h3 className="card-heading">Account</h3>
+        <p className="text-muted settings-toggle-description">
+          Sign in to save Pokémon lists, fusion lists, and quick links to your account.
+        </p>
+        <AuthPanel />
+      </div>
 
       <div className="card settings-section">
         <h3 className="card-heading">Infinite Fusion</h3>

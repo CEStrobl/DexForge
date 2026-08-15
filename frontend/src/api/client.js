@@ -2,8 +2,18 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
 export const API_BASE_URL = BASE_URL;
 
+let authToken = null;
+
+// Called by AuthContext whenever the Supabase session changes, so every request below
+// picks up the current access token without each call site having to know about auth.
+export function setAuthToken(token) {
+  authToken = token;
+}
+
 async function request(path, options) {
-  const res = await fetch(`${BASE_URL}${path}`, options);
+  const headers = { ...options?.headers };
+  if (authToken) headers.Authorization = `Bearer ${authToken}`;
+  const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
   if (!res.ok) {
     const detail = await res
       .clone()

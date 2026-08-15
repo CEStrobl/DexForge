@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { api } from '../api/client';
+import { useAuth } from './AuthContext';
 
 const FusionListsContext = createContext(null);
 
 export function FusionListsProvider({ children }) {
   const [fusionLists, setFusionLists] = useState([]);
+  const { session } = useAuth();
 
   function refresh() {
     return api
@@ -14,8 +16,12 @@ export function FusionListsProvider({ children }) {
   }
 
   useEffect(() => {
+    if (!session) {
+      setFusionLists([]);
+      return;
+    }
     refresh();
-  }, []);
+  }, [session]);
 
   return (
     <FusionListsContext.Provider value={{ fusionLists, refresh }}>
