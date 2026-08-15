@@ -1,4 +1,9 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+// In production, requests should hit the same origin (vercel.json rewrites /api/* to the
+// backend service on that same domain — no separate backend URL needed). Only local dev,
+// where the frontend (5173) and backend (8000) are separate processes, needs an absolute
+// URL. VITE_API_BASE_URL can still override either default explicitly if ever needed.
+const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ?? (import.meta.env.DEV ? 'http://localhost:8000' : '');
 
 export const API_BASE_URL = BASE_URL;
 
