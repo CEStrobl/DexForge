@@ -11,7 +11,7 @@ function Quadrant({ title, types }) {
       ) : (
         <div className="type-block-quadrant-types">
           {types.map((t) => (
-            <TypeBadge key={t} type={t} />
+            <TypeBadge key={t} type={t} iconOnly />
           ))}
         </div>
       )}

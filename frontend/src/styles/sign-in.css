@@ -1,0 +1,51 @@
+.sign-in-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 160px);
+  padding: var(--space-6, 48px) var(--space-4);
+}
+
+.sign-in-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 560px;
+  padding: var(--space-6, 48px);
+}
+
+.sign-in-card h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.sign-in-card > .text-muted {
+  font-size: 1rem;
+}
+
+.sign-in-card .auth-panel {
+  gap: var(--space-3);
+}
+
+.sign-in-card .auth-panel-mode-toggle {
+  gap: var(--space-4);
+  margin-bottom: var(--space-1);
+}
+
+.sign-in-card .auth-panel-mode-btn {
+  font-size: 1rem;
+}
+
+.sign-in-card .auth-panel-input {
+  max-width: none;
+  padding: var(--space-3);
+  font-size: 1rem;
+}
+
+.sign-in-card .auth-panel .action-btn {
+  align-self: stretch;
+  justify-content: center;
+  padding: var(--space-3);
+  font-size: 0.95rem;
+}

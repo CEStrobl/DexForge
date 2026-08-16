@@ -1,5 +1,5 @@
 import { X, Pencil } from 'lucide-react';
-import { API_BASE_URL } from '../../api/client';
+import { resolveImagePath } from '../../api/client';
 
 export function FusionArtModal({ variants, activeId, fusionLabel, onSelect, onClose }) {
   return (
@@ -19,7 +19,7 @@ export function FusionArtModal({ variants, activeId, fusionLabel, onSelect, onCl
               className={`fusion-art-modal-thumb${v.id === activeId ? ' active' : ''}`}
               onClick={() => onSelect(v.id)}
             >
-              <img src={`${API_BASE_URL}${v.image_path}`} alt={`${fusionLabel} — variant ${v.id}`} width={72} height={72} />
+              <img src={resolveImagePath(v.image_path)} alt={`${fusionLabel} — variant ${v.id}`} width={72} height={72} />
               <span className="fusion-art-modal-thumb-id">#{v.id}</span>
               <span className="fusion-art-modal-thumb-artist">
                 <Pencil size={10} />

@@ -36,3 +36,12 @@ def get_current_user_id(authorization: str | None = Header(default=None)) -> str
     if not user_id:
         raise HTTPException(status_code=401, detail="Token missing subject claim")
     return user_id
+
+
+def get_optional_user_id(authorization: str | None = Header(default=None)) -> str | None:
+    """Same verification as get_current_user_id, but returns None instead of raising when
+    no bearer token is present at all — for routes a signed-out visitor can also hit (e.g.
+    a public list's share link). A present-but-invalid token still raises 401."""
+    if not authorization:
+        return None
+    return get_current_user_id(authorization)

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, JSON, String, UniqueConstraint, Uuid
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, JSON, String, UniqueConstraint, Uuid
 from sqlalchemy.orm import relationship
 
 from app.db.session import Base
@@ -26,6 +26,10 @@ class SavedList(Base):
     labels = Column(JSON, nullable=True)
     # Set on every create/update — drives the landing page's "recently modified" ordering.
     updated_at = Column(DateTime, nullable=True)
+    is_public = Column(Boolean, nullable=False, default=False)
+    # Generated on first publish and kept stable after — unpublishing doesn't clear it, so
+    # re-publishing keeps the same share link working.
+    share_token = Column(Uuid(as_uuid=False), nullable=True)
 
     entries = relationship(
         "SavedListEntry", back_populates="saved_list", cascade="all, delete-orphan"
@@ -61,6 +65,8 @@ class FusionList(Base):
     # instance per fusion list rather than a shared/global table.
     labels = Column(JSON, nullable=True)
     updated_at = Column(DateTime, nullable=True)
+    is_public = Column(Boolean, nullable=False, default=False)
+    share_token = Column(Uuid(as_uuid=False), nullable=True)
 
     entries = relationship(
         "FusionListEntry", back_populates="fusion_list", cascade="all, delete-orphan"

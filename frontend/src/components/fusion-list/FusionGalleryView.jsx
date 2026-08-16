@@ -34,9 +34,13 @@ function FusionGalleryCard({
   onSwapOrientation,
   onToggleLabel,
   onSelectVariant,
+  readOnly,
 }) {
   const key = entryKey(row);
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: key });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: key,
+    disabled: readOnly,
+  });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -54,27 +58,29 @@ function FusionGalleryCard({
 
   return (
     <div ref={setNodeRef} style={style} className="card gallery-card">
-      <div className="gallery-card-top">
-        <button
-          type="button"
-          className="gallery-card-drag-handle"
-          aria-label="Drag to reorder"
-          {...attributes}
-          {...listeners}
-        >
-          <GripVertical size={14} />
-        </button>
-        <FusionRowActionsMenu
-          entry={row}
-          entryKey={key}
-          onRemove={onRemove}
-          onChangeHead={onChangeHead}
-          onChangeBody={onChangeBody}
-          onSwapOrientation={onSwapOrientation}
-          labels={labels}
-          onToggleLabel={onToggleLabel}
-        />
-      </div>
+      {!readOnly && (
+        <div className="gallery-card-top">
+          <button
+            type="button"
+            className="gallery-card-drag-handle"
+            aria-label="Drag to reorder"
+            {...attributes}
+            {...listeners}
+          >
+            <GripVertical size={14} />
+          </button>
+          <FusionRowActionsMenu
+            entry={row}
+            entryKey={key}
+            onRemove={onRemove}
+            onChangeHead={onChangeHead}
+            onChangeBody={onChangeBody}
+            onSwapOrientation={onSwapOrientation}
+            labels={labels}
+            onToggleLabel={onToggleLabel}
+          />
+        </div>
+      )}
 
       {fusion ? (
         <FusionArtSprite
@@ -156,6 +162,7 @@ export function FusionGalleryView({
   onSwapOrientation,
   onToggleLabel,
   onSelectVariant,
+  readOnly = false,
 }) {
   const rows = useFusionRows(entries);
   const activeColumns = getOrderedActiveFusionColumns(columns);
@@ -191,6 +198,7 @@ export function FusionGalleryView({
               onSwapOrientation={onSwapOrientation}
               onToggleLabel={onToggleLabel}
               onSelectVariant={onSelectVariant}
+              readOnly={readOnly}
             />
           ))}
         </div>

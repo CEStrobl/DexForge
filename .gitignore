@@ -19,6 +19,12 @@ backend/*.db-journal
 # Storage, see backend/app/services/fusion_art.py).
 backend/data/cache/fusion_sprites/
 
+# --- Local dev server output (redirected stdout/stderr when run in the background) ---
+/backend_stdout.log
+/backend_stderr.log
+/frontend_stdout.log
+/frontend_stderr.log
+
 # --- Editor / OS ---
 .vscode/
 .idea/

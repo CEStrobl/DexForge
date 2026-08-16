@@ -46,6 +46,10 @@ class SavedListUpdate(BaseModel):
     entries: list[SavedListEntryIn] = []
 
 
+class VisibilityUpdate(BaseModel):
+    is_public: bool
+
+
 class ListCriteria(BaseModel):
     generation: str | None = None
     types: list[str] | None = None
@@ -80,6 +84,15 @@ class ListCriteria(BaseModel):
     hatch_counter_max: int | None = None
 
 
+class OwnerOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    username: str
+    avatar_head_slug: str | None = None
+    avatar_body_slug: str | None = None
+    avatar_variant_id: str | None = None
+
+
 class SavedListOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -91,6 +104,12 @@ class SavedListOut(BaseModel):
     labels: list[LabelDef] = []
     entries: list[SavedListEntryOut]
     updated_at: datetime | None = None
+    is_public: bool = False
+    share_token: str | None = None
+    # Set on the ORM object at request time (not a real column) — True unless the caller
+    # fetched someone else's public list via the optional-auth GET route.
+    is_owner: bool = True
+    owner: OwnerOut | None = None
 
     @field_validator("labels", mode="before")
     @classmethod

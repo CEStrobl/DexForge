@@ -53,11 +53,45 @@ export function AuthProvider({ children }) {
     await supabase.auth.signOut();
   }
 
+  async function updatePassword(newPassword) {
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) throw error;
+  }
+
+  async function updateAvatar({ headSlug, bodySlug, variantId }) {
+    const { error } = await supabase.auth.updateUser({
+      data: {
+        avatar_head_slug: headSlug ?? null,
+        avatar_body_slug: bodySlug ?? null,
+        avatar_variant_id: variantId ?? null,
+      },
+    });
+    if (error) throw error;
+  }
+
   const user = session?.user ?? null;
   const username = user?.user_metadata?.username ?? null;
+  const avatarHeadSlug = user?.user_metadata?.avatar_head_slug ?? null;
+  const avatarBodySlug = user?.user_metadata?.avatar_body_slug ?? null;
+  const avatarVariantId = user?.user_metadata?.avatar_variant_id ?? null;
 
   return (
-    <AuthContext.Provider value={{ session, user, username, loading, signUp, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{
+        session,
+        user,
+        username,
+        avatarHeadSlug,
+        avatarBodySlug,
+        avatarVariantId,
+        loading,
+        signUp,
+        signIn,
+        signOut,
+        updatePassword,
+        updateAvatar,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

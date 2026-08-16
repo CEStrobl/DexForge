@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api, API_BASE_URL } from '../../api/client';
+import { api, resolveImagePath } from '../../api/client';
 import { FusionArtModal } from './FusionArtModal';
 
 // Wraps a fused sprite render (children = the existing head+body placeholder markup)
@@ -60,7 +60,7 @@ export function FusionArtSprite({
   return (
     <div className="fusion-art-sprite" style={{ width: size, height: size }}>
       <img
-        src={`${API_BASE_URL}${active.image_path}`}
+        src={resolveImagePath(active.image_path)}
         alt={fusionLabel || 'Fusion art'}
         width={size}
         height={size}

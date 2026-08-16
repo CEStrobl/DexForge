@@ -45,7 +45,7 @@ function compareValues(a, b) {
   return String(a).localeCompare(String(b));
 }
 
-function SortableFusionRow({ row, index, activeColumns, columnWidths, labelsById, labels, onRemove, onChangeHead, onChangeBody, onSwapOrientation, onToggleLabel, onSelectVariant, dragDisabled }) {
+function SortableFusionRow({ row, index, activeColumns, columnWidths, labelsById, labels, onRemove, onChangeHead, onChangeBody, onSwapOrientation, onToggleLabel, onSelectVariant, dragDisabled, readOnly }) {
   const key = entryKey(row);
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: key,
@@ -63,7 +63,7 @@ function SortableFusionRow({ row, index, activeColumns, columnWidths, labelsById
     <tr ref={setNodeRef} style={style}>
       <td className="list-table-index">{index + 1}</td>
       <td className="list-table-handle-cell">
-        {!dragDisabled && (
+        {!dragDisabled && !readOnly && (
           <button type="button" className="list-table-drag-handle" aria-label="Drag to reorder" {...attributes} {...listeners}>
             <GripVertical size={14} />
           </button>
@@ -108,16 +108,18 @@ function SortableFusionRow({ row, index, activeColumns, columnWidths, labelsById
         </td>
       ))}
       <td>
-        <FusionRowActionsMenu
-          entry={row}
-          entryKey={key}
-          onRemove={onRemove}
-          onChangeHead={onChangeHead}
-          onChangeBody={onChangeBody}
-          onSwapOrientation={onSwapOrientation}
-          labels={labels}
-          onToggleLabel={onToggleLabel}
-        />
+        {!readOnly && (
+          <FusionRowActionsMenu
+            entry={row}
+            entryKey={key}
+            onRemove={onRemove}
+            onChangeHead={onChangeHead}
+            onChangeBody={onChangeBody}
+            onSwapOrientation={onSwapOrientation}
+            labels={labels}
+            onToggleLabel={onToggleLabel}
+          />
+        )}
       </td>
     </tr>
   );
@@ -137,6 +139,7 @@ export function FusionListTable({
   onResizeColumn,
   onToggleLabel,
   onSelectVariant,
+  readOnly = false,
 }) {
   const [sort, setSort] = useState(null);
   const [a11yContainer, setA11yContainer] = useState(null);
@@ -239,7 +242,8 @@ export function FusionListTable({
                   onSwapOrientation={onSwapOrientation}
                   onToggleLabel={onToggleLabel}
                   onSelectVariant={onSelectVariant}
-                  dragDisabled={sort !== null}
+                  dragDisabled={sort !== null || readOnly}
+                  readOnly={readOnly}
                 />
               ))}
             </tbody>

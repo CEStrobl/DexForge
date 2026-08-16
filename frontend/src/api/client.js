@@ -7,6 +7,13 @@ const BASE_URL =
 
 export const API_BASE_URL = BASE_URL;
 
+// Fusion art image_path is a relative path in local-disk dev mode (needs the API origin
+// prepended) but an absolute Supabase Storage URL in production (see
+// backend/app/services/fusion_art.py's _store_sprite) — use as-is when it's already absolute.
+export function resolveImagePath(path) {
+  return /^https?:\/\//.test(path) ? path : `${BASE_URL}${path}`;
+}
+
 let authToken = null;
 
 // Called by AuthContext whenever the Supabase session changes, so every request below
@@ -41,6 +48,12 @@ export const api = {
   put: (path, body) =>
     request(path, {
       method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }),
+  patch: (path, body) =>
+    request(path, {
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     }),

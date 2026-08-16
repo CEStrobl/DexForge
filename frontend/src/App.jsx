@@ -19,8 +19,9 @@ import EvolutionItemsPage from './pages/EvolutionItemsPage';
 import DexFilterPage from './pages/DexFilterPage';
 import ListBuilderPage from './pages/ListBuilderPage';
 import FusionListPage from './pages/FusionListPage';
-import ListsHomePage from './pages/ListsHomePage';
+import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
+import SignInPage from './pages/SignInPage';
 
 function LookupIndexRoute() {
   const { lastSlug } = useLastPokemon();
@@ -57,8 +58,10 @@ function App() {
                               <Route path="/list-builder/:listId" element={<ListBuilderPage />} />
                               <Route path="/fusion-list" element={<FusionListPage />} />
                               <Route path="/fusion-list/:listId" element={<FusionListPage />} />
-                              <Route path="/lists" element={<ListsHomePage />} />
+                              <Route path="/profile" element={<ProfilePage />} />
+                              <Route path="/profile/:username" element={<ProfilePage />} />
                               <Route path="/settings" element={<SettingsPage />} />
+                              <Route path="/sign-in" element={<SignInPage />} />
                             </Routes>
                           </main>
                         </div>

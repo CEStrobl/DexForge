@@ -4,12 +4,28 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from app.api import evolution_items, fusion, fusion_lists, home, lists, moves, natures, pokemon, quick_links, typing
+from app.api import (
+    evolution_items,
+    friends,
+    fusion,
+    fusion_lists,
+    home,
+    list_saves,
+    lists,
+    moves,
+    natures,
+    pokemon,
+    profiles,
+    quick_links,
+    typing,
+)
 from app.core.config import CORS_ORIGINS, SUPABASE_SERVICE_ROLE_KEY
 from app.db.session import Base, engine, migrate_schema
 from app.models import fusion_art_models  # noqa: F401 (registers models on Base)
 from app.models import list_models  # noqa: F401 (registers models on Base)
+from app.models import profile_models  # noqa: F401 (registers models on Base)
 from app.models import quick_link_models  # noqa: F401 (registers models on Base)
+from app.models import social_models  # noqa: F401 (registers models on Base)
 from app.services.fusion_art import FUSION_SPRITE_CACHE_DIR
 
 # Both blocks below write to disk (SQLite file / local fusion-art cache dir). Locally
@@ -51,6 +67,9 @@ app.include_router(lists.router)
 app.include_router(fusion.router)
 app.include_router(fusion_lists.router)
 app.include_router(quick_links.router)
+app.include_router(list_saves.router)
+app.include_router(profiles.router)
+app.include_router(friends.router)
 app.include_router(home.router)
 
 

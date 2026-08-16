@@ -50,7 +50,7 @@ function compareValues(a, b) {
   return String(a).localeCompare(String(b));
 }
 
-function SortableRow({ pokemon, index, activeColumns, columnWidths, labelsById, onRemove, onSwap, onToggleLabel, labels, dragDisabled }) {
+function SortableRow({ pokemon, index, activeColumns, columnWidths, labelsById, onRemove, onSwap, onToggleLabel, labels, dragDisabled, readOnly }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: pokemon.name,
     disabled: dragDisabled,
@@ -66,7 +66,7 @@ function SortableRow({ pokemon, index, activeColumns, columnWidths, labelsById, 
     <tr ref={setNodeRef} style={style}>
       <td className="list-table-index">{index + 1}</td>
       <td className="list-table-handle-cell">
-        {!dragDisabled && (
+        {!dragDisabled && !readOnly && (
           <button type="button" className="list-table-drag-handle" aria-label="Drag to reorder" {...attributes} {...listeners}>
             <GripVertical size={14} />
           </button>
@@ -91,7 +91,9 @@ function SortableRow({ pokemon, index, activeColumns, columnWidths, labelsById, 
         </td>
       ))}
       <td>
-        <RowActionsMenu pokemon={pokemon} onRemove={onRemove} onSwap={onSwap} labels={labels} onToggleLabel={onToggleLabel} />
+        {!readOnly && (
+          <RowActionsMenu pokemon={pokemon} onRemove={onRemove} onSwap={onSwap} labels={labels} onToggleLabel={onToggleLabel} />
+        )}
       </td>
     </tr>
   );
@@ -108,6 +110,7 @@ export function ListTable({
   onReorderColumns,
   onResizeColumn,
   onToggleLabel,
+  readOnly = false,
 }) {
   const [sort, setSort] = useState(null);
   const [a11yContainer, setA11yContainer] = useState(null);
@@ -214,7 +217,8 @@ export function ListTable({
                   onRemove={onRemove}
                   onSwap={onSwap}
                   onToggleLabel={onToggleLabel}
-                  dragDisabled={sort !== null}
+                  dragDisabled={sort !== null || readOnly}
+                  readOnly={readOnly}
                 />
               ))}
             </tbody>

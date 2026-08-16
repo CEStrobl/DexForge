@@ -1,8 +1,11 @@
-import { AuthPanel } from '../components/auth/AuthPanel';
+import { AccountStatus } from '../components/auth/AccountStatus';
+import { ChangePasswordForm } from '../components/auth/ChangePasswordForm';
+import { useAuth } from '../context/AuthContext';
 import { useInfiniteFusion } from '../context/InfiniteFusionContext';
 import '../styles/settings.css';
 
 export default function SettingsPage() {
+  const { session } = useAuth();
   const { enabled, setEnabled } = useInfiniteFusion();
 
   return (
@@ -14,7 +17,8 @@ export default function SettingsPage() {
         <p className="text-muted settings-toggle-description">
           Sign in to save Pokémon lists, fusion lists, and quick links to your account.
         </p>
-        <AuthPanel />
+        <AccountStatus />
+        {session && <ChangePasswordForm />}
       </div>
 
       <div className="card settings-section">

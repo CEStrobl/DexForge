@@ -3,7 +3,7 @@ import { Search } from 'lucide-react';
 import { api } from '../../api/client';
 import { toDisplayName } from '../../utils/format';
 
-export function PokemonSearchSelect({ placeholder, onSelect, autoFocus = false }) {
+export function PokemonSearchSelect({ placeholder, onSelect, autoFocus = false, limit = 8 }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [open, setOpen] = useState(false);
@@ -16,7 +16,7 @@ export function PokemonSearchSelect({ placeholder, onSelect, autoFocus = false }
     }
     const timer = setTimeout(() => {
       api
-        .get(`/api/pokemon?q=${encodeURIComponent(query.trim().toLowerCase())}&limit=8`)
+        .get(`/api/pokemon?q=${encodeURIComponent(query.trim().toLowerCase())}&limit=${limit}`)
         .then((data) => {
           setResults(data);
           setOpen(true);

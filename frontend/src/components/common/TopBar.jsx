@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, GitCompare, Calculator, Heart, Package, Filter, ClipboardList } from 'lucide-react';
+import { Search, GitCompare, Calculator, Heart, Package, Filter } from 'lucide-react';
 import { api } from '../../api/client';
 import { toDisplayName } from '../../utils/format';
 import { TopNavIcon } from './TopNavIcon';
@@ -12,7 +12,6 @@ const NAV_ITEMS = [
   { to: '/natures', label: 'Natures', icon: Heart, color: 'var(--nav-natures)' },
   { to: '/evolution-items', label: 'Items', icon: Package, color: 'var(--nav-evolution-items)' },
   { to: '/dex-filter', label: 'Filter', icon: Filter, color: 'var(--nav-dex-filter)' },
-  { to: '/lists', label: 'Lists', icon: ClipboardList, color: 'var(--nav-lists)' },
 ];
 
 export function TopBar() {

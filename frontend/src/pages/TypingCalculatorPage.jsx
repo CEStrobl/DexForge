@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { api } from '../api/client';
 import { Tabs } from '../components/common/Tabs';
 import { TypeSelect } from '../components/typing/TypeSelect';
-import { TypeMatrixGrid } from '../components/typing/TypeMatrixGrid';
 import { TypeMatchupBlock } from '../components/typing/TypeMatchupBlock';
+import { TypePokemonSection } from '../components/typing/TypePokemonSection';
+import { TypeDefenses } from '../components/lookup/TypeDefenses';
 import { TYPE_ORDER } from '../components/common/typeIcons';
 import '../styles/typing-calculator.css';
 
@@ -49,10 +50,10 @@ export default function TypingCalculatorPage() {
               <TypeSelect label="Type 1" value={type1} onChange={(v) => setType1(v || 'normal')} />
               <TypeSelect label="Type 2" value={type2} onChange={setType2} allowNone />
             </div>
-
-            <h3 className="card-heading typing-calculator-section-heading">Defense Stats</h3>
-            <TypeMatrixGrid effectiveness={effectiveness} />
+            <TypeDefenses effectiveness={effectiveness} showHeader={false} bare />
           </div>
+
+          <TypePokemonSection types={[type1, type2].filter(Boolean)} />
 
           <div className="type-block-pair">
             {profiles?.[type1] && <TypeMatchupBlock type={type1} profile={profiles[type1]} />}

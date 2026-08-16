@@ -14,9 +14,15 @@ function tooltipText(type, multiplier) {
   return `Takes ${formatMultiplier(multiplier)} damage from ${label} moves.`;
 }
 
-export function TypeDefenses({ effectiveness, compact = false, collapsible = true }) {
+export function TypeDefenses({
+  effectiveness,
+  compact = false,
+  collapsible = true,
+  showHeader = true,
+  bare = false,
+}) {
   const [open, setOpen] = useState(() => {
-    if (!collapsible) return true;
+    if (!collapsible || !showHeader) return true;
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       return stored === null ? true : stored === 'true';
@@ -37,40 +43,43 @@ export function TypeDefenses({ effectiveness, compact = false, collapsible = tru
     });
   }
 
-  return (
-    <div className="card type-defenses">
-      {collapsible ? (
-        <CollapsibleHeader title="Type Defenses" open={open} onToggle={toggle} />
-      ) : (
-        <h3 className="card-heading">Type Defenses</h3>
-      )}
-
-      {open && (
-        <div className={`type-defenses-grid${compact ? ' type-defenses-grid--compact' : ''}`}>
-          {TYPE_ORDER.map((type) => {
-            const multiplier = effectiveness[type] ?? 1;
-            const Icon = TYPE_ICONS[type];
-            const cls = multiplierClass(multiplier);
-            return (
-              <Tooltip key={type} content={tooltipText(type, multiplier)}>
-                <div className={`type-defense-cell type-defense-cell-${cls}`}>
-                  <div
-                    className="type-defense-badge"
-                    style={{ background: `var(--type-${type})`, color: getTypeTextColor(type) }}
-                  >
-                    {Icon && <Icon size={16} strokeWidth={2.5} />}
-                  </div>
-                  {cls !== 'neutral' && (
-                    <span className={`type-defense-multiplier ${cls}`}>
-                      {formatMultiplier(multiplier)}
-                    </span>
-                  )}
-                </div>
-              </Tooltip>
-            );
-          })}
-        </div>
-      )}
+  const grid = (open || !showHeader) && (
+    <div className={`type-defenses-grid${compact ? ' type-defenses-grid--compact' : ''}`}>
+      {TYPE_ORDER.map((type) => {
+        const multiplier = effectiveness[type] ?? 1;
+        const Icon = TYPE_ICONS[type];
+        const cls = multiplierClass(multiplier);
+        return (
+          <Tooltip key={type} content={tooltipText(type, multiplier)}>
+            <div className={`type-defense-cell type-defense-cell-${cls}`}>
+              <div
+                className="type-defense-badge"
+                style={{ background: `var(--type-${type})`, color: getTypeTextColor(type) }}
+              >
+                {Icon && <Icon size={16} strokeWidth={2.5} />}
+              </div>
+              {cls !== 'neutral' && (
+                <span className={`type-defense-multiplier ${cls}`}>{formatMultiplier(multiplier)}</span>
+              )}
+            </div>
+          </Tooltip>
+        );
+      })}
     </div>
   );
+
+  const content = (
+    <>
+      {showHeader &&
+        (collapsible ? (
+          <CollapsibleHeader title="Type Defenses" open={open} onToggle={toggle} />
+        ) : (
+          <h3 className="card-heading">Type Defenses</h3>
+        ))}
+      {grid}
+    </>
+  );
+
+  if (bare) return content;
+  return <div className="card type-defenses">{content}</div>;
 }

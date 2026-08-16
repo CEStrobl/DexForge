@@ -8,8 +8,12 @@ export function TypeSelect({ label, value, onChange, allowNone = false }) {
 
   return (
     <label className="type-select">
-      <span className="type-select-label">{label}</span>
-      <select value={value || ''} onChange={(e) => onChange(e.target.value || null)} style={style}>
+      <select
+        aria-label={label}
+        value={value || ''}
+        onChange={(e) => onChange(e.target.value || null)}
+        style={style}
+      >
         {allowNone && <option value="">None</option>}
         {TYPE_ORDER.map((t) => (
           <option key={t} value={t}>

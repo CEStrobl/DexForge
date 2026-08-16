@@ -17,9 +17,10 @@ import { useInfiniteFusion } from '../../context/InfiniteFusionContext';
 // Cards render the same columns the user picked in ColumnPicker (shared with
 // ListTable) — types and stats get dedicated visual treatment, everything
 // else falls back to the table's own cellValue() formatting as a label/value row.
-function GalleryCard({ pokemon, activeColumns, labelsById, labels, onRemove, onSwap, onToggleLabel }) {
+function GalleryCard({ pokemon, activeColumns, labelsById, labels, onRemove, onSwap, onToggleLabel, readOnly }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: pokemon.name,
+    disabled: readOnly,
   });
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -37,18 +38,20 @@ function GalleryCard({ pokemon, activeColumns, labelsById, labels, onRemove, onS
 
   return (
     <div ref={setNodeRef} style={style} className="card gallery-card">
-      <div className="gallery-card-top">
-        <button
-          type="button"
-          className="gallery-card-drag-handle"
-          aria-label="Drag to reorder"
-          {...attributes}
-          {...listeners}
-        >
-          <GripVertical size={14} />
-        </button>
-        <RowActionsMenu pokemon={pokemon} onRemove={onRemove} onSwap={onSwap} labels={labels} onToggleLabel={onToggleLabel} />
-      </div>
+      {!readOnly && (
+        <div className="gallery-card-top">
+          <button
+            type="button"
+            className="gallery-card-drag-handle"
+            aria-label="Drag to reorder"
+            {...attributes}
+            {...listeners}
+          >
+            <GripVertical size={14} />
+          </button>
+          <RowActionsMenu pokemon={pokemon} onRemove={onRemove} onSwap={onSwap} labels={labels} onToggleLabel={onToggleLabel} />
+        </div>
+      )}
 
       <Link to={`/lookup/${pokemon.name}`} className="gallery-card-sprite-wrap">
         <img src={pokemon.sprite} alt="" width={72} height={72} />
@@ -103,7 +106,7 @@ function GalleryCard({ pokemon, activeColumns, labelsById, labels, onRemove, onS
   );
 }
 
-export function GalleryView({ entries, columns, labels = [], onRemove, onReorder, onSwap, onToggleLabel }) {
+export function GalleryView({ entries, columns, labels = [], onRemove, onReorder, onSwap, onToggleLabel, readOnly = false }) {
   const { enabled: infiniteFusionEnabled } = useInfiniteFusion();
   const activeColumns = getOrderedActiveColumns(infiniteFusionEnabled, columns);
   const labelsById = useMemo(() => new Map(labels.map((l) => [l.id, l])), [labels]);
@@ -135,6 +138,7 @@ export function GalleryView({ entries, columns, labels = [], onRemove, onReorder
               onRemove={onRemove}
               onSwap={onSwap}
               onToggleLabel={onToggleLabel}
+              readOnly={readOnly}
             />
           ))}
         </div>

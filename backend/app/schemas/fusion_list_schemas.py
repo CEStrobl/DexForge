@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, field_validator
 
-from app.schemas.list_schemas import LabelDef
+from app.schemas.list_schemas import LabelDef, OwnerOut
 
 
 class FusionListEntryIn(BaseModel):
@@ -50,6 +50,10 @@ class FusionListOut(BaseModel):
     labels: list[LabelDef] = []
     entries: list[FusionListEntryOut]
     updated_at: datetime | None = None
+    is_public: bool = False
+    share_token: str | None = None
+    is_owner: bool = True
+    owner: OwnerOut | None = None
 
     @field_validator("labels", mode="before")
     @classmethod

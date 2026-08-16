@@ -117,3 +117,15 @@
   font-size: 0.8rem;
   color: var(--type-fighting);
 }
+
+.change-password-form {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.change-password-success {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--type-grass);
+}

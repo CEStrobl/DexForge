@@ -37,6 +37,8 @@ _NEW_COLUMNS = {
         ("labels", "JSON"),
         ("updated_at", "DATETIME"),
         ("user_id", "TEXT"),
+        ("is_public", "BOOLEAN NOT NULL DEFAULT 0"),
+        ("share_token", "TEXT"),
     ],
     "saved_list_entries": [
         ("label_ids", "JSON"),
@@ -44,6 +46,8 @@ _NEW_COLUMNS = {
     "fusion_lists": [
         ("updated_at", "DATETIME"),
         ("user_id", "TEXT"),
+        ("is_public", "BOOLEAN NOT NULL DEFAULT 0"),
+        ("share_token", "TEXT"),
     ],
     "fusion_list_entries": [
         ("selected_variant", "TEXT"),
