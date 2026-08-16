@@ -8,23 +8,30 @@ import { toDisplayName } from '../../utils/format';
 // Bug+Dark dual-types, not every Bug or every Dark Pokémon individually) — the backend's
 // /api/lists/preview criteria matches on ANY overlap, so the AND-narrowing happens here
 // rather than changing that endpoint's shared OR semantics (Dex Filter relies on those).
-export function TypePokemonSection({ types }) {
+//
+// `pureType`, when set, narrows further to Pokémon whose *only* type is that one — this
+// is how the calculator represents "pure Water" (same type picked in both slots): without
+// it, a dual-type overlap match would include e.g. Water/Ice for a pure-Water query.
+export function TypePokemonSection({ types, pureType = null }) {
   const [open, setOpen] = useState(false);
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
     setPokemon(null);
-  }, [types.join(',')]);
+  }, [types.join(','), pureType]);
 
   useEffect(() => {
     if (!open || pokemon !== null || types.length === 0) return;
     api
       .post('/api/lists/preview', { types })
       .then((results) => {
-        setPokemon(results.filter((p) => types.every((t) => p.types.includes(t))));
+        const filtered = pureType
+          ? results.filter((p) => p.types.length === 1 && p.types[0] === pureType)
+          : results.filter((p) => types.every((t) => p.types.includes(t)));
+        setPokemon(filtered);
       })
       .catch(() => setPokemon([]));
-  }, [open, pokemon, types]);
+  }, [open, pokemon, types, pureType]);
 
   return (
     <div className="card type-pokemon-section">

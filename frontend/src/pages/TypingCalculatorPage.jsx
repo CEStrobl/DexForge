@@ -37,6 +37,11 @@ export default function TypingCalculatorPage() {
       .catch(() => setEffectiveness({}));
   }, [type1, type2]);
 
+  // Selecting the same type in both slots is how this UI represents a pure single-type
+  // Pokémon (there's no dedicated toggle) — distinct from leaving Type 2 as "None", which
+  // means "show me anything with this type" (pure or dual).
+  const isPureType = Boolean(type2) && type2 === type1;
+
   return (
     <div className="typing-calculator-page">
       <h1 className="page-title">Typing Calculator</h1>
@@ -53,7 +58,10 @@ export default function TypingCalculatorPage() {
             <TypeDefenses effectiveness={effectiveness} showHeader={false} bare />
           </div>
 
-          <TypePokemonSection types={[type1, type2].filter(Boolean)} />
+          <TypePokemonSection
+            types={isPureType ? [type1] : [type1, type2].filter(Boolean)}
+            pureType={isPureType ? type1 : null}
+          />
 
           <div className="type-block-pair">
             {profiles?.[type1] && <TypeMatchupBlock type={type1} profile={profiles[type1]} />}

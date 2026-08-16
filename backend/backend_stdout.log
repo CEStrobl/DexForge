@@ -1,357 +1,2815 @@
-﻿python.exe : INFO:     Started server process [11196]
+﻿python.exe : ERROR:root:DB initialization failed — DB-backed routes will error until DATABASE_URL is configured.
 At line:4 char:1
 + & ".venv\Scripts\python.exe" -m uvicorn app.main:app --port 8000 *> b ...
 + ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (INFO:     Started server process [11196]:String) [], RemoteException
+    + CategoryInfo          : NotSpecified: (ERROR:root:DB i... is configured.:String) [], RemoteException
     + FullyQualifiedErrorId : NativeCommandError
  
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 117, in 
+execute
+    raise ex.with_traceback(None)
+psycopg.errors.DuplicatePreparedStatement: prepared statement "_pg3_0" already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\main.py", line 38, in <module>
+    Base.metadata.create_all(bind=engine)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\schema.py", line 
+5930, in create_all
+    bind._run_ddl_visitor(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        ddl.SchemaGenerator, self, checkfirst=checkfirst, tables=tables
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+3270, in _run_ddl_visitor
+    conn._run_ddl_visitor(visitorcallable, element, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2469, in _run_ddl_visitor
+    ).traverse_single(element)
+      ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\visitors.py", line 
+661, in traverse_single
+    return meth(obj, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\ddl.py", line 964, 
+in visit_metadata
+    [t for t in tables if self._can_create_table(t)]
+                          ~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\ddl.py", line 929, 
+in _can_create_table
+    return not self.checkfirst or not self.dialect.has_table(
+                                      ~~~~~~~~~~~~~~~~~~~~~~^
+        self.connection, table.name, schema=effective_schema
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "<string>", line 2, in has_table
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\reflection.py", 
+line 90, in cache
+    return fn(self, con, *args, **kw)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\dialects\postgresql\base.py", 
+line 3624, in has_table
+    return bool(connection.scalar(query, {"table_name": table_name}))
+                ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1310, in scalar
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+544, in _execute_on_scalar
+    return self._execute_on_connection(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        connection, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ).scalar()
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 117, in 
+execute
+    raise ex.with_traceback(None)
+sqlalchemy.exc.ProgrammingError: (psycopg.errors.DuplicatePreparedStatement) prepared statement "_pg3_0" already exists
+[SQL: SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = 
+pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY 
+(ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) 
+AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != 
+%(nspname_1)s::VARCHAR]
+[parameters: {'table_name': 'saved_list_entries', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 
+'param_5': 'm', 'nspname_1': 'pg_catalog'}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:     Started server process [36280]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:53129 - "GET /api/lists/4 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53129 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59002 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50499 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54587 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59002 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50499 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54587 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62739 - "GET /api/lists/3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62739 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62739 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50610 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55228 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62739 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50610 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55228 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49643 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55440 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50563 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49643 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50563 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55440 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49617 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51216 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50989 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50989 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49617 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51216 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51216 - "OPTIONS /api/profiles/reqB1786902505709 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49617 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64643 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50989 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51216 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58630 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56452 - "GET /api/profiles/reqB1786902505709 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56452 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58630 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51216 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56452 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64643 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49617 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50989 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58630 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50989 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64643 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64643 - "OPTIONS /api/profiles/search?q=reqA1786902505709 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50989 - "GET /api/profiles/search?q=reqA1786902505709 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49617 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49617 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50989 - "POST /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57487 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51170 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57529 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51170 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57529 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57487 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51949 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63998 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62406 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62406 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63998 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51949 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51949 - "OPTIONS /api/profiles/reqB1786902557507 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63998 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62406 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51064 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63998 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50777 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51949 - "GET /api/profiles/reqB1786902557507 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51949 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50777 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63998 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51064 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62406 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51949 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65482 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63998 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50777 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51949 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62406 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62406 - "OPTIONS /api/profiles/search?q=reqA1786902557507 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51949 - "GET /api/profiles/search?q=reqA1786902557507 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65482 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65482 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51949 - "POST /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58151 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60821 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51306 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51306 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58151 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60821 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51273 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62088 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62088 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51273 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "OPTIONS /api/profiles/reqB1786902607592 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62088 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62401 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53188 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54650 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51273 - "GET /api/profiles/reqB1786902607592 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51273 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54650 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53188 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62401 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51273 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62088 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53188 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54650 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62088 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62088 - "OPTIONS /api/profiles/search?q=reqA1786902607592 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "GET /api/profiles/search?q=reqA1786902607592 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53188 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53188 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "POST /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60821 - "OPTIONS /api/profiles/reqA1786902607592 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58151 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51306 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50579 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59420 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60821 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54480 - "GET /api/profiles/reqA1786902607592 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54480 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60821 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59420 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54480 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51306 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50579 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60821 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58151 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51306 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50579 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60637 - "OPTIONS /api/friends/requests/11 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60821 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53188 - "DELETE /api/friends/requests/11 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53188 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60821 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50579 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51306 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "OPTIONS /api/fusion-lists/1 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "GET /api/fusion-lists/1 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "OPTIONS /api/fusion/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "POST /api/fusion/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "OPTIONS /api/fusion/porygon/moltres/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "OPTIONS /api/fusion/porygon/moltres/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61506 - "GET /api/fusion/porygon/moltres/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "GET /api/fusion/porygon/moltres/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "OPTIONS /api/fusion-lists/1 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "PUT /api/fusion-lists/1 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56926 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54372 - "OPTIONS /api/lists/3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54372 - "GET /api/lists/3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54372 - "OPTIONS /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54372 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54372 - "GET /api/lists/4 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54372 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54653 - "OPTIONS /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54653 - "OPTIONS /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54653 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54653 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54653 - "OPTIONS /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54653 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56690 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51042 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54653 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60937 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51042 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51042 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60937 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54653 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56690 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51042 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60937 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53014 - "OPTIONS /api/lists/4 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53014 - "GET /api/lists/4 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53014 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60184 - "OPTIONS /api/lists/4/visibility HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60184 - "PATCH /api/lists/4/visibility HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60184 - "GET /api/lists/4 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60184 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60184 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58902 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58902 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59374 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50467 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58902 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56116 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60184 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50467 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50467 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58902 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56116 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50467 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56116 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56116 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50467 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58902 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56116 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56116 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50467 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58902 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50467 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50467 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58902 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56116 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50467 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51352 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56765 - "GET /api/lists/3 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56765 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56765 - "GET /api/fusion-lists/1 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56765 - "POST /api/fusion/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56765 - "GET /api/fusion/porygon/moltres/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59977 - "GET /api/fusion/porygon/moltres/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59977 - "OPTIONS /api/pokemon/noivern HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56765 - "OPTIONS /api/pokemon/noivern HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56765 - "GET /api/pokemon/noivern HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59977 - "GET /api/pokemon/noivern HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59977 - "OPTIONS /api/pokemon/noivern/moves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59977 - "OPTIONS /api/pokemon/noivern/moves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:56765 - "GET /api/pokemon/noivern/moves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59977 - "GET /api/pokemon/noivern/moves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59977 - "GET /api/lists/4 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59977 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61466 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53247 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61466 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53247 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53362 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53247 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53247 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53362 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53247 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63945 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53362 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63945 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61466 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58057 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53247 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:63945 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55575 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57983 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55575 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57983 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59012 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57983 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60485 - "GET /api/home/featured-pokemon HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55600 - "GET /api/home/typing-fact HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58246 - "GET /api/home/nature-of-day HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64376 - "GET /api/home/evolution-item-fact HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50026 - "GET /api/home/trivia HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60485 - "GET /api/home/featured-pokemon HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58246 - "GET /api/home/nature-of-day HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55600 - "GET /api/home/typing-fact HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64376 - "GET /api/home/evolution-item-fact HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50026 - "GET /api/home/trivia HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59675 - "GET /api/home/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50026 - "GET /api/home/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50026 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59675 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64376 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64376 - "GET /api/home/featured-pokemon HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60485 - "GET /api/home/typing-fact HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60485 - "GET /api/home/evolution-item-fact HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64376 - "GET /api/home/nature-of-day HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64376 - "GET /api/home/featured-pokemon HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60485 - "GET /api/home/trivia HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64376 - "GET /api/home/typing-fact HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60485 - "GET /api/home/evolution-item-fact HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64376 - "GET /api/home/nature-of-day HTTP/1.1" 200 OK
-INFO:     127.0.0.1:60485 - "GET /api/home/trivia HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58246 - "GET /api/home/stats HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57379 - "OPTIONS /api/profiles/smallfix1786903286229 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53288 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53487 - "OPTIONS /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55477 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59632 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53448 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61806 - "OPTIONS /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65444 - "OPTIONS /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53487 - "OPTIONS /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55477 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59632 - "OPTIONS /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53448 - "OPTIONS /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61806 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65444 - "OPTIONS /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53487 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55477 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59632 - "OPTIONS /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53448 - "OPTIONS /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61806 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61806 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65444 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61806 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65444 - "GET /api/quick-links HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55477 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53448 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65444 - "GET /api/lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59632 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61806 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55477 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:53487 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65444 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:59632 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:55477 - "GET /api/fusion-lists HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65444 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61942 - "OPTIONS /api/pokemon/noivern HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58315 - "OPTIONS /api/pokemon/noivern HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58315 - "GET /api/pokemon/noivern HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61942 - "GET /api/pokemon/noivern HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61942 - "OPTIONS /api/pokemon/noivern/moves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58315 - "OPTIONS /api/pokemon/noivern/moves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58315 - "GET /api/pokemon/noivern/moves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:61942 - "GET /api/pokemon/noivern/moves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58864 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64974 - "GET /api/fusion/leafeon/gardevoir-mega/art HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50535 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:58864 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64974 - "GET /api/list-saves HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50535 - "GET /api/profiles/testeden HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52114 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52114 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52114 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52114 - "OPTIONS /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52114 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52114 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52114 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52114 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:57802 - "GET /api/friends/requests HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62090 - "GET /api/friends HTTP/1.1" 200 OK
-INFO:     127.0.0.1:52114 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
-INFO:     127.0.0.1:62090 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61215 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61215 - "GET /api/typing?type=water&type=water HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53111 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53111 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53144 - "OPTIONS /api/pokemon?q=bulbasaur&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51272 - "GET /api/pokemon?q=bulbasaur&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53111 - "GET /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53111 - "OPTIONS /api/pokemon?q=charmander&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51272 - "GET /api/pokemon?q=charmander&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "GET /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "OPTIONS /api/pokemon?q=squirtle&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "GET /api/pokemon?q=squirtle&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "OPTIONS /api/pokemon?q=pikachu&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "GET /api/pokemon?q=pikachu&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "OPTIONS /api/pokemon?q=eevee&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "GET /api/pokemon?q=eevee&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "OPTIONS /api/pokemon?q=dragonite&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "GET /api/pokemon?q=dragonite&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "OPTIONS /api/pokemon?q=dragonair&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "GET /api/pokemon?q=dragonair&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "OPTIONS /api/pokemon?q=gyarados&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "GET /api/pokemon?q=gyarados&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "OPTIONS /api/pokemon?q=snorlax&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "GET /api/pokemon?q=snorlax&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "OPTIONS /api/pokemon?q=lapras&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "GET /api/pokemon?q=lapras&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "OPTIONS /api/pokemon?q=gengar&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "GET /api/pokemon?q=gengar&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "OPTIONS /api/pokemon?q=onix&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "GET /api/pokemon?q=onix&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "POST /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "OPTIONS /api/pokemon/onix/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51587 - "OPTIONS /api/pokemon/onix/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "GET /api/pokemon/onix/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51587 - "GET /api/pokemon/onix/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "OPTIONS /api/pokemon/dragonair/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51587 - "OPTIONS /api/pokemon/dragonair/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64891 - "GET /api/pokemon/dragonair/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60837 - "GET /api/pokemon/dragonair/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63928 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63928 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60428 - "OPTIONS /api/pokemon?q=bulbasaur&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58408 - "GET /api/pokemon?q=bulbasaur&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63928 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "GET /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "GET /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "OPTIONS /api/pokemon?q=charmander&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "GET /api/pokemon?q=charmander&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "OPTIONS /api/pokemon?q=squirtle&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "GET /api/pokemon?q=squirtle&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "OPTIONS /api/pokemon?q=pikachu&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "GET /api/pokemon?q=pikachu&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "OPTIONS /api/pokemon?q=eevee&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "GET /api/pokemon?q=eevee&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "OPTIONS /api/pokemon?q=dragonite&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "GET /api/pokemon?q=dragonite&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "OPTIONS /api/pokemon?q=dragonair&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "GET /api/pokemon?q=dragonair&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "OPTIONS /api/pokemon?q=gyarados&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "GET /api/pokemon?q=gyarados&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "OPTIONS /api/pokemon?q=snorlax&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "GET /api/pokemon?q=snorlax&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "OPTIONS /api/pokemon?q=lapras&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "GET /api/pokemon?q=lapras&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "OPTIONS /api/pokemon?q=gengar&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "GET /api/pokemon?q=gengar&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "OPTIONS /api/pokemon?q=onix&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "GET /api/pokemon?q=onix&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "POST /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "OPTIONS /api/pokemon/onix/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51000 - "OPTIONS /api/pokemon/onix/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "GET /api/pokemon/onix/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51000 - "GET /api/pokemon/onix/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "OPTIONS /api/pokemon/dragonair/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51000 - "OPTIONS /api/pokemon/dragonair/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57171 - "GET /api/pokemon/dragonair/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64406 - "GET /api/pokemon/dragonair/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50314 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50314 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60124 - "OPTIONS /api/pokemon?q=bulbasaur&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50563 - "GET /api/pokemon?q=bulbasaur&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50314 - "GET /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "GET /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "OPTIONS /api/pokemon?q=charmander&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/pokemon?q=charmander&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/pokemon?q=squirtle&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "GET /api/pokemon?q=squirtle&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "OPTIONS /api/pokemon?q=pikachu&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/pokemon?q=pikachu&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/pokemon?q=eevee&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "GET /api/pokemon?q=eevee&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "OPTIONS /api/pokemon?q=dragonite&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/pokemon?q=dragonite&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/pokemon?q=dragonair&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "GET /api/pokemon?q=dragonair&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "OPTIONS /api/pokemon?q=gyarados&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/pokemon?q=gyarados&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/pokemon?q=snorlax&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "GET /api/pokemon?q=snorlax&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "OPTIONS /api/pokemon?q=lapras&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/pokemon?q=lapras&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/pokemon?q=gengar&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "GET /api/pokemon?q=gengar&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "OPTIONS /api/pokemon?q=onix&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/pokemon?q=onix&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "POST /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/pokemon/onix/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63086 - "OPTIONS /api/pokemon/onix/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/pokemon/onix/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63086 - "GET /api/pokemon/onix/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "OPTIONS /api/pokemon/dragonair/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63086 - "OPTIONS /api/pokemon/dragonair/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65023 - "GET /api/pokemon/dragonair/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/pokemon/dragonair/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/lists/30 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/typing/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63086 - "GET /api/typing?type=bug&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/typing?type=bug&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55691 - "GET /api/typing/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57320 - "OPTIONS /api/typing?type=water&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57320 - "GET /api/typing?type=water&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57320 - "OPTIONS /api/typing?type=water&type=water HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57320 - "GET /api/typing?type=water&type=water HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55691 - "GET /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63086 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "GET /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49578 - "OPTIONS /api/lists/preview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63086 - "POST /api/lists/preview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55920 - "GET /api/typing/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58553 - "GET /api/typing?type=bug&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58553 - "GET /api/typing?type=water&type=water HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55920 - "GET /api/typing?type=water&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58553 - "GET /api/typing/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55920 - "GET /api/typing?type=bug&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61401 - "GET /api/home/featured-pokemon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56753 - "GET /api/home/typing-fact HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56670 - "GET /api/home/nature-of-day HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54927 - "GET /api/home/evolution-item-fact HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59251 - "GET /api/home/trivia HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61401 - "OPTIONS /api/fusion/aegislash/gardevoir/art HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56753 - "OPTIONS /api/pokemon/bulk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56670 - "OPTIONS /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54927 - "OPTIONS /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59251 - "OPTIONS /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61401 - "OPTIONS /api/pokemon/bulk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56753 - "OPTIONS /api/fusion/aegislash/gardevoir/art HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56670 - "GET /api/home/featured-pokemon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54927 - "GET /api/home/typing-fact HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59251 - "GET /api/home/nature-of-day HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56753 - "GET /api/home/trivia HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61401 - "GET /api/home/evolution-item-fact HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56670 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61401 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52179 - "GET /api/home/stats HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 117, in 
+execute
+    raise ex.with_traceback(None)
+psycopg.OperationalError: consuming input failed: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_i
+mpl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\applications.py", line 
+1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\applications.py", line 
+90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 154, in simple_response
+    await self.app(scope, receive, send)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\routing.py", line 660, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2692, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1773, 
+in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2747, 
+in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1793, 
+in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1272, 
+in handle
+    await app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 156, in 
+app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 142, in 
+app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 698, in 
+app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 352, in 
+run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 
+34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in 
+run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\api\home.py", line 29, in home_stats
+    saved_entries_count = db.query(func.count(SavedListEntry.id)).scalar()
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 
+2842, in scalar
+    ret = self.one()
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 
+2815, in one
+    return self._iter().one()  # type: ignore
+           ~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\query.py", line 
+2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+        params,
+        ^^^^^^^
+        execution_options={"_sa_orm_load_options": self.load_options},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2373, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 
+306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 117, in 
+execute
+    raise ex.with_traceback(None)
+sqlalchemy.exc.OperationalError: (psycopg.OperationalError) consuming input failed: server closed the connection 
+unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+[SQL: SELECT count(saved_list_entries.id) AS count_1 
+FROM saved_list_entries]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+INFO:     127.0.0.1:54927 - "GET /api/fusion/aegislash/gardevoir/art HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 117, in 
+execute
+    raise ex.with_traceback(None)
+psycopg.OperationalError: consuming input failed: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_i
+mpl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\applications.py", line 
+1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\applications.py", line 
+90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 154, in simple_response
+    await self.app(scope, receive, send)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\routing.py", line 660, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2692, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1773, 
+in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2747, 
+in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1793, 
+in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1272, 
+in handle
+    await app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 156, in 
+app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 142, in 
+app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 698, in 
+app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 352, in 
+run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 
+34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in 
+run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\api\fusion.py", line 47, in fusion_art
+    return get_fusion_art(head_slug, body_slug, db)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\services\fusion_art.py", line 193, in get_fusion_art
+    head_id = _dex_id(head_slug, db)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\services\fusion_art.py", line 122, in _dex_id
+    return _if_dex_map(db).get(entry["id"])
+           ~~~~~~~~~~~^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\services\fusion_art.py", line 94, in _if_dex_map
+    cached = _get_manifest(db, _IF_DEX_MAP_KEY)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\services\fusion_art.py", line 57, in _get_manifest
+    row = db.get(FusionArtManifest, pair)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+3702, in get
+    return self._get_impl(
+           ~~~~~~~~~~~~~~^
+        entity,
+        ^^^^^^^
+    ...<7 lines>...
+        bind_arguments=bind_arguments,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+3881, in _get_impl
+    return db_load_fn(
+        self,
+    ...<5 lines>...
+        bind_arguments=bind_arguments,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\loading.py", line 
+695, in load_on_pk_identity
+    session.execute(
+    ~~~~~~~~~~~~~~~^
+        q,
+        ^^
+    ...<2 lines>...
+        bind_arguments=bind_arguments,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2373, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 
+306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 117, in 
+execute
+    raise ex.with_traceback(None)
+sqlalchemy.exc.OperationalError: (psycopg.OperationalError) consuming input failed: server closed the connection 
+unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+[SQL: SELECT fusion_art_manifests.pair AS fusion_art_manifests_pair, fusion_art_manifests.variants AS 
+fusion_art_manifests_variants 
+FROM fusion_art_manifests 
+WHERE fusion_art_manifests.pair = %(pk_1)s::VARCHAR]
+[parameters: {'pk_1': '_if_dex_map'}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+INFO:     127.0.0.1:61401 - "GET /api/home/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59251 - "GET /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56753 - "GET /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59096 - "GET /api/fusion/aegislash/gardevoir/art HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56670 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59096 - "GET /api/fusion/aegislash/gardevoir/art HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61401 - "GET /api/home/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58172 - "OPTIONS /api/profiles/CharlotteEden HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50441 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57310 - "OPTIONS /api/profiles/CharlotteEden HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64886 - "OPTIONS /api/list-saves HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63302 - "GET /api/fusion/aegislash/gardevoir/art HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64886 - "GET /api/list-saves HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50441 - "GET /api/fusion/aegislash/gardevoir/art HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63302 - "GET /api/list-saves HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57310 - "GET /api/profiles/CharlotteEden HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63302 - "GET /api/profiles/CharlotteEden HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63302 - "OPTIONS /api/friends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57310 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50441 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64886 - "OPTIONS /api/friends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58172 - "OPTIONS /api/friends/requests HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57652 - "OPTIONS /api/friends/requests/outgoing HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58172 - "GET /api/friends/requests HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57652 - "GET /api/friends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64886 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64886 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57310 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50441 - "GET /api/friends/requests HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58172 - "GET /api/friends HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57652 - "GET /api/friends/requests/outgoing HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "OPTIONS /api/lists/25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "GET /api/lists/25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "OPTIONS /api/pokemon/mimikyu/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65309 - "OPTIONS /api/pokemon/mimikyu/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "GET /api/pokemon/mimikyu/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65309 - "GET /api/pokemon/mimikyu/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65309 - "OPTIONS /api/pokemon/gourgeist/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "OPTIONS /api/pokemon/gourgeist/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "GET /api/pokemon/gourgeist/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65309 - "GET /api/pokemon/gourgeist/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65309 - "OPTIONS /api/pokemon/gengar/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "OPTIONS /api/pokemon/gengar/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "GET /api/pokemon/gengar/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65309 - "GET /api/pokemon/gengar/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60155 - "OPTIONS /api/pokemon?q=haunt&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60155 - "GET /api/pokemon?q=haunt&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60155 - "OPTIONS /api/lists/25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60155 - "PUT /api/lists/25 HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+psycopg.errors.DuplicatePreparedStatement: prepared statement "_pg3_0" already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_i
+mpl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\applications.py", line 
+1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\applications.py", line 
+90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 154, in simple_response
+    await self.app(scope, receive, send)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\routing.py", line 660, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2692, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1773, 
+in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2747, 
+in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1793, 
+in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1272, 
+in handle
+    await app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 156, in 
+app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 142, in 
+app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 698, in 
+app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 352, in 
+run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 
+34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in 
+run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\api\lists.py", line 175, in update_list
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", 
+line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 678, in execute
+    util.preloaded.orm_persistence.delete_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, True, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 194, in delete_obj
+    _emit_delete_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        delete,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 1472, in _emit_delete_statements
+    c = connection.execute(
+        statement, del_objects, execution_options=execution_options
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+sqlalchemy.exc.ProgrammingError: (psycopg.errors.DuplicatePreparedStatement) prepared statement "_pg3_0" already exists
+[SQL: DELETE FROM saved_list_entries WHERE saved_list_entries.id = %(id)s::INTEGER]
+[parameters: [{'id': 4584}, {'id': 4585}, {'id': 4586}, {'id': 4587}, {'id': 4588}, {'id': 4589}, {'id': 4590}, {'id': 
+4591}  ... displaying 10 of 13 total bound parameter sets ...  {'id': 4595}, {'id': 4596}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:     127.0.0.1:50123 - "OPTIONS /api/pokemon/haunter/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50123 - "OPTIONS /api/pokemon/haunter/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50123 - "GET /api/pokemon/haunter/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50123 - "GET /api/pokemon/haunter/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50123 - "PUT /api/lists/25 HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+psycopg.errors.DuplicatePreparedStatement: prepared statement "_pg3_0" already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_i
+mpl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\applications.py", line 
+1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\applications.py", line 
+90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 154, in simple_response
+    await self.app(scope, receive, send)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\routing.py", line 660, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2692, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1773, 
+in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2747, 
+in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1793, 
+in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1272, 
+in handle
+    await app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 156, in 
+app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 142, in 
+app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 698, in 
+app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 352, in 
+run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 
+34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in 
+run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\api\lists.py", line 175, in update_list
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", 
+line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 678, in execute
+    util.preloaded.orm_persistence.delete_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, True, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 194, in delete_obj
+    _emit_delete_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        delete,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 1472, in _emit_delete_statements
+    c = connection.execute(
+        statement, del_objects, execution_options=execution_options
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+sqlalchemy.exc.ProgrammingError: (psycopg.errors.DuplicatePreparedStatement) prepared statement "_pg3_0" already exists
+[SQL: DELETE FROM saved_list_entries WHERE saved_list_entries.id = %(id)s::INTEGER]
+[parameters: [{'id': 4584}, {'id': 4585}, {'id': 4586}, {'id': 4587}, {'id': 4588}, {'id': 4589}, {'id': 4590}, {'id': 
+4591}  ... displaying 10 of 13 total bound parameter sets ...  {'id': 4595}, {'id': 4596}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:     127.0.0.1:60972 - "GET /api/pokemon?q=haunt&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60972 - "PUT /api/lists/25 HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+psycopg.errors.DuplicatePreparedStatement: prepared statement "_pg3_0" already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_i
+mpl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\applications.py", line 
+1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\applications.py", line 
+90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 154, in simple_response
+    await self.app(scope, receive, send)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\routing.py", line 660, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2692, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1773, 
+in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2747, 
+in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1793, 
+in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1272, 
+in handle
+    await app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 156, in 
+app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 142, in 
+app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 698, in 
+app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 352, in 
+run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 
+34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in 
+run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\api\lists.py", line 175, in update_list
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", 
+line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 678, in execute
+    util.preloaded.orm_persistence.delete_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, True, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 194, in delete_obj
+    _emit_delete_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        delete,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 1472, in _emit_delete_statements
+    c = connection.execute(
+        statement, del_objects, execution_options=execution_options
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+sqlalchemy.exc.ProgrammingError: (psycopg.errors.DuplicatePreparedStatement) prepared statement "_pg3_0" already exists
+[SQL: DELETE FROM saved_list_entries WHERE saved_list_entries.id = %(id)s::INTEGER]
+[parameters: [{'id': 4584}, {'id': 4585}, {'id': 4586}, {'id': 4587}, {'id': 4588}, {'id': 4589}, {'id': 4590}, {'id': 
+4591}  ... displaying 10 of 13 total bound parameter sets ...  {'id': 4595}, {'id': 4596}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:     127.0.0.1:56772 - "GET /api/pokemon/haunter/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56772 - "GET /api/pokemon/haunter/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59892 - "PUT /api/lists/25 HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+psycopg.errors.DuplicatePreparedStatement: prepared statement "_pg3_0" already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_i
+mpl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\applications.py", line 
+1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\applications.py", line 
+90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 154, in simple_response
+    await self.app(scope, receive, send)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\routing.py", line 660, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2692, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1773, 
+in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2747, 
+in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1793, 
+in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1272, 
+in handle
+    await app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 156, in 
+app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 142, in 
+app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 698, in 
+app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 352, in 
+run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 
+34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in 
+run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\api\lists.py", line 175, in update_list
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", 
+line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 678, in execute
+    util.preloaded.orm_persistence.delete_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, True, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 194, in delete_obj
+    _emit_delete_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        delete,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 1472, in _emit_delete_statements
+    c = connection.execute(
+        statement, del_objects, execution_options=execution_options
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+sqlalchemy.exc.ProgrammingError: (psycopg.errors.DuplicatePreparedStatement) prepared statement "_pg3_0" already exists
+[SQL: DELETE FROM saved_list_entries WHERE saved_list_entries.id = %(id)s::INTEGER]
+[parameters: [{'id': 4584}, {'id': 4585}, {'id': 4586}, {'id': 4587}, {'id': 4588}, {'id': 4589}, {'id': 4590}, {'id': 
+4591}  ... displaying 10 of 13 total bound parameter sets ...  {'id': 4595}, {'id': 4596}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:     127.0.0.1:56772 - "PUT /api/lists/25 HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+psycopg.errors.DuplicatePreparedStatement: prepared statement "_pg3_0" already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_i
+mpl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\applications.py", line 
+1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\applications.py", line 
+90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 154, in simple_response
+    await self.app(scope, receive, send)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\routing.py", line 660, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2692, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1773, 
+in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2747, 
+in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1793, 
+in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1272, 
+in handle
+    await app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 156, in 
+app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 142, in 
+app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 698, in 
+app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 352, in 
+run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 
+34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in 
+run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\api\lists.py", line 175, in update_list
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", 
+line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 678, in execute
+    util.preloaded.orm_persistence.delete_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, True, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 194, in delete_obj
+    _emit_delete_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        delete,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 1472, in _emit_delete_statements
+    c = connection.execute(
+        statement, del_objects, execution_options=execution_options
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+sqlalchemy.exc.ProgrammingError: (psycopg.errors.DuplicatePreparedStatement) prepared statement "_pg3_0" already exists
+[SQL: DELETE FROM saved_list_entries WHERE saved_list_entries.id = %(id)s::INTEGER]
+[parameters: [{'id': 4584}, {'id': 4585}, {'id': 4586}, {'id': 4587}, {'id': 4588}, {'id': 4589}, {'id': 4590}, {'id': 
+4591}  ... displaying 10 of 13 total bound parameter sets ...  {'id': 4595}, {'id': 4596}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:     127.0.0.1:59903 - "GET /api/pokemon/mimikyu/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59903 - "GET /api/pokemon/mimikyu/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59903 - "GET /api/pokemon/gengar/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "GET /api/pokemon/gengar/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "OPTIONS /api/pokemon?q=r&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "GET /api/pokemon?q=r&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "OPTIONS /api/pokemon?q=eevee&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "GET /api/pokemon?q=eevee&limit=8 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62904 - "OPTIONS /api/pokemon/eevee/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57901 - "OPTIONS /api/pokemon/eevee/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57901 - "GET /api/pokemon/eevee/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62904 - "GET /api/pokemon/eevee/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "PUT /api/lists/25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54185 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62192 - "GET /api/pokemon/eevee/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59860 - "GET /api/pokemon/eevee/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59860 - "OPTIONS /api/pokemon/eevee-starter HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59860 - "GET /api/pokemon/eevee-starter HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62192 - "OPTIONS /api/pokemon/eevee-starter/evolution-family HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52204 - "OPTIONS /api/pokemon/eevee-starter/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52204 - "GET /api/pokemon/eevee-starter/evolution-family HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62192 - "GET /api/pokemon/eevee-starter/variants HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59860 - "PUT /api/lists/25 HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+psycopg.errors.DuplicatePreparedStatement: prepared statement "_pg3_1" already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_i
+mpl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\applications.py", line 
+1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\applications.py", line 
+90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 154, in simple_response
+    await self.app(scope, receive, send)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\routing.py", line 660, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2692, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1773, 
+in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2747, 
+in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1793, 
+in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1272, 
+in handle
+    await app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 156, in 
+app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 142, in 
+app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 698, in 
+app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 352, in 
+run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 
+34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in 
+run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\api\lists.py", line 175, in update_list
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", 
+line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 678, in execute
+    util.preloaded.orm_persistence.delete_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, True, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 194, in delete_obj
+    _emit_delete_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        delete,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 1472, in _emit_delete_statements
+    c = connection.execute(
+        statement, del_objects, execution_options=execution_options
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+sqlalchemy.exc.ProgrammingError: (psycopg.errors.DuplicatePreparedStatement) prepared statement "_pg3_1" already exists
+[SQL: DELETE FROM saved_list_entries WHERE saved_list_entries.id = %(id)s::INTEGER]
+[parameters: [{'id': 4822}, {'id': 4823}, {'id': 4824}, {'id': 4825}, {'id': 4826}, {'id': 4827}, {'id': 4828}, {'id': 
+4829}  ... displaying 10 of 14 total bound parameter sets ...  {'id': 4834}, {'id': 4835}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:     127.0.0.1:62192 - "OPTIONS /api/pokemon/eevee-gmax HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62192 - "GET /api/pokemon/eevee-gmax HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62192 - "PUT /api/lists/25 HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+psycopg.errors.DuplicatePreparedStatement: prepared statement "_pg3_1" already exists
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_i
+mpl.py", line 422, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", 
+line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\applications.py", line 
+1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\applications.py", line 
+90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 186, in __call__
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\errors.py", 
+line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\cors.py", 
+line 154, in simple_response
+    await self.app(scope, receive, send)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", 
+line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File 
+"C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", 
+line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\routing.py", line 660, 
+in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2692, 
+in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1773, 
+in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 2747, 
+in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1793, 
+in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 1272, 
+in handle
+    await app(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 156, in 
+app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\_exception_handler.py", 
+line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 142, in 
+app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 698, in 
+app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\fastapi\routing.py", line 352, in 
+run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\starlette\concurrency.py", line 
+34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in 
+run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", 
+line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\app\api\lists.py", line 175, in update_list
+    db.commit()
+    ~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+2035, in commit
+    trans.commit(_to_root=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<string>", line 2, in commit
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1316, in commit
+    self._prepare_impl()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", 
+line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+1290, in _prepare_impl
+    self.session.flush()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4353, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4488, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", 
+line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 
+4449, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 465, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", 
+line 678, in execute
+    util.preloaded.orm_persistence.delete_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, True, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 194, in delete_obj
+    _emit_delete_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        delete,
+        ^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", 
+line 1472, in _emit_delete_statements
+    c = connection.execute(
+        statement, del_objects, execution_options=execution_options
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 
+526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 
+1938, in _exec_single_context
+    self.dialect.do_executemany(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor,
+        ^^^^^^^
+    ...<2 lines>...
+        context,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", 
+line 949, in do_executemany
+    cursor.executemany(statement, parameters)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Charlotte\Documents\GitHub\DexForge\backend\.venv\Lib\site-packages\psycopg\cursor.py", line 148, in 
+executemany
+    raise ex.with_traceback(None)
+sqlalchemy.exc.ProgrammingError: (psycopg.errors.DuplicatePreparedStatement) prepared statement "_pg3_1" already exists
+[SQL: DELETE FROM saved_list_entries WHERE saved_list_entries.id = %(id)s::INTEGER]
+[parameters: [{'id': 4822}, {'id': 4823}, {'id': 4824}, {'id': 4825}, {'id': 4826}, {'id': 4827}, {'id': 4828}, {'id': 
+4829}  ... displaying 10 of 14 total bound parameter sets ...  {'id': 4834}, {'id': 4835}]]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:     127.0.0.1:56476 - "OPTIONS /api/typing/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54528 - "OPTIONS /api/typing?type=bug&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60068 - "OPTIONS /api/typing/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58315 - "OPTIONS /api/typing?type=bug&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58315 - "GET /api/typing/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60068 - "GET /api/typing?type=bug&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54528 - "GET /api/typing/profiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58315 - "GET /api/typing?type=bug&type=dark HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58315 - "OPTIONS /api/typing?type=bug&type=bug HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58315 - "GET /api/typing?type=bug&type=bug HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49575 - "OPTIONS /api/pokemon/abilities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49575 - "OPTIONS /api/pokemon/abilities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49575 - "GET /api/pokemon/abilities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49575 - "GET /api/pokemon/abilities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49575 - "OPTIONS /api/lists/preview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49575 - "POST /api/lists/preview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51020 - "GET /api/pokemon/abilities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61053 - "GET /api/pokemon/abilities HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51020 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61053 - "GET /api/fusion/aegislash/gardevoir/art HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64571 - "POST /api/pokemon/bulk HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51020 - "GET /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56272 - "GET /api/fusion/aegislash/gardevoir/art HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57589 - "GET /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57589 - "POST /api/lists/preview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61053 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61053 - "GET /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57589 - "GET /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56272 - "GET /api/lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56272 - "GET /api/quick-links HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57589 - "GET /api/fusion-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61053 - "GET /api/lists HTTP/1.1" 200 OK

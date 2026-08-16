@@ -169,9 +169,17 @@ export default function ListBuilderPage() {
 
   function swapEntry(oldSlug, newPokemon) {
     dirtyRef.current = true;
-    setEntries((prev) =>
-      prev.map((e) => (e.name === oldSlug ? { ...newPokemon, label_ids: e.label_ids || [] } : e))
-    );
+    setEntries((prev) => {
+      // Evolving/devolving into a Pokémon already elsewhere in the list would create two
+      // entries with the same `name` — breaks everything keyed on it (React list keys,
+      // dnd-kit sortable ids, label lookups). Drop this slot instead of duplicating it;
+      // the target Pokémon already has its own entry.
+      const wouldDuplicate = prev.some((e) => e.name === newPokemon.name && e.name !== oldSlug);
+      if (wouldDuplicate) {
+        return prev.filter((e) => e.name !== oldSlug);
+      }
+      return prev.map((e) => (e.name === oldSlug ? { ...newPokemon, label_ids: e.label_ids || [] } : e));
+    });
   }
 
   function toggleEntryLabel(slug, labelId) {

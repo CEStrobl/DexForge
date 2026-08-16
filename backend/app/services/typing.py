@@ -12,7 +12,10 @@ def get_effectiveness(types: list[str]) -> dict[str, float]:
     type_data = get_dataset("types")
     multipliers = {t: 1.0 for t in ALL_TYPES}
 
-    for defending_type in types:
+    # A Pokémon can't actually have the same type twice — dedupe so a caller passing
+    # the same type in both slots (e.g. representing "pure Water") doesn't double-apply
+    # its relations and produce a bogus 4x/0.25x multiplier.
+    for defending_type in dict.fromkeys(types):
         relations = type_data.get(defending_type)
         if not relations:
             continue

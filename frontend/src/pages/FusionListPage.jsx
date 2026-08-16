@@ -170,12 +170,32 @@ export default function FusionListPage() {
 
   function changeHead(key, newHeadSlug) {
     dirtyRef.current = true;
-    setEntries((prev) => prev.map((e) => (entryKey(e) === key ? { ...e, head_slug: newHeadSlug } : e)));
+    setEntries((prev) => {
+      // Same duplicate-identity hazard as ListBuilderPage's swapEntry: evolving/devolving
+      // a head into a pair that already exists elsewhere in the list would create two
+      // entries with the same entryKey, breaking dnd-kit's sortable ids. Drop this slot
+      // instead — the target pair already has its own entry.
+      const wouldDuplicate = prev.some(
+        (e) => e.head_slug === newHeadSlug && e.body_slug === prev.find((x) => entryKey(x) === key)?.body_slug && entryKey(e) !== key
+      );
+      if (wouldDuplicate) {
+        return prev.filter((e) => entryKey(e) !== key);
+      }
+      return prev.map((e) => (entryKey(e) === key ? { ...e, head_slug: newHeadSlug } : e));
+    });
   }
 
   function changeBody(key, newBodySlug) {
     dirtyRef.current = true;
-    setEntries((prev) => prev.map((e) => (entryKey(e) === key ? { ...e, body_slug: newBodySlug } : e)));
+    setEntries((prev) => {
+      const wouldDuplicate = prev.some(
+        (e) => e.body_slug === newBodySlug && e.head_slug === prev.find((x) => entryKey(x) === key)?.head_slug && entryKey(e) !== key
+      );
+      if (wouldDuplicate) {
+        return prev.filter((e) => entryKey(e) !== key);
+      }
+      return prev.map((e) => (entryKey(e) === key ? { ...e, body_slug: newBodySlug } : e));
+    });
   }
 
   function swapOrientation(key) {

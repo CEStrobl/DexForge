@@ -7,6 +7,7 @@ import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } 
 import { CSS } from '@dnd-kit/utilities';
 import { api } from '../../api/client';
 import { useQuickLinks } from '../../context/QuickLinksContext';
+import { computeMenuPosition } from '../../utils/floatingMenuPosition';
 
 function QuickLinkRowMenu({ onRename, onRemove }) {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ function QuickLinkRowMenu({ onRename, onRemove }) {
     function updatePosition() {
       const rect = triggerRef.current?.getBoundingClientRect();
       if (!rect) return;
-      setPosition({ top: rect.bottom + 4, left: rect.right - 160 });
+      setPosition(computeMenuPosition(rect, { menuWidth: 160 }));
     }
     updatePosition();
     window.addEventListener('scroll', updatePosition, true);
@@ -56,7 +57,7 @@ function QuickLinkRowMenu({ onRename, onRemove }) {
       </button>
       {open &&
         createPortal(
-          <div ref={panelRef} className="row-actions-panel row-actions-panel-portal" style={{ top: position.top, left: position.left }}>
+          <div ref={panelRef} className="row-actions-panel row-actions-panel-portal" style={{ top: position.top, bottom: position.bottom, left: position.left }}>
             <button
               type="button"
               className="row-actions-item"

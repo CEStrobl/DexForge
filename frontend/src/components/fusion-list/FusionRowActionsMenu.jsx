@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../api/client';
 import { toDisplayName } from '../../utils/format';
+import { computeMenuPosition } from '../../utils/floatingMenuPosition';
 
 export function FusionRowActionsMenu({
   entry,
@@ -53,7 +54,7 @@ export function FusionRowActionsMenu({
     function updatePosition() {
       const rect = triggerRef.current?.getBoundingClientRect();
       if (!rect) return;
-      setPosition({ top: rect.bottom + 4, left: rect.right - 220 });
+      setPosition(computeMenuPosition(rect, { menuWidth: 220 }));
     }
     updatePosition();
     window.addEventListener('scroll', updatePosition, true);
@@ -107,7 +108,7 @@ export function FusionRowActionsMenu({
           <div
             ref={panelRef}
             className="row-actions-panel row-actions-panel-portal"
-            style={{ top: position.top, left: position.left }}
+            style={{ top: position.top, bottom: position.bottom, left: position.left }}
           >
             {view === 'main' && (
               <>

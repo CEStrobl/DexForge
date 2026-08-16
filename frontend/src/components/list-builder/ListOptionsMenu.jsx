@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Globe, Link2, Lock, MoreHorizontal, Trash2 } from 'lucide-react';
+import { computeMenuPosition } from '../../utils/floatingMenuPosition';
 
 // Same trigger/portal-panel dropdown pattern as QuickLinksSection's row menu.
 export function ListOptionsMenu({ isPublic, shareUrl, onTogglePublic, onDelete, deleteLabel }) {
@@ -15,7 +16,7 @@ export function ListOptionsMenu({ isPublic, shareUrl, onTogglePublic, onDelete, 
     function updatePosition() {
       const rect = triggerRef.current?.getBoundingClientRect();
       if (!rect) return;
-      setPosition({ top: rect.bottom + 4, left: rect.right - 200 });
+      setPosition(computeMenuPosition(rect, { menuWidth: 200 }));
     }
     updatePosition();
     window.addEventListener('scroll', updatePosition, true);
@@ -59,7 +60,7 @@ export function ListOptionsMenu({ isPublic, shareUrl, onTogglePublic, onDelete, 
       </button>
       {open &&
         createPortal(
-          <div ref={panelRef} className="row-actions-panel row-actions-panel-portal" style={{ top: position.top, left: position.left }}>
+          <div ref={panelRef} className="row-actions-panel row-actions-panel-portal" style={{ top: position.top, bottom: position.bottom, left: position.left }}>
             <button
               type="button"
               className="row-actions-item"
