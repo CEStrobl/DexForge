@@ -30,10 +30,10 @@ def filter_pokemon(criteria: dict) -> list[dict]:
     species = get_dataset("species")
     entries = [p for p in pokemon.values() if is_canonical(p["name"])] if isinstance(pokemon, dict) else pokemon
 
-    generation = criteria.get("generation")
+    generations = criteria.get("generations")
     types = criteria.get("types")
     weak_to = criteria.get("weak_to")
-    ability = criteria.get("ability")
+    abilities = criteria.get("abilities")
     egg_groups = criteria.get("egg_groups")
     ev_yield_stats = criteria.get("ev_yield_stats")
     growth_rate = criteria.get("growth_rate")
@@ -41,11 +41,11 @@ def filter_pokemon(criteria: dict) -> list[dict]:
     is_mythical = criteria.get("is_mythical")
 
     def matches(mon: dict) -> bool:
-        if generation and mon.get("generation") != generation:
+        if generations and mon.get("generation") not in set(generations):
             return False
         if types and not set(types) & set(mon.get("types", [])):
             return False
-        if ability and ability not in {a["name"] for a in mon.get("abilities", [])}:
+        if abilities and not set(abilities) & {a["name"] for a in mon.get("abilities", [])}:
             return False
         if egg_groups and not set(egg_groups) & set(mon.get("egg_groups", [])):
             return False

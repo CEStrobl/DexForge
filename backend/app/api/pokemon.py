@@ -55,6 +55,12 @@ def list_abilities():
     return sorted(abilities.keys())
 
 
+@router.get("/moves")
+def list_moves():
+    moves = get_dataset("moves")
+    return sorted(moves.keys())
+
+
 @router.get("/{slug}/evolution-family")
 def get_pokemon_evolution_family(slug: str):
     family = get_evolution_family(slug)

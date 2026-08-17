@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, field_validator
 
@@ -51,10 +52,10 @@ class VisibilityUpdate(BaseModel):
 
 
 class ListCriteria(BaseModel):
-    generation: str | None = None
+    generations: list[str] | None = None
     types: list[str] | None = None
     weak_to: list[str] | None = None
-    ability: str | None = None
+    abilities: list[str] | None = None
     egg_groups: list[str] | None = None
     ev_yield_stats: list[str] | None = None
     growth_rate: str | None = None
@@ -82,6 +83,19 @@ class ListCriteria(BaseModel):
     base_happiness_max: int | None = None
     hatch_counter_min: int | None = None
     hatch_counter_max: int | None = None
+
+
+class AdvancedRule(BaseModel):
+    field: str
+    operator: str
+    value: Any = None
+    # How this rule combines with the NEXT rule in the list ('and'/'or'); ignored on the
+    # last rule. Rules are evaluated strictly left-to-right, no precedence/grouping.
+    join: str | None = None
+
+
+class AdvancedSearchRequest(BaseModel):
+    rules: list[AdvancedRule] = []
 
 
 class OwnerOut(BaseModel):

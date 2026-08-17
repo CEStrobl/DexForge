@@ -9,12 +9,14 @@ from app.db.session import get_db
 from app.models.list_models import SavedList, SavedListEntry
 from app.models.profile_models import Profile
 from app.schemas.list_schemas import (
+    AdvancedSearchRequest,
     ListCriteria,
     SavedListCreate,
     SavedListOut,
     SavedListUpdate,
     VisibilityUpdate,
 )
+from app.services.advanced_search import run_advanced_search
 from app.services.list_criteria import filter_pokemon
 
 router = APIRouter(prefix="/api/lists", tags=["lists"])
@@ -60,6 +62,11 @@ def get_lists(db: Session = Depends(get_db), user_id: str = Depends(get_current_
 @router.post("/preview")
 def preview_criteria(criteria: ListCriteria):
     return filter_pokemon(criteria.model_dump(exclude_none=True))
+
+
+@router.post("/preview/advanced")
+def preview_advanced(payload: AdvancedSearchRequest):
+    return run_advanced_search([rule.model_dump() for rule in payload.rules])
 
 
 @router.get("/{list_id}", response_model=SavedListOut)

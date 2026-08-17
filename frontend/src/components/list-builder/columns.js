@@ -1,4 +1,4 @@
-import { CRITERIA_GROUPS } from './criteria';
+import { ALL_CRITERIA, CRITERIA_GROUPS } from './criteria';
 import { STAT_FULL_LABELS } from '../../utils/format';
 
 // Safe criteria key -> actual key in pokemon.stats (which uses PokeAPI's hyphenated names).
@@ -25,16 +25,23 @@ function columnLabel(key, label) {
 // Column-picker grouping is intentionally decoupled from the criteria panel's
 // primary/more split (CRITERIA_GROUPS) — Generation stays a "primary" filter on
 // the Dex Filter page, but is tucked under +More in the table's column picker.
-const GENERATION_COLUMN = CRITERIA_GROUPS.primary.find((c) => c.key === 'generation');
+// The criterion is multi-select ("generations", OR-matched) but the column itself still
+// shows a single per-Pokémon value, so the column's own key stays the singular
+// "generation" that cellFormatters/ListTable already key off of — decoupled on purpose.
+const GENERATION_CRITERION = CRITERIA_GROUPS.primary.find((c) => c.key === 'generations');
+const GENERATION_COLUMN = { key: 'generation', label: GENERATION_CRITERION.label };
 
 export const PRIMARY_COLUMNS = [...CRITERIA_GROUPS.primary, ...CRITERIA_GROUPS.stats]
-  .filter((c) => c.key !== 'weak_to' && c.key !== 'generation')
+  .filter((c) => c.key !== 'weak_to' && c.key !== 'generations')
   .map(({ key, label }) => ({ key, label: columnLabel(key, label) }));
 
 export const WEAKNESS_COLUMN = { key: 'weaknesses', label: 'Weaknesses' };
 
+// Column-picker grouping (General/Training/Breeding below) is its own arrangement, not
+// tied to which Search accordion (primary/stats/more) the same field lives in — so this
+// looks the field up across ALL_CRITERIA rather than just CRITERIA_GROUPS.more.
 function moreColumn(key) {
-  const match = CRITERIA_GROUPS.more.find((c) => c.key === key);
+  const match = ALL_CRITERIA.find((c) => c.key === key);
   return { key: match.key, label: columnLabel(match.key, match.label) };
 }
 
