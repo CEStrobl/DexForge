@@ -16,11 +16,26 @@ CATEGORICAL_MULTI_FIELDS = {
     "egg_groups": lambda mon: mon.get("egg_groups", []),
     "abilities": lambda mon: [a["name"] for a in mon.get("abilities", [])],
     "ev_yield_stats": lambda mon: [e["stat"] for e in mon.get("ev_yield", [])],
-    # movesets.json is keyed by exact variant slug, not merged onto the enriched mon dict
-    # (unlike abilities/egg_groups/etc., which live directly on `mon`) — pulled in as its
-    # own module-level dataset and joined here by mon["name"].
-    "moves": lambda mon: [e["move"] for e in _MOVESETS.get(mon["name"], [])],
+    # "moves" is handled separately below (_moves_accessor) — its value carries an optional
+    # learn `method` alongside the move list, so it can't share this dict's plain-list shape.
 }
+
+MOVE_METHODS = {"level-up", "machine", "egg", "tutor"}
+
+
+def _moves_accessor(method: str | None):
+    """movesets.json is keyed by exact variant slug, not merged onto the enriched mon dict
+    (unlike abilities/egg_groups/etc., which live directly on `mon`) — pulled in as its own
+    module-level dataset and joined here by mon["name"]. `method`, when given, narrows to
+    moves learnable via that specific method (level-up/machine/egg/tutor) rather than any."""
+
+    def accessor(mon: dict):
+        entries = _MOVESETS.get(mon["name"], [])
+        if method:
+            entries = [e for e in entries if e.get("method") == method]
+        return [e["move"] for e in entries]
+
+    return accessor
 
 CATEGORICAL_SINGLE_FIELDS = {
     "growth_rate": lambda mon: mon.get("growth_rate"),
@@ -103,6 +118,11 @@ def _evaluate_rule(mon: dict, rule: dict) -> bool:
     operator = rule.get("operator")
     value = rule.get("value")
 
+    if field == "moves":
+        value = value or {}
+        moves = value.get("moves") or []
+        method = value.get("method") or None
+        return _eval_categorical_multi(_moves_accessor(method), operator, moves, mon)
     if field in CATEGORICAL_MULTI_FIELDS:
         return _eval_categorical_multi(CATEGORICAL_MULTI_FIELDS[field], operator, value, mon)
     if field in CATEGORICAL_SINGLE_FIELDS:

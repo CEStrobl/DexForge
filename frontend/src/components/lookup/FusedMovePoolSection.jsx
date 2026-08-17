@@ -24,7 +24,12 @@ const GENERATION_LABELS = {
   'generation-ix': 'IX',
 };
 
-const METHOD_LABELS = { 'level-up': 'Level', machine: 'TM', egg: 'Egg', tutor: 'Tutor' };
+const METHOD_TABS = [
+  { value: 'level-up', label: 'Level Up' },
+  { value: 'machine', label: 'TM/HM' },
+  { value: 'egg', label: 'Egg Move' },
+  { value: 'tutor', label: 'Tutor' },
+];
 const SOURCE_LABELS = { head: 'Head', body: 'Body', both: 'Both' };
 
 const STORAGE_KEY = 'dexforge:fused-movepool-open';
@@ -51,7 +56,6 @@ function mergeMovePools(headMoves, bodyMoves) {
 }
 
 function sortValue(row, key) {
-  if (key === 'method') return METHOD_LABELS[row.method] || row.method;
   if (key === 'source') return SOURCE_LABELS[row.source] || row.source;
   if (key === 'power') return row.power ?? -1;
   if (key === 'accuracy') return row.accuracy ?? -1;
@@ -88,7 +92,15 @@ export function FusedMovePoolSection({ headSlug, bodySlug }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [generation, setGeneration] = useState(null);
+  const [method, setMethod] = useState('level-up');
   const [sort, setSort] = useState({ key: 'level', direction: 'asc' });
+
+  // Level is meaningless outside Level Up (always 0), so sorting by move name reads better
+  // as the default there.
+  function handleMethodChange(next) {
+    setMethod(next);
+    setSort({ key: next === 'level-up' ? 'level' : 'move', direction: 'asc' });
+  }
 
   function toggleOpen() {
     setOpen((prev) => {
@@ -137,12 +149,12 @@ export function FusedMovePoolSection({ headSlug, bodySlug }) {
 
   const rows = useMemo(() => {
     if (!headData || !bodyData || !generation) return [];
-    const headMoves = headData.moves.filter((m) => m.generation === generation);
-    const bodyMoves = bodyData.moves.filter((m) => m.generation === generation);
+    const headMoves = headData.moves.filter((m) => m.generation === generation && m.method === method);
+    const bodyMoves = bodyData.moves.filter((m) => m.generation === generation && m.method === method);
     const merged = mergeMovePools(headMoves, bodyMoves);
     const dir = sort.direction === 'asc' ? 1 : -1;
     return merged.sort((a, b) => dir * compareValues(sortValue(a, sort.key), sortValue(b, sort.key)));
-  }, [headData, bodyData, generation, sort]);
+  }, [headData, bodyData, generation, method, sort]);
 
   function handleHeaderClick(key) {
     setSort((prev) => (prev.key === key && prev.direction === 'asc' ? { key, direction: 'desc' } : { key, direction: 'asc' }));
@@ -177,6 +189,19 @@ export function FusedMovePoolSection({ headSlug, bodySlug }) {
 
           {!loading && !error && generations.length > 0 && (
             <>
+              <div className="lookup-inline-tabs movepool-method-tabs">
+                {METHOD_TABS.map((m) => (
+                  <button
+                    key={m.value}
+                    type="button"
+                    className={`lookup-inline-tab${method === m.value ? ' active' : ''}`}
+                    onClick={() => handleMethodChange(m.value)}
+                  >
+                    {m.label}
+                  </button>
+                ))}
+              </div>
+
               <div className="lookup-inline-tabs movepool-gen-tabs">
                 {generations.map((g) => (
                   <button
@@ -191,15 +216,14 @@ export function FusedMovePoolSection({ headSlug, bodySlug }) {
               </div>
 
               {rows.length === 0 ? (
-                <p className="text-muted">Not available in this generation.</p>
+                <p className="text-muted">No {METHOD_TABS.find((m) => m.value === method)?.label.toLowerCase()} moves in this generation.</p>
               ) : (
                 <div className="movepool-table-wrap">
                   <table className="movepool-table">
                     <thead>
                       <tr>
                         <Th label="Source" sortKey="source" />
-                        <Th label="Method" sortKey="method" />
-                        <Th label="Lv" sortKey="level" alignRight />
+                        {method === 'level-up' && <Th label="Lv" sortKey="level" alignRight />}
                         <Th label="Move" sortKey="move" />
                         <Th label="Type" sortKey="type" />
                         <Th label="Cat" sortKey="category" />
@@ -216,8 +240,7 @@ export function FusedMovePoolSection({ headSlug, bodySlug }) {
                               {SOURCE_LABELS[row.source]}
                             </span>
                           </td>
-                          <td>{METHOD_LABELS[row.method] || row.method}</td>
-                          <td className="movepool-cell-right">{row.method === 'level-up' ? row.level : '—'}</td>
+                          {method === 'level-up' && <td className="movepool-cell-right">{row.level}</td>}
                           <td>
                             <Tooltip content={row.effect}>{toDisplayName(row.move)}</Tooltip>
                           </td>

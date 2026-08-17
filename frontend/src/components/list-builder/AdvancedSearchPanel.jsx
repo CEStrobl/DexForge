@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Plus, X } from 'lucide-react';
 import { TypeBadge } from '../common/TypeBadge';
 import { TYPE_ORDER } from '../common/typeIcons';
-import { toDisplayName } from '../../utils/format';
+import { TypeDropdown } from '../common/TypeDropdown';
 import { ALL_CRITERIA, ADVANCED_ONLY_CRITERIA } from './criteria';
 import { SearchCombobox } from './SearchCombobox';
 import { api } from '../../api/client';
@@ -34,17 +34,47 @@ const OPERATORS_BY_TYPE = {
   ],
 };
 
+const MOVE_METHODS = [
+  { value: '', label: 'Any method' },
+  { value: 'level-up', label: 'Level Up' },
+  { value: 'machine', label: 'TM/Machine' },
+  { value: 'egg', label: 'Egg Move' },
+  { value: 'tutor', label: 'Move Tutor' },
+];
+
 function defaultValueForField(field, operator) {
   if (field.fieldType === 'boolean') return true;
+  // Move carries an optional learn-method clause alongside the move list, so it needs its
+  // own shape rather than the plain array every other categorical-multi field uses.
+  if (field.key === 'moves') return { moves: [], method: '' };
   if (field.fieldType === 'categorical-multi') return [];
   if (field.fieldType === 'categorical-single') return '';
   if (operator === 'between') return { min: '', max: '' };
   return '';
 }
 
+// A Pokémon can have at most 2 types, so "Type is [...]" (exact set equality) can only ever
+// match with 1 or 2 selected — anything more is a guaranteed-empty query. "is not"/"has any
+// of"/"has none of" don't have that constraint, so they stay unlimited.
+function maxSelections(field, operator) {
+  if (field.key === 'types' && operator === 'is') return 2;
+  return null;
+}
+
+// Move pools run 50-150+ entries deep — "is"/"is not" (exact-set equality) would need every
+// single learnable move selected to ever match, a guaranteed-empty trap rather than a useful
+// query. Only the intersection-style operators make sense for a field this large.
+function operatorsForField(field) {
+  const base = OPERATORS_BY_TYPE[field.fieldType];
+  if (field.key === 'moves') {
+    return base.filter((op) => op.value === 'has_any_of' || op.value === 'has_none_of');
+  }
+  return base;
+}
+
 let ruleIdCounter = 0;
 function makeRule(field) {
-  const operator = OPERATORS_BY_TYPE[field.fieldType][0].value;
+  const operator = operatorsForField(field)[0].value;
   return {
     id: ++ruleIdCounter,
     field: field.key,
@@ -57,6 +87,7 @@ function makeRule(field) {
 function isRuleComplete(rule, field) {
   if (!field) return false;
   if (field.fieldType === 'boolean') return true;
+  if (field.key === 'moves') return (rule.value?.moves || []).length > 0;
   if (field.fieldType === 'categorical-multi') return (rule.value || []).length > 0;
   if (field.fieldType === 'categorical-single') return !!rule.value;
   if (rule.operator === 'between') {
@@ -85,26 +116,35 @@ function ValueInput({ field, rule, onChange, abilityOptions, moveOptions }) {
   }
 
   if (field.isMove) {
-    return <SearchCombobox options={moveOptions} selected={rule.value || []} onChange={onChange} placeholder="Search moves..." />;
+    const v = rule.value || { moves: [], method: '' };
+    return (
+      <div className="advanced-move-value">
+        <SearchCombobox
+          options={moveOptions}
+          selected={v.moves || []}
+          onChange={(moves) => onChange({ ...v, moves })}
+          placeholder="Search moves..."
+        />
+        <label className="advanced-move-method">
+          <span>via</span>
+          <select value={v.method || ''} onChange={(e) => onChange({ ...v, method: e.target.value })}>
+            {MOVE_METHODS.map((m) => (
+              <option key={m.value} value={m.value}>
+                {m.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+    );
   }
 
   // Type specifically (not Weakness, which shares the same isType chip-grid flag) picks
-  // one type at a time via a plain dropdown, same style as Growth Rate's categorical-single
-  // select — simpler than the full type-badge chip grid for this field. Value still stores
-  // as a single-item array so the rest of the categorical-multi plumbing (operators, default
-  // value shape, backend evaluation) doesn't need to special-case this field at all.
+  // type(s) via a colored, iconed dropdown (TypeDropdown) — same trigger/panel shape as a
+  // plain select, just able to render TypeBadge where a native <select> couldn't, and
+  // multi-select since every operator but "is" supports more than one type.
   if (field.key === 'types') {
-    const selected = rule.value || [];
-    return (
-      <select value={selected[0] || ''} onChange={(e) => onChange(e.target.value ? [e.target.value] : [])}>
-        <option value="">Choose...</option>
-        {TYPE_ORDER.map((t) => (
-          <option key={t} value={t}>
-            {toDisplayName(t)}
-          </option>
-        ))}
-      </select>
-    );
+    return <TypeDropdown value={rule.value || []} onChange={onChange} max={maxSelections(field, rule.operator)} />;
   }
 
   if (field.fieldType === 'categorical-multi') {
@@ -163,11 +203,11 @@ function ValueInput({ field, rule, onChange, abilityOptions, moveOptions }) {
 
 function RuleRow({ rule, onChange, onRemove, abilityOptions, moveOptions, canRemove }) {
   const field = FIELDS.find((f) => f.key === rule.field) || FIELDS[0];
-  const operators = OPERATORS_BY_TYPE[field.fieldType];
+  const operators = operatorsForField(field);
 
   function handleFieldChange(key) {
     const nextField = FIELDS.find((f) => f.key === key);
-    const operator = OPERATORS_BY_TYPE[nextField.fieldType][0].value;
+    const operator = operatorsForField(nextField)[0].value;
     onChange({ ...rule, field: key, operator, value: defaultValueForField(nextField, operator) });
   }
 
@@ -177,7 +217,13 @@ function RuleRow({ rule, onChange, onRemove, abilityOptions, moveOptions, canRem
     // operator on a categorical-multi/single/boolean field shares one value shape, so e.g.
     // switching Moves from "is" to "has any of" shouldn't wipe an already-picked move.
     const shapeChanges = field.fieldType === 'numeric' && (rule.operator === 'between') !== (operator === 'between');
-    const value = shapeChanges ? defaultValueForField(field, operator) : rule.value;
+    let value = shapeChanges ? defaultValueForField(field, operator) : rule.value;
+    // Switching Type to "is" while more than 2 are already picked (from an unlimited
+    // operator) would silently guarantee zero matches — trim to the new cap instead.
+    const max = maxSelections(field, operator);
+    if (max != null && Array.isArray(value) && value.length > max) {
+      value = value.slice(0, max);
+    }
     onChange({ ...rule, operator, value });
   }
 

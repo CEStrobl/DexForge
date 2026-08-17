@@ -366,9 +366,17 @@
   margin-top: var(--space-4);
 }
 
+/* .lookup-inline-tabs is inline-flex (fine when it's the only tab row on the line, as it
+   used to be). Move Pool now stacks two of these rows (method, then generation) — force
+   both to block-level flex so the second row can't flow onto the same line as the first. */
+.movepool-method-tabs,
+.movepool-gen-tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .movepool-gen-tabs {
   margin-top: var(--space-3);
-  flex-wrap: wrap;
 }
 
 .movepool-table-wrap {

@@ -19,12 +19,16 @@ const GENERATION_LABELS = {
   'generation-ix': 'IX',
 };
 
-const METHOD_LABELS = { 'level-up': 'Level', machine: 'TM', egg: 'Egg', tutor: 'Tutor' };
+const METHOD_TABS = [
+  { value: 'level-up', label: 'Level Up' },
+  { value: 'machine', label: 'TM/HM' },
+  { value: 'egg', label: 'Egg Move' },
+  { value: 'tutor', label: 'Tutor' },
+];
 
 const STORAGE_KEY = 'dexforge:movepool-open';
 
 function sortValue(row, key) {
-  if (key === 'method') return METHOD_LABELS[row.method] || row.method;
   if (key === 'power') return row.power ?? -1;
   if (key === 'accuracy') return row.accuracy ?? -1;
   if (key === 'pp') return row.pp ?? -1;
@@ -59,7 +63,15 @@ export function MovePoolSection({ slug }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [generation, setGeneration] = useState(null);
+  const [method, setMethod] = useState('level-up');
   const [sort, setSort] = useState({ key: 'level', direction: 'asc' });
+
+  // Level is meaningless outside Level Up (always 0), so sorting by move name reads better
+  // as the default there — matches what FusedMovePoolSection does for the same reason.
+  function handleMethodChange(next) {
+    setMethod(next);
+    setSort({ key: next === 'level-up' ? 'level' : 'move', direction: 'asc' });
+  }
 
   function toggleOpen() {
     setOpen((prev) => {
@@ -98,10 +110,10 @@ export function MovePoolSection({ slug }) {
 
   const rows = useMemo(() => {
     if (!data || !generation) return [];
-    const filtered = data.moves.filter((m) => m.generation === generation);
+    const filtered = data.moves.filter((m) => m.generation === generation && m.method === method);
     const dir = sort.direction === 'asc' ? 1 : -1;
     return [...filtered].sort((a, b) => dir * compareValues(sortValue(a, sort.key), sortValue(b, sort.key)));
-  }, [data, generation, sort]);
+  }, [data, generation, method, sort]);
 
   function handleHeaderClick(key) {
     setSort((prev) => (prev.key === key && prev.direction === 'asc' ? { key, direction: 'desc' } : { key, direction: 'asc' }));
@@ -138,6 +150,19 @@ export function MovePoolSection({ slug }) {
 
           {!loading && !error && data && data.generations.length > 0 && (
             <>
+              <div className="lookup-inline-tabs movepool-method-tabs">
+                {METHOD_TABS.map((m) => (
+                  <button
+                    key={m.value}
+                    type="button"
+                    className={`lookup-inline-tab${method === m.value ? ' active' : ''}`}
+                    onClick={() => handleMethodChange(m.value)}
+                  >
+                    {m.label}
+                  </button>
+                ))}
+              </div>
+
               <div className="lookup-inline-tabs movepool-gen-tabs">
                 {data.generations.map((g) => (
                   <button
@@ -152,14 +177,13 @@ export function MovePoolSection({ slug }) {
               </div>
 
               {rows.length === 0 ? (
-                <p className="text-muted">Not available in this generation.</p>
+                <p className="text-muted">No {METHOD_TABS.find((m) => m.value === method)?.label.toLowerCase()} moves in this generation.</p>
               ) : (
                 <div className="movepool-table-wrap">
                   <table className="movepool-table">
                     <thead>
                       <tr>
-                        <Th label="Method" sortKey="method" />
-                        <Th label="Lv" sortKey="level" alignRight />
+                        {method === 'level-up' && <Th label="Lv" sortKey="level" alignRight />}
                         <Th label="Move" sortKey="move" />
                         <Th label="Type" sortKey="type" />
                         <Th label="Cat" sortKey="category" />
@@ -171,8 +195,7 @@ export function MovePoolSection({ slug }) {
                     <tbody>
                       {rows.map((row) => (
                         <tr key={`${row.move}-${row.method}-${row.level}`}>
-                          <td>{METHOD_LABELS[row.method] || row.method}</td>
-                          <td className="movepool-cell-right">{row.method === 'level-up' ? row.level : '—'}</td>
+                          {method === 'level-up' && <td className="movepool-cell-right">{row.level}</td>}
                           <td>
                             <Tooltip content={row.effect}>{toDisplayName(row.move)}</Tooltip>
                           </td>
