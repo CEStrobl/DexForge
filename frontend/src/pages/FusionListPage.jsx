@@ -26,6 +26,15 @@ function entryKey(entry) {
   return `${entry.head_slug}|${entry.body_slug}`;
 }
 
+// Table view needs horizontal scrolling to see most columns on a phone — Gallery already
+// exists as a nicer-on-mobile alternative, so it's the default there absent an explicit
+// stored preference (once the user picks either view, that choice always wins).
+function defaultViewMode() {
+  const stored = localStorage.getItem(VIEW_MODE_STORAGE_KEY);
+  if (stored) return stored;
+  return typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches ? 'gallery' : 'table';
+}
+
 export default function FusionListPage() {
   const { listId } = useParams();
   const navigate = useNavigate();
@@ -36,7 +45,7 @@ export default function FusionListPage() {
   const [columnWidths, setColumnWidths] = useState({});
   const [labels, setLabels] = useState([]);
   const [entries, setEntries] = useState([]);
-  const [viewMode, setViewMode] = useState(() => localStorage.getItem(VIEW_MODE_STORAGE_KEY) || 'table');
+  const [viewMode, setViewMode] = useState(defaultViewMode);
   const [saveStatus, setSaveStatus] = useState('idle');
   const [saveError, setSaveError] = useState('');
   const [meta, setMeta] = useState({ isOwner: false, isPublic: false, shareToken: null, owner: null });

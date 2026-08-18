@@ -382,6 +382,7 @@
 .movepool-table-wrap {
   overflow-x: auto;
   max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .movepool-table {

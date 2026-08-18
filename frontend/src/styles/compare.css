@@ -142,6 +142,81 @@
   .compare-columns {
     grid-template-columns: 1fr;
   }
+
+  /* Mirroring ("face-off" layout) only makes sense for side-by-side columns — once
+     stacked, reset the right-hand slot back to normal left-to-right layout instead of
+     looking like a formatting glitch (right-aligned text, reversed stat bars) sitting
+     alone in a vertical stack. Delta-stat colors/badges aren't touched by any of this —
+     that highlighting isn't part of the mirroring rules to begin with. */
+  .compare-slot-mirrored .compare-hero-row,
+  .compare-slot-mirrored .compare-hero-name {
+    flex-direction: row;
+  }
+
+  .compare-slot-mirrored .compare-hero-info {
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .compare-slot-mirrored .pokedex-type-badges,
+  .compare-slot-mirrored .page-header-actions {
+    justify-content: flex-start;
+  }
+
+  .compare-slot-mirrored .stat-bar-row {
+    grid-template-columns: 56px 1fr 92px;
+  }
+
+  .compare-slot-mirrored .stat-bar-label,
+  .compare-slot-mirrored .stat-bar-track,
+  .compare-slot-mirrored .stat-bar-value-wrap {
+    order: 0;
+  }
+
+  .compare-slot-mirrored .stat-bar-label {
+    text-align: left;
+  }
+
+  .compare-slot-mirrored .stat-bar-track {
+    transform: none;
+  }
+
+  .compare-slot-mirrored .stat-bar-value-wrap {
+    justify-content: flex-end;
+  }
+
+  .compare-slot-mirrored .stat-bar-total {
+    flex-direction: row;
+  }
+
+  .compare-slot-mirrored .stat-bar-value {
+    order: 2;
+  }
+
+  .compare-slot-mirrored .stat-bar-delta {
+    order: 1;
+  }
+
+  /* Head/body ability lists stack too, same reasoning as the outer compare columns. */
+  .fusion-ability-columns {
+    grid-template-columns: 1fr;
+  }
+
+  /* Grow these mouse-sized icon buttons toward the ~44px touch-target baseline. */
+  .fusion-swap-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .fusion-evo-menu-trigger {
+    width: 40px;
+    height: 40px;
+  }
+
+  .fusion-view-page-link {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .fusion-slot-inputs {

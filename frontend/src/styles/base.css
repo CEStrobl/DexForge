@@ -294,6 +294,21 @@ button {
   opacity: 1;
 }
 
+@media (max-width: 1024px) {
+  /* Hover-to-reveal doesn't exist on touch — opacity:0 here would make the drag handle and
+     the row's only menu trigger (rename/delete/etc.) permanently invisible and unreachable
+     rather than just "always tappable at full size" like a mouse user gets after all. */
+  .sidebar-quick-link-handle,
+  .sidebar-quick-link-menu-trigger {
+    opacity: 1;
+  }
+
+  .sidebar-quick-link-menu-trigger {
+    width: 36px;
+    height: 36px;
+  }
+}
+
 .sidebar-lists-empty {
   padding: 0 var(--space-2);
   font-size: 0.8rem;
@@ -347,6 +362,21 @@ button {
   margin-top: auto;
 }
 
+/* Mirrors TopBar's tool icon strip (Compare/Typing/Natures/Items/Filter) into the drawer —
+   that strip has no room next to search + the hamburger on mobile, so this is where those
+   tools stay reachable there. display:none above the tablet breakpoint (desktop keeps using
+   the top bar strip instead) so it's driven purely by viewport width, not JS state. */
+.sidebar-mobile-nav {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-mobile-close-btn,
+.sidebar-backdrop {
+  display: none;
+}
+
 /* --- Top bar --- */
 
 .app-main {
@@ -368,8 +398,17 @@ button {
 
 .topbar-search {
   position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
   width: 100%;
   max-width: 480px;
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+  }
 }
 
 .topbar-search-icon {
@@ -494,6 +533,112 @@ button {
   background: color-mix(in srgb, var(--nav-icon-color) 16%, transparent);
 }
 
+/* Hamburger — opens the Sidebar drawer. Hidden on desktop (sidebar's already inline there);
+   sized to the ~44px touch-target baseline since this is a mobile-only control. */
+.topbar-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.topbar-menu-btn:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-accent);
+}
+
+/* --- Sidebar: off-canvas drawer below the tablet breakpoint ---
+   Above it, .sidebar is the sticky inline rail defined above. Below it, position:fixed +
+   a translateX transform turn the same markup into a slide-in drawer with a dimmed backdrop,
+   opened via TopBar's hamburger (AppShell in App.jsx owns the open/close state). Placed after
+   every rule it overrides (.sidebar, .sidebar-collapsed, .topbar-nav, .topbar-menu-btn, ...)
+   so cascade order doesn't fight this @media condition regardless of viewport. */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    max-width: 82vw;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    z-index: 300;
+    box-shadow: var(--shadow-lifted);
+  }
+
+  .sidebar.sidebar-mobile-open {
+    transform: translateX(0);
+  }
+
+  /* The desktop narrow-rail treatment never applies here — mobile-open always renders the
+     full drawer (see isCollapsedRail in Sidebar.jsx), so this only guards against a flash
+     of rail styling while the drawer is still off-canvas and about to open. */
+  .sidebar.sidebar-collapsed {
+    width: 280px;
+    max-width: 82vw;
+    padding: var(--space-4) var(--space-3);
+    align-items: stretch;
+  }
+
+  .sidebar-collapse-btn {
+    display: none;
+  }
+
+  .sidebar-mobile-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--color-text-muted);
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 299;
+    background: rgba(15, 18, 25, 0.5);
+  }
+
+  .sidebar-mobile-nav {
+    display: flex;
+  }
+
+  /* TopBar's own copy of these tools is redundant with the drawer's on mobile. */
+  .topbar-nav {
+    display: none;
+  }
+
+  .topbar-menu-btn {
+    display: inline-flex;
+  }
+
+  /* No physical keyboard to hint at on touch, and the extra padding it reserves is worth
+     reclaiming once the hamburger button is also competing for topbar width. */
+  .topbar-search-kbd {
+    display: none;
+  }
+
+  .topbar-search input {
+    padding-right: var(--space-2);
+  }
+}
+
 /* --- Content --- */
 
 .app-content {
@@ -502,6 +647,12 @@ button {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .app-content {
+    padding: var(--space-4) var(--space-3);
+  }
 }
 
 .card {
@@ -578,6 +729,16 @@ button {
 .row-actions-trigger:hover {
   background: var(--color-accent-tint);
   color: var(--color-accent);
+}
+
+@media (max-width: 1024px) {
+  /* 26px is comfortable for a mouse pointer but under the ~44px touch-target baseline —
+     grow the tappable box on touch-likely viewports without touching the icon itself
+     (icon size is set via a `size` prop in JSX, unaffected by the button's box size). */
+  .row-actions-trigger {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 .row-actions-panel {

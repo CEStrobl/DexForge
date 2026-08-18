@@ -1,20 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, GitCompare, Calculator, Heart, Package, Filter } from 'lucide-react';
+import { Search, Menu } from 'lucide-react';
 import { api } from '../../api/client';
 import { toDisplayName } from '../../utils/format';
 import { TopNavIcon } from './TopNavIcon';
 import { PinButton } from './PinButton';
+import { NAV_ITEMS } from './navItems';
 
-const NAV_ITEMS = [
-  { to: '/compare', label: 'Compare', icon: GitCompare, color: 'var(--nav-compare)' },
-  { to: '/typing-calculator', label: 'Typing', icon: Calculator, color: 'var(--nav-typing)' },
-  { to: '/natures', label: 'Natures', icon: Heart, color: 'var(--nav-natures)' },
-  { to: '/evolution-items', label: 'Items', icon: Package, color: 'var(--nav-evolution-items)' },
-  { to: '/dex-filter', label: 'Filter', icon: Filter, color: 'var(--nav-dex-filter)' },
-];
-
-export function TopBar() {
+// `onMenuClick` opens the Sidebar drawer (App.jsx owns that state) — the button itself only
+// renders (via CSS) below the tablet breakpoint, where the sidebar isn't inline anymore.
+export function TopBar({ onMenuClick }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [open, setOpen] = useState(false);
@@ -81,6 +76,9 @@ export function TopBar() {
 
   return (
     <header className="topbar">
+      <button type="button" className="topbar-menu-btn" onClick={onMenuClick} aria-label="Open menu">
+        <Menu size={20} />
+      </button>
       <div className="topbar-search" ref={containerRef}>
         <Search size={16} className="topbar-search-icon" />
         <input

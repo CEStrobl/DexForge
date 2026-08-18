@@ -82,6 +82,16 @@
   color: var(--color-text);
 }
 
+@media (max-width: 1024px) {
+  /* This backdrop/card pair is reused (via shared classes, not a component) by every modal
+     in the app — FriendsModal, AddFriendModal, AvatarPickerModal all layer their own
+     `max-width` on top of it — so this single bump covers the close button everywhere. */
+  .fusion-art-modal-close {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 .fusion-art-modal-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));

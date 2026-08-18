@@ -4,6 +4,16 @@
   planned "golden era" DPP/BW/HGSS theme) can be dropped in later by adding
   a sibling block here without touching component code.
 */
+
+/*
+  Responsive breakpoints (Notes/responsive-mobile-guide.md). CSS custom properties can't be
+  read inside @media conditions, so these can't be literal var() lookups — this comment is
+  the canonical reference every @media query in this codebase should match rather than
+  picking its own number:
+    Mobile:  max-width: 640px   (typography/stacking tweaks within an already-narrow layout)
+    Tablet:  max-width: 1024px  (two-column layouts stack; sidebar becomes an off-canvas drawer)
+    Desktop: > 1024px
+*/
 :root,
 :root[data-theme='go'] {
   --color-bg: #f8f9fa;

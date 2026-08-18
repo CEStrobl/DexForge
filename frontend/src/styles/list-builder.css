@@ -981,6 +981,7 @@
   overflow-x: auto;
   min-width: 0;
   max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .list-table {
@@ -1269,6 +1270,13 @@
 .view-toggle-btn.active {
   background: var(--color-accent-tint);
   color: var(--color-accent);
+}
+
+@media (max-width: 1024px) {
+  .view-toggle-btn {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* --- Gallery view --- */
